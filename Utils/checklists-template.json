@@ -1,0 +1,941 @@
+[
+  {
+    "Id": 1001,
+    "NumeroRevisao": 1,
+    "Modelos": [
+      "FACTOR_125_I_UBS_2017_2025",
+      "FACTOR_150_UBS_2016_2024",
+      "NOVA_FACTOR_2025",
+      "NOVA_FACTOR_DX_2025",
+      "FAZER_150_UBS_2014_2025",
+      "FZ15_2023_2024",
+      "FAZER_FZ15_ABS_CONNECTED_2025_2026",
+      "FAZER_250_2018_2024",
+      "FZ25_CONNECTED_2025_2026"
+    ],
+    "Itens": [
+      { "Id": 1, "ItemCatalogoId": 1, "Grupo": null, "Ordem": 1, "ValorSugerido": null },
+      { "Id": 2, "ItemCatalogoId": 30, "Grupo": null, "Ordem": 2, "ValorSugerido": null },
+      { "Id": 3, "ItemCatalogoId": 10, "Grupo": null, "Ordem": 3, "ValorSugerido": null },
+      { "Id": 4, "ItemCatalogoId": 40, "Grupo": null, "Ordem": 4, "ValorSugerido": null },
+
+      { "Id": 10, "ItemCatalogoId": 200, "Grupo": "VERIFICAÇÃO", "Ordem": 10, "ValorSugerido": null },
+      { "Id": 11, "ItemCatalogoId": 201, "Grupo": "LIMPEZA", "Ordem": 11, "ValorSugerido": null },
+      { "Id": 12, "ItemCatalogoId": 202, "Grupo": "AJUSTE", "Ordem": 12, "ValorSugerido": null }
+    ]
+  },
+  {
+    "Id": 1002,
+    "NumeroRevisao": 2,
+    "Modelos": [
+      "FACTOR_125_I_UBS_2017_2025",
+      "FACTOR_150_UBS_2016_2024",
+      "NOVA_FACTOR_2025",
+      "NOVA_FACTOR_DX_2025",
+      "FAZER_150_UBS_2014_2025",
+      "FZ15_2023_2024",
+      "FAZER_FZ15_ABS_CONNECTED_2025_2026",
+      "FAZER_250_2018_2024",
+      "FZ25_CONNECTED_2025_2026"
+    ],
+    "Itens": [
+      { "Id": 1, "ItemCatalogoId": 1, "Grupo": null, "Ordem": 1, "ValorSugerido": null },
+      { "Id": 2, "ItemCatalogoId": 30, "Grupo": null, "Ordem": 2, "ValorSugerido": null },
+      { "Id": 3, "ItemCatalogoId": 32, "Grupo": null, "Ordem": 3, "ValorSugerido": null },
+      { "Id": 4, "ItemCatalogoId": 41, "Grupo": null, "Ordem": 4, "ValorSugerido": null },
+      { "Id": 5, "ItemCatalogoId": 42, "Grupo": null, "Ordem": 5, "ValorSugerido": null },
+      { "Id": 6, "ItemCatalogoId": 61, "Grupo": null, "Ordem": 6, "ValorSugerido": null },
+
+      { "Id": 10, "ItemCatalogoId": 200, "Grupo": "VERIFICAÇÃO", "Ordem": 10, "ValorSugerido": null },
+      { "Id": 11, "ItemCatalogoId": 201, "Grupo": "LIMPEZA", "Ordem": 11, "ValorSugerido": null },
+      { "Id": 12, "ItemCatalogoId": 202, "Grupo": "AJUSTE", "Ordem": 12, "ValorSugerido": null },
+      { "Id": 13, "ItemCatalogoId": 203, "Grupo": "LUBRIFICAÇÃO", "Ordem": 13, "ValorSugerido": null }
+    ]
+  },
+  {
+    "Id": 1003,
+    "NumeroRevisao": 3,
+    "Modelos": [
+      "FACTOR_125_I_UBS_2017_2025",
+      "FACTOR_150_UBS_2016_2024",
+      "NOVA_FACTOR_2025",
+      "NOVA_FACTOR_DX_2025",
+      "FAZER_150_UBS_2014_2025",
+      "FZ15_2023_2024",
+      "FAZER_FZ15_ABS_CONNECTED_2025_2026",
+      "FAZER_250_2018_2024",
+      "FZ25_CONNECTED_2025_2026"
+    ],
+    "Itens": [
+      { "Id": 1, "ItemCatalogoId": 1, "Grupo": null, "Ordem": 1, "ValorSugerido": null },
+      { "Id": 2, "ItemCatalogoId": 30, "Grupo": null, "Ordem": 2, "ValorSugerido": null },
+      { "Id": 3, "ItemCatalogoId": 10, "Grupo": null, "Ordem": 3, "ValorSugerido": null },
+      { "Id": 4, "ItemCatalogoId": 40, "Grupo": null, "Ordem": 4, "ValorSugerido": null },
+      { "Id": 5, "ItemCatalogoId": 32, "Grupo": null, "Ordem": 5, "ValorSugerido": null },
+      { "Id": 6, "ItemCatalogoId": 41, "Grupo": null, "Ordem": 6, "ValorSugerido": null },
+      { "Id": 7, "ItemCatalogoId": 42, "Grupo": null, "Ordem": 7, "ValorSugerido": null },
+      { "Id": 8, "ItemCatalogoId": 21, "Grupo": null, "Ordem": 8, "ValorSugerido": null },
+      { "Id": 9, "ItemCatalogoId": 61, "Grupo": null, "Ordem": 9, "ValorSugerido": null },
+
+      { "Id": 10, "ItemCatalogoId": 200, "Grupo": "VERIFICAÇÃO", "Ordem": 10, "ValorSugerido": null },
+      { "Id": 11, "ItemCatalogoId": 201, "Grupo": "LIMPEZA", "Ordem": 11, "ValorSugerido": null },
+      { "Id": 12, "ItemCatalogoId": 202, "Grupo": "AJUSTE", "Ordem": 12, "ValorSugerido": null },
+      { "Id": 13, "ItemCatalogoId": 203, "Grupo": "LUBRIFICAÇÃO", "Ordem": 13, "ValorSugerido": null }
+    ]
+  },
+  {
+    "Id": 1004,
+    "NumeroRevisao": 4,
+    "Modelos": [
+      "FACTOR_125_I_UBS_2017_2025",
+      "FACTOR_150_UBS_2016_2024",
+      "NOVA_FACTOR_2025",
+      "NOVA_FACTOR_DX_2025",
+      "FAZER_150_UBS_2014_2025",
+      "FZ15_2023_2024",
+      "FAZER_FZ15_ABS_CONNECTED_2025_2026",
+      "FAZER_250_2018_2024",
+      "FZ25_CONNECTED_2025_2026"
+    ],
+    "Itens": [
+      { "Id": 1, "ItemCatalogoId": 1, "Grupo": null, "Ordem": 1, "ValorSugerido": null },
+      { "Id": 2, "ItemCatalogoId": 30, "Grupo": null, "Ordem": 2, "ValorSugerido": null },
+      { "Id": 3, "ItemCatalogoId": 32, "Grupo": null, "Ordem": 3, "ValorSugerido": null },
+      { "Id": 4, "ItemCatalogoId": 41, "Grupo": null, "Ordem": 4, "ValorSugerido": null },
+      { "Id": 5, "ItemCatalogoId": 42, "Grupo": null, "Ordem": 5, "ValorSugerido": null },
+      { "Id": 6, "ItemCatalogoId": 12, "Grupo": null, "Ordem": 6, "ValorSugerido": null },
+      { "Id": 7, "ItemCatalogoId": 14, "Grupo": null, "Ordem": 7, "ValorSugerido": null },
+      { "Id": 8, "ItemCatalogoId": 61, "Grupo": null, "Ordem": 8, "ValorSugerido": null },
+
+      { "Id": 10, "ItemCatalogoId": 200, "Grupo": "VERIFICAÇÃO", "Ordem": 10, "ValorSugerido": null },
+      { "Id": 11, "ItemCatalogoId": 201, "Grupo": "LIMPEZA", "Ordem": 11, "ValorSugerido": null },
+      { "Id": 12, "ItemCatalogoId": 202, "Grupo": "AJUSTE", "Ordem": 12, "ValorSugerido": null },
+      { "Id": 13, "ItemCatalogoId": 203, "Grupo": "LUBRIFICAÇÃO", "Ordem": 13, "ValorSugerido": null }
+    ]
+  },
+  {
+    "Id": 1005,
+    "NumeroRevisao": 5,
+    "Modelos": [
+      "FACTOR_125_I_UBS_2017_2025",
+      "FACTOR_150_UBS_2016_2024",
+      "NOVA_FACTOR_2025",
+      "NOVA_FACTOR_DX_2025",
+      "FAZER_150_UBS_2014_2025",
+      "FZ15_2023_2024",
+      "FAZER_FZ15_ABS_CONNECTED_2025_2026",
+      "FAZER_250_2018_2024",
+      "FZ25_CONNECTED_2025_2026"
+    ],
+    "Itens": [
+      { "Id": 1, "ItemCatalogoId": 1, "Grupo": null, "Ordem": 1, "ValorSugerido": null },
+      { "Id": 2, "ItemCatalogoId": 30, "Grupo": null, "Ordem": 2, "ValorSugerido": null },
+      { "Id": 3, "ItemCatalogoId": 10, "Grupo": null, "Ordem": 3, "ValorSugerido": null },
+      { "Id": 4, "ItemCatalogoId": 40, "Grupo": null, "Ordem": 4, "ValorSugerido": null },
+      { "Id": 5, "ItemCatalogoId": 32, "Grupo": null, "Ordem": 5, "ValorSugerido": null },
+      { "Id": 6, "ItemCatalogoId": 41, "Grupo": null, "Ordem": 6, "ValorSugerido": null },
+      { "Id": 7, "ItemCatalogoId": 42, "Grupo": null, "Ordem": 7, "ValorSugerido": null },
+      { "Id": 8, "ItemCatalogoId": 21, "Grupo": null, "Ordem": 8, "ValorSugerido": null },
+      { "Id": 9, "ItemCatalogoId": 61, "Grupo": null, "Ordem": 9, "ValorSugerido": null },
+
+      { "Id": 10, "ItemCatalogoId": 200, "Grupo": "VERIFICAÇÃO", "Ordem": 10, "ValorSugerido": null },
+      { "Id": 11, "ItemCatalogoId": 201, "Grupo": "LIMPEZA", "Ordem": 11, "ValorSugerido": null },
+      { "Id": 12, "ItemCatalogoId": 202, "Grupo": "AJUSTE", "Ordem": 12, "ValorSugerido": null },
+      { "Id": 13, "ItemCatalogoId": 203, "Grupo": "LUBRIFICAÇÃO", "Ordem": 13, "ValorSugerido": null }
+    ]
+  },
+  {
+    "Id": 1006,
+    "NumeroRevisao": 6,
+    "Modelos": [
+      "FACTOR_125_I_UBS_2017_2025",
+      "FACTOR_150_UBS_2016_2024",
+      "NOVA_FACTOR_2025",
+      "NOVA_FACTOR_DX_2025",
+      "FAZER_150_UBS_2014_2025",
+      "FZ15_2023_2024",
+      "FAZER_FZ15_ABS_CONNECTED_2025_2026",
+      "FAZER_250_2018_2024",
+      "FZ25_CONNECTED_2025_2026"
+    ],
+    "Itens": [
+      { "Id": 1, "ItemCatalogoId": 1, "Grupo": null, "Ordem": 1, "ValorSugerido": null },
+      { "Id": 2, "ItemCatalogoId": 30, "Grupo": null, "Ordem": 2, "ValorSugerido": null },
+      { "Id": 3, "ItemCatalogoId": 32, "Grupo": null, "Ordem": 3, "ValorSugerido": null },
+      { "Id": 4, "ItemCatalogoId": 41, "Grupo": null, "Ordem": 4, "ValorSugerido": null },
+      { "Id": 5, "ItemCatalogoId": 42, "Grupo": null, "Ordem": 5, "ValorSugerido": null },
+      { "Id": 6, "ItemCatalogoId": 61, "Grupo": null, "Ordem": 6, "ValorSugerido": null },
+
+      { "Id": 10, "ItemCatalogoId": 200, "Grupo": "VERIFICAÇÃO", "Ordem": 10, "ValorSugerido": null },
+      { "Id": 11, "ItemCatalogoId": 201, "Grupo": "LIMPEZA", "Ordem": 11, "ValorSugerido": null },
+      { "Id": 12, "ItemCatalogoId": 202, "Grupo": "AJUSTE", "Ordem": 12, "ValorSugerido": null },
+      { "Id": 13, "ItemCatalogoId": 203, "Grupo": "LUBRIFICAÇÃO", "Ordem": 13, "ValorSugerido": null }
+    ]
+  },
+  {
+    "Id": 1007,
+    "NumeroRevisao": 7,
+    "Modelos": [
+      "FACTOR_125_I_UBS_2017_2025",
+      "FACTOR_150_UBS_2016_2024",
+      "NOVA_FACTOR_2025",
+      "NOVA_FACTOR_DX_2025",
+      "FAZER_150_UBS_2014_2025",
+      "FZ15_2023_2024",
+      "FAZER_FZ15_ABS_CONNECTED_2025_2026",
+      "FAZER_250_2018_2024",
+      "FZ25_CONNECTED_2025_2026"
+    ],
+    "Itens": [
+      { "Id": 1, "ItemCatalogoId": 1, "Grupo": null, "Ordem": 1, "ValorSugerido": null },
+      { "Id": 2, "ItemCatalogoId": 30, "Grupo": null, "Ordem": 2, "ValorSugerido": null },
+      { "Id": 3, "ItemCatalogoId": 10, "Grupo": null, "Ordem": 3, "ValorSugerido": null },
+      { "Id": 4, "ItemCatalogoId": 40, "Grupo": null, "Ordem": 4, "ValorSugerido": null },
+      { "Id": 5, "ItemCatalogoId": 32, "Grupo": null, "Ordem": 5, "ValorSugerido": null },
+      { "Id": 6, "ItemCatalogoId": 41, "Grupo": null, "Ordem": 6, "ValorSugerido": null },
+      { "Id": 7, "ItemCatalogoId": 42, "Grupo": null, "Ordem": 7, "ValorSugerido": null },
+      { "Id": 8, "ItemCatalogoId": 21, "Grupo": null, "Ordem": 8, "ValorSugerido": null },
+      { "Id": 9, "ItemCatalogoId": 12, "Grupo": null, "Ordem": 9, "ValorSugerido": null },
+      { "Id": 10, "ItemCatalogoId": 14, "Grupo": null, "Ordem": 10, "ValorSugerido": null },
+      { "Id": 11, "ItemCatalogoId": 61, "Grupo": null, "Ordem": 11, "ValorSugerido": null },
+
+      { "Id": 20, "ItemCatalogoId": 200, "Grupo": "VERIFICAÇÃO", "Ordem": 20, "ValorSugerido": null },
+      { "Id": 21, "ItemCatalogoId": 201, "Grupo": "LIMPEZA", "Ordem": 21, "ValorSugerido": null },
+      { "Id": 22, "ItemCatalogoId": 202, "Grupo": "AJUSTE", "Ordem": 22, "ValorSugerido": null },
+      { "Id": 23, "ItemCatalogoId": 203, "Grupo": "LUBRIFICAÇÃO", "Ordem": 23, "ValorSugerido": null }
+    ]
+  },
+  {
+    "Id": 2001,
+    "NumeroRevisao": 1,
+    "Modelos": [
+      "CROSSER_XTZ150_S_2015_2024",
+      "CROSSER_XTZ150_S_2025",
+      "CROSSER_XTZ150_Z_2015_2024",
+      "CROSSER_XTZ150_Z_2025",
+      "LANDER_250_2020_2024",
+      "LANDER_250_ABS_CONNECTED_2025"
+    ],
+    "Itens": [
+      { "Id": 1, "ItemCatalogoId": 1, "Grupo": null, "Ordem": 1, "ValorSugerido": null },
+      { "Id": 2, "ItemCatalogoId": 30, "Grupo": null, "Ordem": 2, "ValorSugerido": null },
+      { "Id": 3, "ItemCatalogoId": 10, "Grupo": null, "Ordem": 3, "ValorSugerido": null },
+      { "Id": 4, "ItemCatalogoId": 40, "Grupo": null, "Ordem": 4, "ValorSugerido": null },
+
+      { "Id": 10, "ItemCatalogoId": 200, "Grupo": "VERIFICAÇÃO", "Ordem": 10, "ValorSugerido": null },
+      { "Id": 11, "ItemCatalogoId": 201, "Grupo": "LIMPEZA", "Ordem": 11, "ValorSugerido": null },
+      { "Id": 12, "ItemCatalogoId": 202, "Grupo": "AJUSTE", "Ordem": 12, "ValorSugerido": null }
+    ]
+  },
+  {
+    "Id": 2002,
+    "NumeroRevisao": 2,
+    "Modelos": [
+      "CROSSER_XTZ150_S_2015_2024",
+      "CROSSER_XTZ150_S_2025",
+      "CROSSER_XTZ150_Z_2015_2024",
+      "CROSSER_XTZ150_Z_2025",
+      "LANDER_250_2020_2024",
+      "LANDER_250_ABS_CONNECTED_2025"
+    ],
+    "Itens": [
+      { "Id": 1, "ItemCatalogoId": 1, "Grupo": null, "Ordem": 1, "ValorSugerido": null },
+      { "Id": 2, "ItemCatalogoId": 30, "Grupo": null, "Ordem": 2, "ValorSugerido": null },
+      { "Id": 3, "ItemCatalogoId": 32, "Grupo": null, "Ordem": 3, "ValorSugerido": null },
+      { "Id": 4, "ItemCatalogoId": 41, "Grupo": null, "Ordem": 4, "ValorSugerido": null },
+      { "Id": 5, "ItemCatalogoId": 42, "Grupo": null, "Ordem": 5, "ValorSugerido": null },
+
+      { "Id": 10, "ItemCatalogoId": 200, "Grupo": "VERIFICAÇÃO", "Ordem": 10, "ValorSugerido": null },
+      { "Id": 11, "ItemCatalogoId": 201, "Grupo": "LIMPEZA", "Ordem": 11, "ValorSugerido": null },
+      { "Id": 12, "ItemCatalogoId": 202, "Grupo": "AJUSTE", "Ordem": 12, "ValorSugerido": null },
+      { "Id": 13, "ItemCatalogoId": 203, "Grupo": "LUBRIFICAÇÃO", "Ordem": 13, "ValorSugerido": null }
+    ]
+  },
+  {
+    "Id": 2003,
+    "NumeroRevisao": 3,
+    "Modelos": [
+      "CROSSER_XTZ150_S_2015_2024",
+      "CROSSER_XTZ150_S_2025",
+      "CROSSER_XTZ150_Z_2015_2024",
+      "CROSSER_XTZ150_Z_2025",
+      "LANDER_250_2020_2024",
+      "LANDER_250_ABS_CONNECTED_2025"
+    ],
+    "Itens": [
+      { "Id": 1, "ItemCatalogoId": 1, "Grupo": null, "Ordem": 1, "ValorSugerido": null },
+      { "Id": 2, "ItemCatalogoId": 30, "Grupo": null, "Ordem": 2, "ValorSugerido": null },
+      { "Id": 3, "ItemCatalogoId": 10, "Grupo": null, "Ordem": 3, "ValorSugerido": null },
+      { "Id": 4, "ItemCatalogoId": 40, "Grupo": null, "Ordem": 4, "ValorSugerido": null },
+      { "Id": 5, "ItemCatalogoId": 32, "Grupo": null, "Ordem": 5, "ValorSugerido": null },
+      { "Id": 6, "ItemCatalogoId": 41, "Grupo": null, "Ordem": 6, "ValorSugerido": null },
+      { "Id": 7, "ItemCatalogoId": 42, "Grupo": null, "Ordem": 7, "ValorSugerido": null },
+      { "Id": 8, "ItemCatalogoId": 21, "Grupo": null, "Ordem": 8, "ValorSugerido": null },
+
+      { "Id": 10, "ItemCatalogoId": 200, "Grupo": "VERIFICAÇÃO", "Ordem": 10, "ValorSugerido": null },
+      { "Id": 11, "ItemCatalogoId": 201, "Grupo": "LIMPEZA", "Ordem": 11, "ValorSugerido": null },
+      { "Id": 12, "ItemCatalogoId": 202, "Grupo": "AJUSTE", "Ordem": 12, "ValorSugerido": null },
+      { "Id": 13, "ItemCatalogoId": 203, "Grupo": "LUBRIFICAÇÃO", "Ordem": 13, "ValorSugerido": null }
+    ]
+  },
+  {
+    "Id": 2004,
+    "NumeroRevisao": 4,
+    "Modelos": [
+      "CROSSER_XTZ150_S_2015_2024",
+      "CROSSER_XTZ150_S_2025",
+      "CROSSER_XTZ150_Z_2015_2024",
+      "CROSSER_XTZ150_Z_2025",
+      "LANDER_250_2020_2024",
+      "LANDER_250_ABS_CONNECTED_2025"
+    ],
+    "Itens": [
+      { "Id": 1, "ItemCatalogoId": 1, "Grupo": null, "Ordem": 1, "ValorSugerido": null },
+      { "Id": 2, "ItemCatalogoId": 30, "Grupo": null, "Ordem": 2, "ValorSugerido": null },
+      { "Id": 3, "ItemCatalogoId": 32, "Grupo": null, "Ordem": 3, "ValorSugerido": null },
+      { "Id": 4, "ItemCatalogoId": 41, "Grupo": null, "Ordem": 4, "ValorSugerido": null },
+      { "Id": 5, "ItemCatalogoId": 42, "Grupo": null, "Ordem": 5, "ValorSugerido": null },
+      { "Id": 6, "ItemCatalogoId": 14, "Grupo": null, "Ordem": 6, "ValorSugerido": null },
+      { "Id": 7, "ItemCatalogoId": 12, "Grupo": null, "Ordem": 7, "ValorSugerido": null },
+
+      { "Id": 10, "ItemCatalogoId": 200, "Grupo": "VERIFICAÇÃO", "Ordem": 10, "ValorSugerido": null },
+      { "Id": 11, "ItemCatalogoId": 201, "Grupo": "LIMPEZA", "Ordem": 11, "ValorSugerido": null }
+    ]
+  },
+  {
+    "Id": 2005,
+    "NumeroRevisao": 5,
+    "Modelos": [
+      "CROSSER_XTZ150_S_2015_2024",
+      "CROSSER_XTZ150_S_2025",
+      "CROSSER_XTZ150_Z_2015_2024",
+      "CROSSER_XTZ150_Z_2025",
+      "LANDER_250_2020_2024",
+      "LANDER_250_ABS_CONNECTED_2025"
+    ],
+    "Itens": [
+      { "Id": 1, "ItemCatalogoId": 1, "Grupo": null, "Ordem": 1, "ValorSugerido": null },
+      { "Id": 2, "ItemCatalogoId": 30, "Grupo": null, "Ordem": 2, "ValorSugerido": null },
+      { "Id": 3, "ItemCatalogoId": 10, "Grupo": null, "Ordem": 3, "ValorSugerido": null },
+      { "Id": 4, "ItemCatalogoId": 40, "Grupo": null, "Ordem": 4, "ValorSugerido": null },
+      { "Id": 5, "ItemCatalogoId": 32, "Grupo": null, "Ordem": 5, "ValorSugerido": null },
+      { "Id": 6, "ItemCatalogoId": 41, "Grupo": null, "Ordem": 6, "ValorSugerido": null },
+      { "Id": 7, "ItemCatalogoId": 42, "Grupo": null, "Ordem": 7, "ValorSugerido": null },
+      { "Id": 8, "ItemCatalogoId": 21, "Grupo": null, "Ordem": 8, "ValorSugerido": null },
+
+      { "Id": 10, "ItemCatalogoId": 200, "Grupo": "VERIFICAÇÃO", "Ordem": 10, "ValorSugerido": null },
+      { "Id": 11, "ItemCatalogoId": 201, "Grupo": "LIMPEZA", "Ordem": 11, "ValorSugerido": null },
+      { "Id": 12, "ItemCatalogoId": 202, "Grupo": "AJUSTE", "Ordem": 12, "ValorSugerido": null },
+      { "Id": 13, "ItemCatalogoId": 203, "Grupo": "LUBRIFICAÇÃO", "Ordem": 13, "ValorSugerido": null }
+    ]
+  },
+  {
+    "Id": 2006,
+    "NumeroRevisao": 6,
+    "Modelos": [
+      "CROSSER_XTZ150_S_2015_2024",
+      "CROSSER_XTZ150_S_2025",
+      "CROSSER_XTZ150_Z_2015_2024",
+      "CROSSER_XTZ150_Z_2025",
+      "LANDER_250_2020_2024",
+      "LANDER_250_ABS_CONNECTED_2025"
+    ],
+    "Itens": [
+      { "Id": 1, "ItemCatalogoId": 1, "Grupo": null, "Ordem": 1, "ValorSugerido": null },
+      { "Id": 2, "ItemCatalogoId": 30, "Grupo": null, "Ordem": 2, "ValorSugerido": null },
+      { "Id": 3, "ItemCatalogoId": 32, "Grupo": null, "Ordem": 3, "ValorSugerido": null },
+      { "Id": 4, "ItemCatalogoId": 41, "Grupo": null, "Ordem": 4, "ValorSugerido": null },
+      { "Id": 5, "ItemCatalogoId": 42, "Grupo": null, "Ordem": 5, "ValorSugerido": null },
+
+      { "Id": 10, "ItemCatalogoId": 200, "Grupo": "VERIFICAÇÃO", "Ordem": 10, "ValorSugerido": null },
+      { "Id": 11, "ItemCatalogoId": 201, "Grupo": "LIMPEZA", "Ordem": 11, "ValorSugerido": null },
+      { "Id": 12, "ItemCatalogoId": 202, "Grupo": "AJUSTE", "Ordem": 12, "ValorSugerido": null },
+      { "Id": 13, "ItemCatalogoId": 203, "Grupo": "LUBRIFICAÇÃO", "Ordem": 13, "ValorSugerido": null }
+    ]
+  },
+  {
+    "Id": 2007,
+    "NumeroRevisao": 7,
+    "Modelos": [
+      "CROSSER_XTZ150_S_2015_2024",
+      "CROSSER_XTZ150_S_2025",
+      "CROSSER_XTZ150_Z_2015_2024",
+      "CROSSER_XTZ150_Z_2025",
+      "LANDER_250_2020_2024",
+      "LANDER_250_ABS_CONNECTED_2025"
+    ],
+    "Itens": [
+      { "Id": 1, "ItemCatalogoId": 1, "Grupo": null, "Ordem": 1, "ValorSugerido": null },
+      { "Id": 2, "ItemCatalogoId": 30, "Grupo": null, "Ordem": 2, "ValorSugerido": null },
+      { "Id": 3, "ItemCatalogoId": 10, "Grupo": null, "Ordem": 3, "ValorSugerido": null },
+      { "Id": 4, "ItemCatalogoId": 40, "Grupo": null, "Ordem": 4, "ValorSugerido": null },
+      { "Id": 5, "ItemCatalogoId": 32, "Grupo": null, "Ordem": 5, "ValorSugerido": null },
+      { "Id": 6, "ItemCatalogoId": 41, "Grupo": null, "Ordem": 6, "ValorSugerido": null },
+      { "Id": 7, "ItemCatalogoId": 42, "Grupo": null, "Ordem": 7, "ValorSugerido": null },
+      { "Id": 8, "ItemCatalogoId": 21, "Grupo": null, "Ordem": 8, "ValorSugerido": null },
+      { "Id": 9, "ItemCatalogoId": 14, "Grupo": null, "Ordem": 9, "ValorSugerido": null },
+      { "Id": 10, "ItemCatalogoId": 12, "Grupo": null, "Ordem": 10, "ValorSugerido": null },
+
+      { "Id": 20, "ItemCatalogoId": 200, "Grupo": "VERIFICAÇÃO", "Ordem": 20, "ValorSugerido": null },
+      { "Id": 21, "ItemCatalogoId": 201, "Grupo": "LIMPEZA", "Ordem": 21, "ValorSugerido": null },
+      { "Id": 22, "ItemCatalogoId": 202, "Grupo": "AJUSTE", "Ordem": 22, "ValorSugerido": null },
+      { "Id": 23, "ItemCatalogoId": 203, "Grupo": "LUBRIFICAÇÃO", "Ordem": 23, "ValorSugerido": null }
+    ]
+  },
+  {
+    "Id": 3001,
+    "NumeroRevisao": 1,
+    "Modelos": ["TENERE_700"],
+    "Itens": [
+      { "Id": 1, "ItemCatalogoId": 2, "Grupo": null, "Ordem": 1, "ValorSugerido": null },
+      { "Id": 2, "ItemCatalogoId": 30, "Grupo": null, "Ordem": 2, "ValorSugerido": null },
+      { "Id": 3, "ItemCatalogoId": 11, "Grupo": null, "Ordem": 3, "ValorSugerido": null },
+      { "Id": 4, "ItemCatalogoId": 45, "Grupo": null, "Ordem": 4, "ValorSugerido": null },
+
+      { "Id": 10, "ItemCatalogoId": 200, "Grupo": "VERIFICAÇÃO", "Ordem": 10, "ValorSugerido": null },
+      { "Id": 11, "ItemCatalogoId": 201, "Grupo": "LIMPEZA", "Ordem": 11, "ValorSugerido": null },
+      { "Id": 12, "ItemCatalogoId": 202, "Grupo": "AJUSTE", "Ordem": 12, "ValorSugerido": null }
+    ]
+  },
+  {
+    "Id": 3002,
+    "NumeroRevisao": 2,
+    "Modelos": ["TENERE_700"],
+    "Itens": [
+      { "Id": 1, "ItemCatalogoId": 2, "Grupo": null, "Ordem": 1, "ValorSugerido": null },
+      { "Id": 2, "ItemCatalogoId": 30, "Grupo": null, "Ordem": 2, "ValorSugerido": null },
+      { "Id": 3, "ItemCatalogoId": 46, "Grupo": null, "Ordem": 3, "ValorSugerido": null },
+      { "Id": 4, "ItemCatalogoId": 62, "Grupo": null, "Ordem": 4, "ValorSugerido": null },
+
+      { "Id": 10, "ItemCatalogoId": 200, "Grupo": "VERIFICAÇÃO", "Ordem": 10, "ValorSugerido": null },
+      { "Id": 11, "ItemCatalogoId": 201, "Grupo": "LIMPEZA", "Ordem": 11, "ValorSugerido": null },
+      { "Id": 12, "ItemCatalogoId": 202, "Grupo": "AJUSTE", "Ordem": 12, "ValorSugerido": null },
+      { "Id": 13, "ItemCatalogoId": 203, "Grupo": "LUBRIFICAÇÃO", "Ordem": 13, "ValorSugerido": null }
+    ]
+  },
+  {
+    "Id": 3003,
+    "NumeroRevisao": 3,
+    "Modelos": ["TENERE_700"],
+    "Itens": [
+      { "Id": 1, "ItemCatalogoId": 20, "Grupo": null, "Ordem": 1, "ValorSugerido": null },
+      { "Id": 2, "ItemCatalogoId": 2, "Grupo": null, "Ordem": 2, "ValorSugerido": null },
+      { "Id": 3, "ItemCatalogoId": 30, "Grupo": null, "Ordem": 3, "ValorSugerido": null },
+      { "Id": 4, "ItemCatalogoId": 11, "Grupo": null, "Ordem": 4, "ValorSugerido": null },
+      { "Id": 5, "ItemCatalogoId": 62, "Grupo": null, "Ordem": 5, "ValorSugerido": null },
+      { "Id": 6, "ItemCatalogoId": 45, "Grupo": null, "Ordem": 6, "ValorSugerido": null },
+      { "Id": 7, "ItemCatalogoId": 13, "Grupo": null, "Ordem": 7, "ValorSugerido": null },
+
+      { "Id": 10, "ItemCatalogoId": 200, "Grupo": "VERIFICAÇÃO", "Ordem": 10, "ValorSugerido": null },
+      { "Id": 11, "ItemCatalogoId": 201, "Grupo": "LIMPEZA", "Ordem": 11, "ValorSugerido": null },
+      { "Id": 12, "ItemCatalogoId": 202, "Grupo": "AJUSTE", "Ordem": 12, "ValorSugerido": null },
+      { "Id": 13, "ItemCatalogoId": 203, "Grupo": "LUBRIFICAÇÃO", "Ordem": 13, "ValorSugerido": null }
+    ]
+  },
+  {
+    "Id": 3004,
+    "NumeroRevisao": 4,
+    "Modelos": ["TENERE_700"],
+    "Itens": [
+      { "Id": 1, "ItemCatalogoId": 6, "Grupo": null, "Ordem": 1, "ValorSugerido": null },
+      { "Id": 2, "ItemCatalogoId": 2, "Grupo": null, "Ordem": 2, "ValorSugerido": null },
+      { "Id": 3, "ItemCatalogoId": 30, "Grupo": null, "Ordem": 3, "ValorSugerido": null },
+      { "Id": 4, "ItemCatalogoId": 45, "Grupo": null, "Ordem": 4, "ValorSugerido": null },
+      { "Id": 5, "ItemCatalogoId": 62, "Grupo": null, "Ordem": 5, "ValorSugerido": null },
+      { "Id": 6, "ItemCatalogoId": 13, "Grupo": null, "Ordem": 6, "ValorSugerido": null },
+
+      { "Id": 10, "ItemCatalogoId": 200, "Grupo": "VERIFICAÇÃO", "Ordem": 10, "ValorSugerido": null },
+      { "Id": 11, "ItemCatalogoId": 201, "Grupo": "LIMPEZA", "Ordem": 11, "ValorSugerido": null },
+      { "Id": 12, "ItemCatalogoId": 202, "Grupo": "AJUSTE", "Ordem": 12, "ValorSugerido": null },
+      { "Id": 13, "ItemCatalogoId": 203, "Grupo": "LUBRIFICAÇÃO", "Ordem": 13, "ValorSugerido": null }
+    ]
+  },
+
+  {
+    "Id": 4001,
+    "NumeroRevisao": 1,
+    "Modelos": [
+      "R15_ABS_2024_2026",
+      "YZF_R3_ABS_2020_2025",
+      "YZF_R3_ABS_CONNECTED_2026",
+      "MT03_ABS_2021_2025",
+      "NOVA_MT_03_CONNECTED_2026"
+    ],
+    "Itens": [
+      { "Id": 1, "ItemCatalogoId": 11, "Grupo": null, "Ordem": 1, "ValorSugerido": null },
+      { "Id": 2, "ItemCatalogoId": 2, "Grupo": null, "Ordem": 2, "ValorSugerido": null },
+      { "Id": 3, "ItemCatalogoId": 43, "Grupo": null, "Ordem": 3, "ValorSugerido": null },
+      { "Id": 4, "ItemCatalogoId": 44, "Grupo": null, "Ordem": 4, "ValorSugerido": null },
+
+      { "Id": 10, "ItemCatalogoId": 201, "Grupo": "LIMPEZA", "Ordem": 10, "ValorSugerido": null },
+      { "Id": 11, "ItemCatalogoId": 200, "Grupo": "VERIFICAÇÃO", "Ordem": 11, "ValorSugerido": null },
+      { "Id": 12, "ItemCatalogoId": 202, "Grupo": "AJUSTE", "Ordem": 12, "ValorSugerido": null }
+    ]
+  },
+  {
+    "Id": 4002,
+    "NumeroRevisao": 2,
+    "Modelos": [
+      "R15_ABS_2024_2026",
+      "YZF_R3_ABS_2020_2025",
+      "YZF_R3_ABS_CONNECTED_2026",
+      "MT03_ABS_2021_2025",
+      "NOVA_MT_03_CONNECTED_2026"
+    ],
+    "Itens": [
+      { "Id": 1, "ItemCatalogoId": 2, "Grupo": null, "Ordem": 1, "ValorSugerido": null },
+      { "Id": 2, "ItemCatalogoId": 60, "Grupo": null, "Ordem": 2, "ValorSugerido": null },
+      { "Id": 3, "ItemCatalogoId": 43, "Grupo": null, "Ordem": 3, "ValorSugerido": null },
+
+      { "Id": 10, "ItemCatalogoId": 200, "Grupo": "VERIFICAÇÃO", "Ordem": 10, "ValorSugerido": null },
+      { "Id": 11, "ItemCatalogoId": 201, "Grupo": "LIMPEZA", "Ordem": 11, "ValorSugerido": null },
+      { "Id": 12, "ItemCatalogoId": 202, "Grupo": "AJUSTE", "Ordem": 12, "ValorSugerido": null },
+      { "Id": 13, "ItemCatalogoId": 203, "Grupo": "LUBRIFICAÇÃO", "Ordem": 13, "ValorSugerido": null }
+    ]
+  },
+  {
+    "Id": 4003,
+    "NumeroRevisao": 3,
+    "Modelos": [
+      "R15_ABS_2024_2026",
+      "YZF_R3_ABS_2020_2025",
+      "YZF_R3_ABS_CONNECTED_2026",
+      "MT03_ABS_2021_2025",
+      "NOVA_MT_03_CONNECTED_2026"
+    ],
+    "Itens": [
+      { "Id": 1, "ItemCatalogoId": 11, "Grupo": null, "Ordem": 1, "ValorSugerido": null },
+      { "Id": 2, "ItemCatalogoId": 2, "Grupo": null, "Ordem": 2, "ValorSugerido": null },
+      { "Id": 3, "ItemCatalogoId": 6, "Grupo": null, "Ordem": 3, "ValorSugerido": null },
+
+      { "Id": 4, "ItemCatalogoId": 43, "Grupo": null, "Ordem": 4, "ValorSugerido": null },
+      { "Id": 5, "ItemCatalogoId": 44, "Grupo": null, "Ordem": 5, "ValorSugerido": null },
+
+      { "Id": 6, "ItemCatalogoId": 45, "Grupo": null, "Ordem": 6, "ValorSugerido": null }, 
+      { "Id": 7, "ItemCatalogoId": 32, "Grupo": null, "Ordem": 7, "ValorSugerido": null },
+
+      { "Id": 8, "ItemCatalogoId": 43, "Grupo": null, "Ordem": 8, "ValorSugerido": null },
+      { "Id": 9, "ItemCatalogoId": 44, "Grupo": null, "Ordem": 9, "ValorSugerido": null },
+      { "Id": 10, "ItemCatalogoId": 45, "Grupo": null, "Ordem": 10, "ValorSugerido": null },
+      { "Id": 11, "ItemCatalogoId": 46, "Grupo": null, "Ordem": 11, "ValorSugerido": null },
+
+      { "Id": 12, "ItemCatalogoId": 60, "Grupo": null, "Ordem": 12, "ValorSugerido": null },
+      { "Id": 13, "ItemCatalogoId": 34, "Grupo": null, "Ordem": 13, "ValorSugerido": null },
+
+      { "Id": 20, "ItemCatalogoId": 200, "Grupo": "VERIFICAÇÃO", "Ordem": 20, "ValorSugerido": null },
+      { "Id": 21, "ItemCatalogoId": 201, "Grupo": "LIMPEZA", "Ordem": 21, "ValorSugerido": null },
+      { "Id": 22, "ItemCatalogoId": 202, "Grupo": "AJUSTE", "Ordem": 22, "ValorSugerido": null },
+      { "Id": 23, "ItemCatalogoId": 203, "Grupo": "LUBRIFICAÇÃO", "Ordem": 23, "ValorSugerido": null }
+    ]
+  },
+  {
+    "Id": 4004,
+    "NumeroRevisao": 4,
+    "Modelos": [
+      "R15_ABS_2024_2026",
+      "YZF_R3_ABS_2020_2025",
+      "YZF_R3_ABS_CONNECTED_2026",
+      "MT03_ABS_2021_2025",
+      "NOVA_MT_03_CONNECTED_2026"
+    ],
+    "Itens": [
+      { "Id": 1, "ItemCatalogoId": 2, "Grupo": null, "Ordem": 1, "ValorSugerido": null },
+      { "Id": 2, "ItemCatalogoId": 60, "Grupo": null, "Ordem": 2, "ValorSugerido": null },
+      { "Id": 3, "ItemCatalogoId": 20, "Grupo": null, "Ordem": 3, "ValorSugerido": null },
+      { "Id": 4, "ItemCatalogoId": 72, "Grupo": null, "Ordem": 4, "ValorSugerido": null },
+      { "Id": 5, "ItemCatalogoId": 13, "Grupo": null, "Ordem": 5, "ValorSugerido": null },
+      { "Id": 6, "ItemCatalogoId": 43, "Grupo": null, "Ordem": 6, "ValorSugerido": null },
+
+      { "Id": 10, "ItemCatalogoId": 200, "Grupo": "VERIFICAÇÃO", "Ordem": 10, "ValorSugerido": null },
+      { "Id": 11, "ItemCatalogoId": 201, "Grupo": "LIMPEZA", "Ordem": 11, "ValorSugerido": null },
+      { "Id": 12, "ItemCatalogoId": 202, "Grupo": "AJUSTE", "Ordem": 12, "ValorSugerido": null },
+      { "Id": 13, "ItemCatalogoId": 203, "Grupo": "LUBRIFICAÇÃO", "Ordem": 13, "ValorSugerido": null }
+    ]
+  },
+  {
+    "Id": 4005,
+    "NumeroRevisao": 5,
+    "Modelos": [
+      "R15_ABS_2024_2026",
+      "YZF_R3_ABS_2020_2025",
+      "YZF_R3_ABS_CONNECTED_2026",
+      "MT03_ABS_2021_2025",
+      "NOVA_MT_03_CONNECTED_2026"
+    ],
+    "Itens": [
+      { "Id": 1, "ItemCatalogoId": 11, "Grupo": null, "Ordem": 1, "ValorSugerido": null },
+      { "Id": 2, "ItemCatalogoId": 2, "Grupo": null, "Ordem": 2, "ValorSugerido": null },
+      { "Id": 3, "ItemCatalogoId": 6, "Grupo": null, "Ordem": 3, "ValorSugerido": null },
+
+      { "Id": 4, "ItemCatalogoId": 43, "Grupo": null, "Ordem": 4, "ValorSugerido": null },
+      { "Id": 5, "ItemCatalogoId": 44, "Grupo": null, "Ordem": 5, "ValorSugerido": null },
+
+      { "Id": 6, "ItemCatalogoId": 45, "Grupo": null, "Ordem": 6, "ValorSugerido": null },
+      { "Id": 7, "ItemCatalogoId": 32, "Grupo": null, "Ordem": 7, "ValorSugerido": null },
+
+      { "Id": 8, "ItemCatalogoId": 43, "Grupo": null, "Ordem": 8, "ValorSugerido": null },
+      { "Id": 9, "ItemCatalogoId": 44, "Grupo": null, "Ordem": 9, "ValorSugerido": null },
+      { "Id": 10, "ItemCatalogoId": 45, "Grupo": null, "Ordem": 10, "ValorSugerido": null },
+      { "Id": 11, "ItemCatalogoId": 46, "Grupo": null, "Ordem": 11, "ValorSugerido": null },
+
+      { "Id": 12, "ItemCatalogoId": 60, "Grupo": null, "Ordem": 12, "ValorSugerido": null },
+      { "Id": 13, "ItemCatalogoId": 34, "Grupo": null, "Ordem": 13, "ValorSugerido": null },
+
+      { "Id": 20, "ItemCatalogoId": 200, "Grupo": "VERIFICAÇÃO", "Ordem": 20, "ValorSugerido": null },
+      { "Id": 21, "ItemCatalogoId": 201, "Grupo": "LIMPEZA", "Ordem": 21, "ValorSugerido": null },
+      { "Id": 22, "ItemCatalogoId": 202, "Grupo": "AJUSTE", "Ordem": 22, "ValorSugerido": null },
+      { "Id": 23, "ItemCatalogoId": 203, "Grupo": "LUBRIFICAÇÃO", "Ordem": 23, "ValorSugerido": null }
+    ]
+  },
+  {
+    "Id": 4006,
+    "NumeroRevisao": 6,
+    "Modelos": [
+      "R15_ABS_2024_2026",
+      "YZF_R3_ABS_2020_2025",
+      "YZF_R3_ABS_CONNECTED_2026",
+      "MT03_ABS_2021_2025",
+      "NOVA_MT_03_CONNECTED_2026"
+    ],
+    "Itens": [
+      { "Id": 1, "ItemCatalogoId": 2, "Grupo": null, "Ordem": 1, "ValorSugerido": null },
+      { "Id": 2, "ItemCatalogoId": 60, "Grupo": null, "Ordem": 2, "ValorSugerido": null },
+      { "Id": 3, "ItemCatalogoId": 43, "Grupo": null, "Ordem": 3, "ValorSugerido": null },
+
+      { "Id": 10, "ItemCatalogoId": 200, "Grupo": "VERIFICAÇÃO", "Ordem": 10, "ValorSugerido": null },
+      { "Id": 11, "ItemCatalogoId": 201, "Grupo": "LIMPEZA", "Ordem": 11, "ValorSugerido": null },
+      { "Id": 12, "ItemCatalogoId": 202, "Grupo": "AJUSTE", "Ordem": 12, "ValorSugerido": null },
+      { "Id": 13, "ItemCatalogoId": 203, "Grupo": "LUBRIFICAÇÃO", "Ordem": 13, "ValorSugerido": null }
+    ]
+  },
+  {
+    "Id": 4007,
+    "NumeroRevisao": 7,
+    "Modelos": [
+      "R15_ABS_2024_2026",
+      "YZF_R3_ABS_2020_2025",
+      "YZF_R3_ABS_CONNECTED_2026",
+      "MT03_ABS_2021_2025",
+      "NOVA_MT_03_CONNECTED_2026"
+    ],
+    "Itens": [
+      { "Id": 1, "ItemCatalogoId": 11, "Grupo": null, "Ordem": 1, "ValorSugerido": null },
+      { "Id": 2, "ItemCatalogoId": 2, "Grupo": null, "Ordem": 2, "ValorSugerido": null },
+      { "Id": 3, "ItemCatalogoId": 6, "Grupo": null, "Ordem": 3, "ValorSugerido": null },
+
+      { "Id": 4, "ItemCatalogoId": 43, "Grupo": null, "Ordem": 4, "ValorSugerido": null },
+      { "Id": 5, "ItemCatalogoId": 44, "Grupo": null, "Ordem": 5, "ValorSugerido": null },
+
+      { "Id": 6, "ItemCatalogoId": 45, "Grupo": null, "Ordem": 6, "ValorSugerido": null },
+      { "Id": 7, "ItemCatalogoId": 32, "Grupo": null, "Ordem": 7, "ValorSugerido": null },
+
+      { "Id": 8, "ItemCatalogoId": 43, "Grupo": null, "Ordem": 8, "ValorSugerido": null },
+      { "Id": 9, "ItemCatalogoId": 44, "Grupo": null, "Ordem": 9, "ValorSugerido": null },
+      { "Id": 10, "ItemCatalogoId": 45, "Grupo": null, "Ordem": 10, "ValorSugerido": null },
+      { "Id": 11, "ItemCatalogoId": 46, "Grupo": null, "Ordem": 11, "ValorSugerido": null },
+
+      { "Id": 12, "ItemCatalogoId": 60, "Grupo": null, "Ordem": 12, "ValorSugerido": null },
+      { "Id": 13, "ItemCatalogoId": 34, "Grupo": null, "Ordem": 13, "ValorSugerido": null },
+
+      { "Id": 14, "ItemCatalogoId": 20, "Grupo": null, "Ordem": 14, "ValorSugerido": null },
+      { "Id": 15, "ItemCatalogoId": 72, "Grupo": null, "Ordem": 15, "ValorSugerido": null },
+      { "Id": 16, "ItemCatalogoId": 13, "Grupo": null, "Ordem": 16, "ValorSugerido": null },
+
+      { "Id": 20, "ItemCatalogoId": 200, "Grupo": "VERIFICAÇÃO", "Ordem": 20, "ValorSugerido": null },
+      { "Id": 21, "ItemCatalogoId": 201, "Grupo": "LIMPEZA", "Ordem": 21, "ValorSugerido": null },
+      { "Id": 22, "ItemCatalogoId": 202, "Grupo": "AJUSTE", "Ordem": 22, "ValorSugerido": null },
+      { "Id": 23, "ItemCatalogoId": 203, "Grupo": "LUBRIFICAÇÃO", "Ordem": 23, "ValorSugerido": null }
+    ]
+  },
+  {
+    "Id": 5001,
+    "NumeroRevisao": 1,
+    "Modelos": ["NOVA_MT_07_CONNECTED_2026"],
+    "Itens": [
+      { "Id": 1, "ItemCatalogoId": 2, "Grupo": null, "Ordem": 1, "ValorSugerido": null },
+      { "Id": 2, "ItemCatalogoId": 30, "Grupo": null, "Ordem": 2, "ValorSugerido": null },
+      { "Id": 3, "ItemCatalogoId": 11, "Grupo": null, "Ordem": 3, "ValorSugerido": null },
+      { "Id": 4, "ItemCatalogoId": 45, "Grupo": null, "Ordem": 4, "ValorSugerido": null },
+
+      { "Id": 10, "ItemCatalogoId": 200, "Grupo": "VERIFICAÇÃO", "Ordem": 10, "ValorSugerido": null },
+      { "Id": 11, "ItemCatalogoId": 201, "Grupo": "LIMPEZA", "Ordem": 11, "ValorSugerido": null },
+      { "Id": 12, "ItemCatalogoId": 202, "Grupo": "AJUSTE", "Ordem": 12, "ValorSugerido": null }
+    ]
+  },
+  {
+    "Id": 5002,
+    "NumeroRevisao": 2,
+    "Modelos": ["NOVA_MT_07_CONNECTED_2026"],
+    "Itens": [
+      { "Id": 1, "ItemCatalogoId": 2, "Grupo": null, "Ordem": 1, "ValorSugerido": null },
+      { "Id": 2, "ItemCatalogoId": 30, "Grupo": null, "Ordem": 2, "ValorSugerido": null },
+      { "Id": 3, "ItemCatalogoId": 46, "Grupo": null, "Ordem": 3, "ValorSugerido": null },
+      { "Id": 4, "ItemCatalogoId": 60, "Grupo": null, "Ordem": 4, "ValorSugerido": null },
+
+      { "Id": 10, "ItemCatalogoId": 200, "Grupo": "VERIFICAÇÃO", "Ordem": 10, "ValorSugerido": null },
+      { "Id": 11, "ItemCatalogoId": 201, "Grupo": "LIMPEZA", "Ordem": 11, "ValorSugerido": null },
+      { "Id": 12, "ItemCatalogoId": 202, "Grupo": "AJUSTE", "Ordem": 12, "ValorSugerido": null },
+      { "Id": 13, "ItemCatalogoId": 203, "Grupo": "LUBRIFICAÇÃO", "Ordem": 13, "ValorSugerido": null }
+    ]
+  },
+  {
+    "Id": 5003,
+    "NumeroRevisao": 3,
+    "Modelos": ["NOVA_MT_07_CONNECTED_2026"],
+    "Itens": [
+      { "Id": 1, "ItemCatalogoId": 20, "Grupo": null, "Ordem": 1, "ValorSugerido": null },
+      { "Id": 2, "ItemCatalogoId": 2, "Grupo": null, "Ordem": 2, "ValorSugerido": null },
+      { "Id": 3, "ItemCatalogoId": 30, "Grupo": null, "Ordem": 3, "ValorSugerido": null },
+      { "Id": 4, "ItemCatalogoId": 11, "Grupo": null, "Ordem": 4, "ValorSugerido": null },
+      { "Id": 5, "ItemCatalogoId": 46, "Grupo": null, "Ordem": 5, "ValorSugerido": null },
+      { "Id": 6, "ItemCatalogoId": 60, "Grupo": null, "Ordem": 6, "ValorSugerido": null },
+
+      { "Id": 10, "ItemCatalogoId": 200, "Grupo": "VERIFICAÇÃO", "Ordem": 10, "ValorSugerido": null },
+      { "Id": 11, "ItemCatalogoId": 201, "Grupo": "LIMPEZA", "Ordem": 11, "ValorSugerido": null },
+      { "Id": 12, "ItemCatalogoId": 202, "Grupo": "AJUSTE", "Ordem": 12, "ValorSugerido": null },
+      { "Id": 13, "ItemCatalogoId": 203, "Grupo": "LUBRIFICAÇÃO", "Ordem": 13, "ValorSugerido": null }
+    ]
+  },
+  {
+    "Id": 5004,
+    "NumeroRevisao": 4,
+    "Modelos": ["NOVA_MT_07_CONNECTED_2026"],
+    "Itens": [
+      { "Id": 1, "ItemCatalogoId": 6, "Grupo": null, "Ordem": 1, "ValorSugerido": null },
+      { "Id": 2, "ItemCatalogoId": 2, "Grupo": null, "Ordem": 2, "ValorSugerido": null },
+      { "Id": 3, "ItemCatalogoId": 30, "Grupo": null, "Ordem": 3, "ValorSugerido": null },
+      { "Id": 4, "ItemCatalogoId": 46, "Grupo": null, "Ordem": 4, "ValorSugerido": null },
+      { "Id": 5, "ItemCatalogoId": 60, "Grupo": null, "Ordem": 5, "ValorSugerido": null },
+
+      { "Id": 10, "ItemCatalogoId": 200, "Grupo": "VERIFICAÇÃO", "Ordem": 10, "ValorSugerido": null },
+      { "Id": 11, "ItemCatalogoId": 201, "Grupo": "LIMPEZA", "Ordem": 11, "ValorSugerido": null },
+      { "Id": 12, "ItemCatalogoId": 202, "Grupo": "AJUSTE", "Ordem": 12, "ValorSugerido": null },
+      { "Id": 13, "ItemCatalogoId": 203, "Grupo": "LUBRIFICAÇÃO", "Ordem": 13, "ValorSugerido": null }
+    ]
+  },
+  {
+    "Id": 6001,
+    "NumeroRevisao": 1,
+    "Modelos": [
+      "NEO_125_2017_2024",
+      "NEOS_DUAL_CONNECTED_2026",
+      "FLUO_ABS_2022_2025",
+      "FLUO_ABS_HYBRID_CONNECTED_2026",
+      "AEROX_ABS_CONNECTED",
+      "NMAX_CONNECTED_2023_2024",
+      "NOVA_NMAX_CONNECTED_2025",
+      "XMAX_2021_2024",
+      "XMAX_CONNECTED_2025",
+      "NOVA_XMAX_300_CONNECTED_2026"
+    ],
+    "Itens": [
+      { "Id": 1, "ItemCatalogoId": 30, "Grupo": null, "Ordem": 1, "ValorSugerido": null },
+      { "Id": 2, "ItemCatalogoId": 3, "Grupo": null, "Ordem": 2, "ValorSugerido": null },
+      { "Id": 3, "ItemCatalogoId": 46, "Grupo": null, "Ordem": 3, "ValorSugerido": null },
+      { "Id": 4, "ItemCatalogoId": 47, "Grupo": null, "Ordem": 4, "ValorSugerido": null },
+      { "Id": 5, "ItemCatalogoId": 48, "Grupo": null, "Ordem": 5, "ValorSugerido": null },
+      { "Id": 6, "ItemCatalogoId": 49, "Grupo": null, "Ordem": 6, "ValorSugerido": null },
+
+      { "Id": 10, "ItemCatalogoId": 200, "Grupo": "VERIFICAÇÃO", "Ordem": 10, "ValorSugerido": null },
+      { "Id": 11, "ItemCatalogoId": 201, "Grupo": "LIMPEZA", "Ordem": 11, "ValorSugerido": null },
+      { "Id": 12, "ItemCatalogoId": 202, "Grupo": "AJUSTE", "Ordem": 12, "ValorSugerido": null }
+    ]
+  },
+  {
+    "Id": 6002,
+    "NumeroRevisao": 2,
+    "Modelos": [
+      "NEO_125_2017_2024",
+      "NEOS_DUAL_CONNECTED_2026",
+      "FLUO_ABS_2022_2025",
+      "FLUO_ABS_HYBRID_CONNECTED_2026",
+      "AEROX_ABS_CONNECTED",
+      "NMAX_CONNECTED_2023_2024",
+      "NOVA_NMAX_CONNECTED_2025",
+      "XMAX_2021_2024",
+      "XMAX_CONNECTED_2025",
+      "NOVA_XMAX_300_CONNECTED_2026"
+    ],
+    "Itens": [
+      { "Id": 1, "ItemCatalogoId": 30, "Grupo": null, "Ordem": 1, "ValorSugerido": null },
+      { "Id": 2, "ItemCatalogoId": 3, "Grupo": null, "Ordem": 2, "ValorSugerido": null },
+      { "Id": 3, "ItemCatalogoId": 46, "Grupo": null, "Ordem": 3, "ValorSugerido": null },
+      { "Id": 4, "ItemCatalogoId": 60, "Grupo": null, "Ordem": 4, "ValorSugerido": null },
+      { "Id": 5, "ItemCatalogoId": 61, "Grupo": null, "Ordem": 5, "ValorSugerido": null },
+      { "Id": 6, "ItemCatalogoId": 70, "Grupo": null, "Ordem": 6, "ValorSugerido": null },
+
+      { "Id": 10, "ItemCatalogoId": 200, "Grupo": "VERIFICAÇÃO", "Ordem": 10, "ValorSugerido": null },
+      { "Id": 11, "ItemCatalogoId": 201, "Grupo": "LIMPEZA", "Ordem": 11, "ValorSugerido": null },
+      { "Id": 12, "ItemCatalogoId": 202, "Grupo": "AJUSTE", "Ordem": 12, "ValorSugerido": null },
+      { "Id": 13, "ItemCatalogoId": 203, "Grupo": "LUBRIFICAÇÃO", "Ordem": 13, "ValorSugerido": null }
+    ]
+  },
+  {
+    "Id": 6003,
+    "NumeroRevisao": 3,
+    "Modelos": [
+      "NEO_125_2017_2024",
+      "NEOS_DUAL_CONNECTED_2026",
+      "FLUO_ABS_2022_2025",
+      "FLUO_ABS_HYBRID_CONNECTED_2026",
+      "AEROX_ABS_CONNECTED",
+      "NMAX_CONNECTED_2023_2024",
+      "NOVA_NMAX_CONNECTED_2025",
+      "XMAX_2021_2024",
+      "XMAX_CONNECTED_2025",
+      "NOVA_XMAX_300_CONNECTED_2026"
+    ],
+    "Itens": [
+      { "Id": 1, "ItemCatalogoId": 30, "Grupo": null, "Ordem": 1, "ValorSugerido": null },
+      { "Id": 2, "ItemCatalogoId": 3, "Grupo": null, "Ordem": 2, "ValorSugerido": null },
+      { "Id": 3, "ItemCatalogoId": 46, "Grupo": null, "Ordem": 3, "ValorSugerido": null },
+      { "Id": 4, "ItemCatalogoId": 47, "Grupo": null, "Ordem": 4, "ValorSugerido": null },
+      { "Id": 5, "ItemCatalogoId": 60, "Grupo": null, "Ordem": 5, "ValorSugerido": null },
+      { "Id": 6, "ItemCatalogoId": 61, "Grupo": null, "Ordem": 6, "ValorSugerido": null },
+      { "Id": 7, "ItemCatalogoId": 70, "Grupo": null, "Ordem": 7, "ValorSugerido": null },
+      { "Id": 8, "ItemCatalogoId": 23, "Grupo": null, "Ordem": 8, "ValorSugerido": null },
+      { "Id": 9, "ItemCatalogoId": 80, "Grupo": null, "Ordem": 9, "ValorSugerido": null },
+      { "Id": 10, "ItemCatalogoId": 33, "Grupo": null, "Ordem": 10, "ValorSugerido": null },
+      { "Id": 11, "ItemCatalogoId": 35, "Grupo": null, "Ordem": 11, "ValorSugerido": null },
+
+      { "Id": 20, "ItemCatalogoId": 200, "Grupo": "VERIFICAÇÃO", "Ordem": 20, "ValorSugerido": null },
+      { "Id": 21, "ItemCatalogoId": 201, "Grupo": "LIMPEZA", "Ordem": 21, "ValorSugerido": null },
+      { "Id": 22, "ItemCatalogoId": 202, "Grupo": "AJUSTE", "Ordem": 22, "ValorSugerido": null },
+      { "Id": 23, "ItemCatalogoId": 203, "Grupo": "LUBRIFICAÇÃO", "Ordem": 23, "ValorSugerido": null }
+    ]
+  },
+  {
+    "Id": 6004,
+    "NumeroRevisao": 4,
+    "Modelos": [
+      "NEO_125_2017_2024",
+      "NEOS_DUAL_CONNECTED_2026",
+      "FLUO_ABS_2022_2025",
+      "FLUO_ABS_HYBRID_CONNECTED_2026",
+      "AEROX_ABS_CONNECTED",
+      "NMAX_CONNECTED_2023_2024",
+      "NOVA_NMAX_CONNECTED_2025",
+      "XMAX_2021_2024",
+      "XMAX_CONNECTED_2025",
+      "NOVA_XMAX_300_CONNECTED_2026"
+    ],
+    "Itens": [
+      { "Id": 1, "ItemCatalogoId": 30, "Grupo": null, "Ordem": 1, "ValorSugerido": null },
+      { "Id": 2, "ItemCatalogoId": 3, "Grupo": null, "Ordem": 2, "ValorSugerido": null },
+      { "Id": 3, "ItemCatalogoId": 46, "Grupo": null, "Ordem": 3, "ValorSugerido": null },
+      { "Id": 4, "ItemCatalogoId": 60, "Grupo": null, "Ordem": 4, "ValorSugerido": null },
+      { "Id": 5, "ItemCatalogoId": 61, "Grupo": null, "Ordem": 5, "ValorSugerido": null },
+      { "Id": 6, "ItemCatalogoId": 70, "Grupo": null, "Ordem": 6, "ValorSugerido": null },
+      { "Id": 7, "ItemCatalogoId": 35, "Grupo": null, "Ordem": 7, "ValorSugerido": null },
+
+      { "Id": 10, "ItemCatalogoId": 200, "Grupo": "VERIFICAÇÃO", "Ordem": 10, "ValorSugerido": null },
+      { "Id": 11, "ItemCatalogoId": 201, "Grupo": "LIMPEZA", "Ordem": 11, "ValorSugerido": null },
+      { "Id": 12, "ItemCatalogoId": 202, "Grupo": "AJUSTE", "Ordem": 12, "ValorSugerido": null },
+      { "Id": 13, "ItemCatalogoId": 203, "Grupo": "LUBRIFICAÇÃO", "Ordem": 13, "ValorSugerido": null }
+    ]
+  },
+  {
+    "Id": 6005,
+    "NumeroRevisao": 5,
+    "Modelos": [
+      "NEO_125_2017_2024",
+      "NEOS_DUAL_CONNECTED_2026",
+      "FLUO_ABS_2022_2025",
+      "FLUO_ABS_HYBRID_CONNECTED_2026",
+      "AEROX_ABS_CONNECTED",
+      "NMAX_CONNECTED_2023_2024",
+      "NOVA_NMAX_CONNECTED_2025",
+      "XMAX_2021_2024",
+      "XMAX_CONNECTED_2025",
+      "NOVA_XMAX_300_CONNECTED_2026"
+    ],
+    "Itens": [
+      { "Id": 1, "ItemCatalogoId": 30, "Grupo": null, "Ordem": 1, "ValorSugerido": null },
+      { "Id": 2, "ItemCatalogoId": 3, "Grupo": null, "Ordem": 2, "ValorSugerido": null },
+      { "Id": 3, "ItemCatalogoId": 46, "Grupo": null, "Ordem": 3, "ValorSugerido": null },
+      { "Id": 4, "ItemCatalogoId": 47, "Grupo": null, "Ordem": 4, "ValorSugerido": null },
+      { "Id": 5, "ItemCatalogoId": 48, "Grupo": null, "Ordem": 5, "ValorSugerido": null },
+      { "Id": 6, "ItemCatalogoId": 49, "Grupo": null, "Ordem": 6, "ValorSugerido": null },
+      { "Id": 7, "ItemCatalogoId": 60, "Grupo": null, "Ordem": 7, "ValorSugerido": null },
+      { "Id": 8, "ItemCatalogoId": 61, "Grupo": null, "Ordem": 8, "ValorSugerido": null },
+      { "Id": 9, "ItemCatalogoId": 70, "Grupo": null, "Ordem": 9, "ValorSugerido": null },
+      { "Id": 10, "ItemCatalogoId": 23, "Grupo": null, "Ordem": 10, "ValorSugerido": null },
+      { "Id": 11, "ItemCatalogoId": 80, "Grupo": null, "Ordem": 11, "ValorSugerido": null },
+      { "Id": 12, "ItemCatalogoId": 33, "Grupo": null, "Ordem": 12, "ValorSugerido": null },
+      { "Id": 13, "ItemCatalogoId": 35, "Grupo": null, "Ordem": 13, "ValorSugerido": null },
+
+      { "Id": 20, "ItemCatalogoId": 200, "Grupo": "VERIFICAÇÃO", "Ordem": 20, "ValorSugerido": null },
+      { "Id": 21, "ItemCatalogoId": 201, "Grupo": "LIMPEZA", "Ordem": 21, "ValorSugerido": null },
+      { "Id": 22, "ItemCatalogoId": 202, "Grupo": "AJUSTE", "Ordem": 22, "ValorSugerido": null },
+      { "Id": 23, "ItemCatalogoId": 203, "Grupo": "LUBRIFICAÇÃO", "Ordem": 23, "ValorSugerido": null }
+    ]
+  },
+  {
+    "Id": 6006,
+    "NumeroRevisao": 6,
+    "Modelos": [
+      "NEO_125_2017_2024",
+      "NEOS_DUAL_CONNECTED_2026",
+      "FLUO_ABS_2022_2025",
+      "FLUO_ABS_HYBRID_CONNECTED_2026",
+      "AEROX_ABS_CONNECTED",
+      "NMAX_CONNECTED_2023_2024",
+      "NOVA_NMAX_CONNECTED_2025",
+      "XMAX_2021_2024",
+      "XMAX_CONNECTED_2025",
+      "NOVA_XMAX_300_CONNECTED_2026"
+    ],
+    "Itens": [
+      { "Id": 1, "ItemCatalogoId": 30, "Grupo": null, "Ordem": 1, "ValorSugerido": null },
+      { "Id": 2, "ItemCatalogoId": 3, "Grupo": null, "Ordem": 2, "ValorSugerido": null },
+      { "Id": 3, "ItemCatalogoId": 46, "Grupo": null, "Ordem": 3, "ValorSugerido": null },
+      { "Id": 4, "ItemCatalogoId": 60, "Grupo": null, "Ordem": 4, "ValorSugerido": null },
+      { "Id": 5, "ItemCatalogoId": 61, "Grupo": null, "Ordem": 5, "ValorSugerido": null },
+      { "Id": 6, "ItemCatalogoId": 70, "Grupo": null, "Ordem": 6, "ValorSugerido": null },
+      { "Id": 7, "ItemCatalogoId": 35, "Grupo": null, "Ordem": 7, "ValorSugerido": null },
+      { "Id": 8, "ItemCatalogoId": 13, "Grupo": null, "Ordem": 8, "ValorSugerido": null },
+
+      { "Id": 10, "ItemCatalogoId": 200, "Grupo": "VERIFICAÇÃO", "Ordem": 10, "ValorSugerido": null },
+      { "Id": 11, "ItemCatalogoId": 201, "Grupo": "LIMPEZA", "Ordem": 11, "ValorSugerido": null },
+      { "Id": 12, "ItemCatalogoId": 202, "Grupo": "AJUSTE", "Ordem": 12, "ValorSugerido": null },
+      { "Id": 13, "ItemCatalogoId": 203, "Grupo": "LUBRIFICAÇÃO", "Ordem": 13, "ValorSugerido": null }
+    ]
+  },
+  {
+    "Id": 6007,
+    "NumeroRevisao": 7,
+    "Modelos": [
+      "NEO_125_2017_2024",
+      "NEOS_DUAL_CONNECTED_2026",
+      "FLUO_ABS_2022_2025",
+      "FLUO_ABS_HYBRID_CONNECTED_2026",
+      "AEROX_ABS_CONNECTED",
+      "NMAX_CONNECTED_2023_2024",
+      "NOVA_NMAX_CONNECTED_2025",
+      "XMAX_2021_2024",
+      "XMAX_CONNECTED_2025",
+      "NOVA_XMAX_300_CONNECTED_2026"
+    ],
+    "Itens": [
+      { "Id": 1, "ItemCatalogoId": 30, "Grupo": null, "Ordem": 1, "ValorSugerido": null },
+      { "Id": 2, "ItemCatalogoId": 3, "Grupo": null, "Ordem": 2, "ValorSugerido": null },
+      { "Id": 3, "ItemCatalogoId": 46, "Grupo": null, "Ordem": 3, "ValorSugerido": null },
+      { "Id": 4, "ItemCatalogoId": 47, "Grupo": null, "Ordem": 4, "ValorSugerido": null },
+      { "Id": 5, "ItemCatalogoId": 60, "Grupo": null, "Ordem": 5, "ValorSugerido": null },
+      { "Id": 6, "ItemCatalogoId": 61, "Grupo": null, "Ordem": 6, "ValorSugerido": null },
+      { "Id": 7, "ItemCatalogoId": 70, "Grupo": null, "Ordem": 7, "ValorSugerido": null },
+      { "Id": 8, "ItemCatalogoId": 23, "Grupo": null, "Ordem": 8, "ValorSugerido": null },
+      { "Id": 9, "ItemCatalogoId": 80, "Grupo": null, "Ordem": 9, "ValorSugerido": null },
+      { "Id": 10, "ItemCatalogoId": 33, "Grupo": null, "Ordem": 10, "ValorSugerido": null },
+      { "Id": 11, "ItemCatalogoId": 35, "Grupo": null, "Ordem": 11, "ValorSugerido": null },
+      { "Id": 12, "ItemCatalogoId": 62, "Grupo": null, "Ordem": 12, "ValorSugerido": null },
+      { "Id": 13, "ItemCatalogoId": 63, "Grupo": null, "Ordem": 13, "ValorSugerido": null },
+      { "Id": 14, "ItemCatalogoId": 90, "Grupo": null, "Ordem": 14, "ValorSugerido": null },
+
+      { "Id": 20, "ItemCatalogoId": 200, "Grupo": "VERIFICAÇÃO", "Ordem": 20, "ValorSugerido": null },
+      { "Id": 21, "ItemCatalogoId": 201, "Grupo": "LIMPEZA", "Ordem": 21, "ValorSugerido": null },
+      { "Id": 22, "ItemCatalogoId": 202, "Grupo": "AJUSTE", "Ordem": 22, "ValorSugerido": null },
+      { "Id": 23, "ItemCatalogoId": 203, "Grupo": "LUBRIFICAÇÃO", "Ordem": 23, "ValorSugerido": null }
+    ]
+  }
+]

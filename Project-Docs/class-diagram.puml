@@ -10,6 +10,7 @@ enum TipoItemRevisao {
   Servico
 }
 
+' Mantido: hoje é usado diretamente em Moto.Modelo e em filtros/buscas.
 enum ModeloMoto {
   MT03
   NMAX
@@ -139,29 +140,49 @@ class RevisaoItem <<Model>> {
 
 ' =========================
 ' CHECKLIST (VARIA POR MODELO)
+' Alterações SOMENTE aqui:
+' - Catálogo de itens para não repetir peça/serviço
+' - ChecklistTemplate aplica em múltiplos modelos
+' - ItemTemplate referencia catálogo (ItemCatalogoId)
 ' =========================
+
+' NOVA classe (faltando) para eliminar repetição de peças/serviços
+class ItemCatalogo <<Model>> {
+  +Id : int
+  +Tipo : TipoItemRevisao
+  +Descricao : string
+}
+
 class ChecklistTemplate <<Model>> {
   +Id : int
   +NumeroRevisao : int
-  +Modelo : ModeloMoto
+  +Modelos : List<ModeloMoto>
   +Itens : List<ItemTemplate>
 
   --
   +AdicionarItem(item : ItemTemplate) : void
   +RemoverItem(ordem : int) : void
+
+  ' Mantido (nome igual). Implementação pode delegar p/ Service.
   +GerarItensParaRevisao() : List<RevisaoItem>
+
+  ' NOVO overload (pra suportar catálogo sem acoplar o Model a Provider)
+  +GerarItensParaRevisao(itensCatalogo : List<ItemCatalogo>) : List<RevisaoItem>
 }
 
 class ItemTemplate <<Model>> {
   +Id : int
-  +Tipo : TipoItemRevisao
-  +Descricao : string
+  +ItemCatalogoId : int
   +Grupo : string?
   +Ordem : int
   +ValorSugerido : decimal?
 
   --
+  ' Mantido
   +ParaRevisaoItem() : RevisaoItem
+
+  ' NOVO overload (usa o catálogo para preencher Tipo/Descricao)
+  +ParaRevisaoItem(itemCatalogo : ItemCatalogo) : RevisaoItem
 }
 
 ' =========================
@@ -198,6 +219,13 @@ class RegraRevisaoProvider <<Provider>> {
   +Listar() : List<RegraRevisao>
 }
 
+' NOVO provider (carrega catálogo de peças/serviços)
+class ItemCatalogoProvider <<Provider>> {
+  +Carregar() : void
+  +Obter(id : int) : ItemCatalogo
+  +Listar() : List<ItemCatalogo>
+}
+
 ' =========================
 ' SERVIÇOS (MVC/Application Services)
 ' =========================
@@ -231,6 +259,13 @@ class AgendamentoService <<Service>> {
   +ObterProximaRevisaoNumero(moto : Moto) : int
 }
 
+' NOVO service (responsável por “montar checklist” usando template + catálogo)
+class ChecklistService <<Service>> {
+  +ObterTemplatePara(modelo : ModeloMoto, numeroRevisao : int, concessionaria : Concessionaria) : ChecklistTemplate?
+  +GerarItensParaRevisao(template : ChecklistTemplate, itensCatalogo : List<ItemCatalogo>) : List<RevisaoItem>
+  +GerarItensParaRevisao(modelo : ModeloMoto, numeroRevisao : int, concessionaria : Concessionaria) : List<RevisaoItem>
+}
+
 ' =========================
 ' RELACIONAMENTOS (DOMÍNIO)
 ' =========================
@@ -248,6 +283,7 @@ Moto "1" o-- "*" Revisao
 Revisao "1" o-- "*" RevisaoItem
 
 ChecklistTemplate "1" o-- "*" ItemTemplate
+ItemTemplate "*" --> "1" ItemCatalogo
 
 ' =========================
 ' DEPENDÊNCIAS (SERVIÇOS)
@@ -274,5 +310,10 @@ AgendamentoService ..> AlertaRevisao
 AuthService ..> Usuario
 AuthService ..> Cliente
 AuthService ..> Concessionaria
+
+ChecklistService ..> ChecklistTemplate
+ChecklistService ..> ItemCatalogoProvider
+ChecklistService ..> Concessionaria
+ChecklistService ..> RevisaoItem
 
 @enduml
