@@ -2,10 +2,10 @@
 
 public class Concessionaria
 {
-    int Id { get; set; }
-    public required string Nome;
-    public required string Telefone;
-    public List<Endereco> Enderecos = [];
-    public required string Cnpj;
-    public List<Revisao> Revisoes = [];
+    public int Id { get; set; }
+    public required string Nome { get; set; }
+    public required string Telefone { get; set; }
+    public List<Endereco> Enderecos { get; set; } = [];
+    public required string Cnpj { get; set; }
+    public List<Revisao> Revisoes { get; set; } = [];
 }

@@ -2,7 +2,7 @@
 
 public class Revisao
 {
-    int Id { get; set; } 
+    public int Id { get; set; } 
     public required int Numero { get; set; }
     public required Cliente Cliente { get; set; }
     public required Moto Moto { get; set; }
@@ -10,7 +10,7 @@ public class Revisao
     public required int KmMaximo { get; set; }
     public double KmTolerancia { get; set; } = 10.0;
     public required int TempoMaximo { get; set; }
-    public double TempoTolerancia { get; set; } = 10.0;
+    public int TempoTolerancia { get; set; } = 15;
     public int? KmAtual { get; set; }
     public required DateTime DataRevisao { get; set; }
     public List<RevisaoItem> Itens { get; set; } = [];

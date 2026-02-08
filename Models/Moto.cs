@@ -6,9 +6,10 @@ public class Moto
     //public required Enum ModeloMoto { get; set; }
     public required string Cor { get; set; }
     public required string NumeroChassi { get; set; }
+    public required string Placa { get; set; }
     public required DateTime DataDeVenda { get; set; }
     public required string NotaFiscal { get; set; }
     public required int Serie { get; set; }
-    public string ImgDecalqueChassi = string.Empty;
-    public List<Revisao> Revisoes = [];
+    public string ImgDecalqueChassi { get; set; } = string.Empty;
+    public List<Revisao> Revisoes { get; set; } = [];
 }

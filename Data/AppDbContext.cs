@@ -10,4 +10,9 @@ public class AppDbContext : DbContext
     }
 
     public DbSet<Moto> Motos { get; set; }
+    public DbSet<Cliente> Clientes { get; set; }
+    public DbSet<Endereco> Enderecos { get; set; }
+    public DbSet<Revisao> Revisoes { get; set; }
+    public DbSet<Concessionaria> Concessionarias { get; set; }
+    public DbSet<RevisaoItem> RevisaoItens { get; set; }
 }
