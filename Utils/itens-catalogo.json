@@ -1,0 +1,55 @@
+[
+  { "Id": 1, "Tipo": "Peca", "Descricao": "YAMALUBE 20W50", "Preco": 60.00 },
+  { "Id": 2, "Tipo": "Peca", "Descricao": "YAMALUBE 10W40", "Preco": 65.00 },
+  { "Id": 3, "Tipo": "Peca", "Descricao": "YAMALUBE SCOOTER", "Preco": 62.00 },
+  { "Id": 4, "Tipo": "Peca", "Descricao": "YAMALUBE SCOOTER 10W40", "Preco": 68.00 },
+  { "Id": 5, "Tipo": "Peca", "Descricao": "OLEO PARA SUSPENSAO 10W 500ML", "Preco": 55.00 },
+  { "Id": 6, "Tipo": "Peca", "Descricao": "LIQUIDO DE ARREFECIMENTO", "Preco": 45.00 },
+
+  { "Id": 10, "Tipo": "Peca", "Descricao": "FILTRO DE OLEO", "Preco": 70.00 },
+  { "Id": 11, "Tipo": "Peca", "Descricao": "ELEMENTO DO FILTRO DE OLEO CONJUNTO", "Preco": 85.00 },
+  { "Id": 12, "Tipo": "Peca", "Descricao": "FILTRO DE AR", "Preco": 120.00 },
+  { "Id": 13, "Tipo": "Peca", "Descricao": "ELEMENTO DO FILTRO DE AR", "Preco": 110.00 },
+  { "Id": 14, "Tipo": "Peca", "Descricao": "FILTRO DE GASOLINA", "Preco": 55.00 },
+  { "Id": 15, "Tipo": "Peca", "Descricao": "FILTRO DE COMBUSTIVEL", "Preco": 55.00 },
+
+  { "Id": 20, "Tipo": "Peca", "Descricao": "VELA DE IGNICAO", "Preco": 35.00 },
+  { "Id": 21, "Tipo": "Peca", "Descricao": "VELA DE IGNICAO NGK MR8D-9", "Preco": 46.00 },
+  { "Id": 22, "Tipo": "Peca", "Descricao": "VELA DE IGNICAO NGK DR8EA-N", "Preco": 42.00 },
+  { "Id": 23, "Tipo": "Peca", "Descricao": "VELA DE IGNICAO NGK CR6HSA", "Preco": 38.00 },
+
+  { "Id": 30, "Tipo": "Peca", "Descricao": "GAXETA DO DRENO", "Preco": 8.00 },
+  { "Id": 31, "Tipo": "Peca", "Descricao": "GAXETA DO CABECOTE DO CILINDRO", "Preco": 25.00 },
+  { "Id": 32, "Tipo": "Peca", "Descricao": "GAXETA DA TAMPA DO CABECOTE", "Preco": 22.00 },
+  { "Id": 33, "Tipo": "Peca", "Descricao": "GAXETA DA TAMPA DA CARCACA 1", "Preco": 28.00 },
+  { "Id": 34, "Tipo": "Peca", "Descricao": "GAXETA DO MOTOR DE ARRANQUE", "Preco": 20.00 },
+  { "Id": 35, "Tipo": "Peca", "Descricao": "GAXETA DO DRENO DA TRANSMISSAO FINAL", "Preco": 10.00 },
+
+  { "Id": 40, "Tipo": "Peca", "Descricao": "ANEL DE BORRACHA FILTRO DE OLEO", "Preco": 30.00 },
+  { "Id": 41, "Tipo": "Peca", "Descricao": "ANEL DE BORRACHA TAMPA SINCRONISMO MENOR", "Preco": 10.00 },
+  { "Id": 42, "Tipo": "Peca", "Descricao": "ANEL DE BORRACHA TAMPA SINCRONISMO MAIOR", "Preco": 13.00 },
+  { "Id": 43, "Tipo": "Peca", "Descricao": "ANEL DE BORRACHA TAMPA DO FILTRO DE OLEO MENOR", "Preco": 12.00 },
+  { "Id": 44, "Tipo": "Peca", "Descricao": "ANEL DE BORRACHA TAMPA DO FILTRO DE OLEO MAIOR", "Preco": 15.00 },
+  { "Id": 45, "Tipo": "Peca", "Descricao": "ANEL DE BORRACHA DA TAMPA DE ABASTECIMENTO DE OLEO", "Preco": 10.00 },
+  { "Id": 46, "Tipo": "Peca", "Descricao": "ANEL DE BORRACHA DA VARETA DE OLEO", "Preco": 9.00 },
+  { "Id": 47, "Tipo": "Peca", "Descricao": "ANEL DE BORRACHA TAMPA PENEIRA DE OLEO", "Preco": 11.00 },
+
+  { "Id": 50, "Tipo": "Peca", "Descricao": "ANEL TRAVA", "Preco": 6.00 },
+  { "Id": 51, "Tipo": "Peca", "Descricao": "ANEL TRAVA DO CAVALETE CENTRAL", "Preco": 8.00 },
+
+  { "Id": 60, "Tipo": "Peca", "Descricao": "CONTRAPINO", "Preco": 5.00 },
+  { "Id": 61, "Tipo": "Peca", "Descricao": "CONTRAPINO UBS", "Preco": 7.00 },
+  { "Id": 62, "Tipo": "Peca", "Descricao": "CONTRAPINO DA PEDALEIRA", "Preco": 7.00 },
+  { "Id": 63, "Tipo": "Peca", "Descricao": "CONTRAPINO DA PEDALEIRA DO PASSAGEIRO", "Preco": 8.00 },
+
+  { "Id": 70, "Tipo": "Peca", "Descricao": "VEDACAO DO DUTO DE AR", "Preco": 18.00 },
+  { "Id": 71, "Tipo": "Peca", "Descricao": "VEDACAO DO DUTO DE AR DO FILTRO DE AR DA TRANSMISSAO", "Preco": 22.00 },
+  { "Id": 72, "Tipo": "Peca", "Descricao": "VEDACAO DA CAIXA DO FILTRO DE AR", "Preco": 25.00 },
+
+  { "Id": 80, "Tipo": "Peca", "Descricao": "AMORTIZADOR DE MONTAGEM", "Preco": 90.00 },
+
+  { "Id": 200, "Tipo": "Servico", "Descricao": "VERIFICAÇÃO GERAL DOS SISTEMAS DA MOTOCICLETA" },
+  { "Id": 201, "Tipo": "Servico", "Descricao": "LIMPEZA DO SISTEMA DE ADMISSÃO DE AR" },
+  { "Id": 202, "Tipo": "Servico", "Descricao": "AJUSTE DOS SISTEMAS MECÂNICOS E FUNCIONAIS" },
+  { "Id": 203, "Tipo": "Servico", "Descricao": "LUBRIFICAÇÃO DOS PONTOS MÓVEIS DA MOTOCICLETA" }
+]
