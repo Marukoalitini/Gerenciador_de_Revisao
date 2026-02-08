@@ -1,0 +1,278 @@
+@startuml
+hide circle
+skinparam classAttributeIconSize 0
+
+' =========================
+' ENUMS
+' =========================
+enum TipoItemRevisao {
+  Peca
+  Servico
+}
+
+enum ModeloMoto {
+  MT03
+  NMAX
+  XMAX
+  FAZER_250
+  ' (lista completa pode ser mantida fora do diagrama)
+}
+
+enum StatusRevisao {
+  Pendente
+  Agendada
+  Executada
+  Cancelada
+}
+
+' =========================
+' AUTENTICAÇÃO
+' =========================
+class Usuario <<Model>> {
+  +Email : string
+  +SenhaHash : string
+  +Ativo : bool
+
+  --
+  +AlterarSenha(novaSenha : string) : void
+  +Desativar() : void
+}
+
+class AuthService <<Service>> {
+  +CadastrarCliente(email : string, senha : string, cpf : string, nome : string) : Cliente
+  +CadastrarConcessionaria(email : string, senha : string, cnpj : string, nome : string) : Concessionaria
+  +Autenticar(email : string, senha : string) : Usuario
+}
+
+' =========================
+' DOMÍNIO (MODELS)
+' =========================
+class Cliente <<Model>> {
+  +Id : int
+  +NomeProprietario : string
+  +CPF : string
+  +Email : string
+  +Tel : string
+  +Cel : string
+  +Endereco : Endereco?
+  +Motos : List<Moto>
+}
+
+class Concessionaria <<Model>> {
+  +Id : int
+  +NomeConcessionaria : string
+  +CNPJ : string
+  +Tel : string
+  +Enderecos : List<Endereco>
+  +Clientes : List<Cliente>
+  +ChecklistTemplates : List<ChecklistTemplate>
+}
+
+class Endereco <<Model>> {
+  +Id : int
+  +CEP : string
+  +Rua : string
+  +Numero : int
+  +Bairro : string
+  +Complemento : string
+
+  --
+  +Formatar() : string
+  +DistanciaAte(outro : Endereco) : double
+}
+
+class Moto <<Model>> {
+  +Id : int
+  +Modelo : ModeloMoto
+  +Placa : string
+  +COR : string
+  +NumeroChassi : string
+  +DataDeVenda : DateTime
+  +NotaFiscal : string
+  +Serie : int
+  +ImgDecalqueChassi : string
+  +Revisoes : List<Revisao>
+
+  --
+  +ObterUltimaRevisaoExecutada() : Revisao?
+  +ObterRevisao(numero : int) : Revisao?
+}
+
+class Revisao <<Model>> {
+  +Id : int
+  +Numero : int
+  +Status : StatusRevisao
+
+  +Cliente : Cliente
+  +Moto : Moto
+  +ConcessionariaResponsavel : Concessionaria?
+
+  +DataAgendada : DateTime?
+  +DataExecucao : DateTime?
+  +KMAtual : int?
+
+  +Itens : List<RevisaoItem>
+  +ValorTotal : decimal
+  +NotaDeServico : string
+
+  --
+  +Agendar(data : DateTime, concessionaria : Concessionaria) : void
+  +Reagendar(novaData : DateTime) : void
+  +Cancelar(motivo : string) : void
+  +GerarNotaDeServico() : string
+  +RegistrarExecucao(itensRealizados : List<RevisaoItem>, valorTotal : decimal, notaDeServico : string, dataExecucao : DateTime, kmAtual : int) : void
+  +ItensNaoExecutados(template : ChecklistTemplate) : List<ItemTemplate>
+}
+
+class RevisaoItem <<Model>> {
+  +Tipo : TipoItemRevisao
+  +Descricao : string
+  +Grupo : string?
+  +Ordem : int
+  +Valor : decimal?
+  +Quantidade : decimal?
+  +Realizado : bool
+
+  --
+  +Subtotal() : decimal
+}
+
+' =========================
+' CHECKLIST (VARIA POR MODELO)
+' =========================
+class ChecklistTemplate <<Model>> {
+  +Id : int
+  +NumeroRevisao : int
+  +Modelo : ModeloMoto
+  +Itens : List<ItemTemplate>
+
+  --
+  +AdicionarItem(item : ItemTemplate) : void
+  +RemoverItem(ordem : int) : void
+  +GerarItensParaRevisao() : List<RevisaoItem>
+}
+
+class ItemTemplate <<Model>> {
+  +Id : int
+  +Tipo : TipoItemRevisao
+  +Descricao : string
+  +Grupo : string?
+  +Ordem : int
+  +ValorSugerido : decimal?
+
+  --
+  +ParaRevisaoItem() : RevisaoItem
+}
+
+' =========================
+' CONFIGURAÇÃO GLOBAL (BANCO)
+' =========================
+class ConfiguracaoAgendamento <<Model>> {
+  +KmToleranciaPercent : double
+  +TempoToleranciaDias : int
+  +AtualizadoEm : DateTime
+
+  --
+  +Atualizar(kmToleranciaPercent : double, tempoToleranciaDias : int) : void
+}
+
+class AlertaRevisao <<Model>> {
+  +PlacaMoto : string
+  +NumeroRevisao : int
+  +Mensagem : string
+  +EmAtraso : bool
+}
+
+' =========================
+' REGRAS FIXAS (JSON)
+' =========================
+class RegraRevisao <<Model>> {
+  +NumeroRevisao : int
+  +KmAlvo : int
+  +MesesAlvo : int
+}
+
+class RegraRevisaoProvider <<Provider>> {
+  +Carregar() : void
+  +Obter(numeroRevisao : int) : RegraRevisao
+  +Listar() : List<RegraRevisao>
+}
+
+' =========================
+' SERVIÇOS (MVC/Application Services)
+' =========================
+class ClienteService <<Service>> {
+  +AtualizarContato(tel : string, cel : string, email : string) : void
+  +CadastrarMoto(moto : Moto) : void
+  +EditarMoto(placa : string, dados : Moto) : void
+  +RemoverMoto(placa : string) : void
+  +ConsultarProximasRevisoes() : List<AlertaRevisao>
+}
+
+class ConcessionariaService <<Service>> {
+  +VincularClientePorCpf(cpf : string) : void
+  +AdicionarEndereco(endereco : Endereco) : void
+  +EditarEndereco(id : int, endereco : Endereco) : void
+  +RemoverEndereco(id : int) : void
+
+  +CriarChecklistTemplate(template : ChecklistTemplate) : void
+  +EditarChecklistTemplate(id : int, template : ChecklistTemplate) : void
+  +ExcluirChecklistTemplate(id : int) : void
+}
+
+class AgendamentoService <<Service>> {
+  +ValidarAgendamento(moto : Moto, numeroRevisao : int, data : DateTime, kmAtual : int?) : bool
+  +CriarRevisao(cliente : Cliente, moto : Moto, numeroRevisao : int) : Revisao
+
+  --
+  +ObterBaseTempo(moto : Moto, numeroRevisao : int) : DateTime
+  +GerarAlertas(cliente : Cliente) : List<AlertaRevisao>
+  +Agendar(cliente : Cliente, moto : Moto, numeroRevisao : int, concessionaria : Concessionaria, dataDesejada : DateTime, kmAtual : int?) : Revisao
+  +ObterProximaRevisaoNumero(moto : Moto) : int
+}
+
+' =========================
+' RELACIONAMENTOS (DOMÍNIO)
+' =========================
+Usuario "1" -- "0..1" Cliente
+Usuario "1" -- "0..1" Concessionaria
+
+Cliente "1" o-- "0..1" Endereco
+Cliente "1" o-- "*" Moto
+
+Concessionaria "*" -- "*" Cliente
+Concessionaria "1" o-- "*" Endereco
+Concessionaria "1" o-- "*" ChecklistTemplate
+
+Moto "1" o-- "*" Revisao
+Revisao "1" o-- "*" RevisaoItem
+
+ChecklistTemplate "1" o-- "*" ItemTemplate
+
+' =========================
+' DEPENDÊNCIAS (SERVIÇOS)
+' =========================
+ClienteService ..> Cliente
+ClienteService ..> Moto
+ClienteService ..> AgendamentoService
+ClienteService ..> AlertaRevisao
+
+ConcessionariaService ..> Concessionaria
+ConcessionariaService ..> Cliente
+ConcessionariaService ..> Endereco
+ConcessionariaService ..> ChecklistTemplate
+
+AgendamentoService ..> RegraRevisaoProvider
+AgendamentoService ..> ConfiguracaoAgendamento
+AgendamentoService ..> ChecklistTemplate
+AgendamentoService ..> Revisao
+AgendamentoService ..> Moto
+AgendamentoService ..> Cliente
+AgendamentoService ..> Concessionaria
+AgendamentoService ..> AlertaRevisao
+
+AuthService ..> Usuario
+AuthService ..> Cliente
+AuthService ..> Concessionaria
+
+@enduml
