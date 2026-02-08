@@ -2,6 +2,7 @@ using System.Text.Json.Serialization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi;
 using Motos.Data;
+using Motos.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -41,6 +42,14 @@ using (var scope = app.Services.CreateScope())
     context.Database.EnsureDeleted();
     context.Database.Migrate();
 }
+
+// Inicializar catálogos e regras de revisão
+Console.WriteLine("\n📋 Carregando dados estáticos...");
+RegraRevisaoService.Inicializar();
+ItemCatalogoService.Inicializar();
+Console.WriteLine();
+ChecklistTemplateService.Inicializar();
+Console.WriteLine();
 
 app.UseSwagger();
 app.UseSwaggerUI();

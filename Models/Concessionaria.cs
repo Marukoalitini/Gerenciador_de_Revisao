@@ -8,4 +8,5 @@ public class Concessionaria
     public List<Endereco> Enderecos { get; set; } = [];
     public required string Cnpj { get; set; }
     public List<Revisao> Revisoes { get; set; } = [];
+    public List<ChecklistTemplate> ChecklistTemplates { get; set; } = new();
 }
