@@ -12,7 +12,7 @@ public class MappingProfile : Profile
         // Request
         CreateMap<CriarClienteRequest, Cliente>();
         CreateMap<CriarConcessionariaRequest, Concessionaria>();
-        CreateMap<EnderecoRequest, Endereco>();
+        CreateMap<AdicionarEnderecoRequest, Endereco>();
         CreateMap<MotoRequest, Moto>();
         CreateMap<RevisaoRequest, Revisao>();
         CreateMap<RevisaoItemRequest, RevisaoItem>();

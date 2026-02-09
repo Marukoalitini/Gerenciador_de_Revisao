@@ -21,39 +21,53 @@ public class ClienteController : ControllerBase
     public IActionResult CriarCliente(CriarClienteRequest request)
     {
         var response = _service.CriarCliente(request);
-        return CreatedAtAction(nameof(CriarCliente), new { id = response.Id }, response);
+        return CreatedAtAction(nameof(ObterCliente), new { id = response.Id }, response);
     }
 
     [Authorize(Roles = "Cliente")]
-    [HttpGet("{id}")]
-    public IActionResult ObterCliente(int id)
+    [HttpGet]
+    public IActionResult ObterCliente()
     {
         var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value ?? "0");
-        if (userId != id) return Forbid();
+        if (userId <= 0) return Forbid();
 
-        var response = _service.ObterClientePorId(id);
+        var response = _service.ObterClientePorId(userId);
         return Ok(response);
     }
 
     [Authorize(Roles = "Cliente")]
-    [HttpPut("{id}")]
-    public IActionResult AtualizarCliente(int id, AtualizarClienteRequest request)
+    [HttpPut]
+    public IActionResult AtualizarCliente(AtualizarClienteRequest request)
     {
         var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value ?? "0");
-        if (userId != id) return Forbid();
+        if (userId <= 0) return Forbid();
 
-        var response = _service.AtualizarCliente(id, request);
+        var response = _service.AtualizarCliente(userId, request);
         return Ok(response);
     }
 
     [Authorize(Roles = "Cliente")]
-    [HttpDelete("{id}")]
-    public IActionResult DeletarCliente(int id)
+    [HttpDelete]
+    public IActionResult DeletarCliente()
     {
         var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value ?? "0");
-        if (userId != id) return Forbid();
+        if (userId <= 0) return Forbid();
 
-        _service.DeletarCliente(id);
+        _service.DeletarCliente(userId);
         return NoContent();
+    }
+
+    /// <summary>
+    /// Define ou atualiza o endereço do cliente.
+    /// </summary>
+    [Authorize(Roles = "Cliente")]
+    [HttpPut("endereco")]
+    public IActionResult DefinirEndereco(AdicionarEnderecoRequest request)
+    {
+        var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value ?? "0");
+        if (userId <= 0) return Forbid();
+
+        var response = _service.DefinirEndereco(userId, request);
+        return Ok(response);
     }
 }

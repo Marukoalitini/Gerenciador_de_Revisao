@@ -1,4 +1,5 @@
 using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using Motos.Data;
 using Motos.Dto.Request;
 using Motos.Dto.Response;
@@ -68,5 +69,33 @@ public class ClienteService
         cliente.DeletadoEm = DateTime.UtcNow;
         
         _context.SaveChanges();
+    }
+
+    public EnderecoResponse DefinirEndereco(int id, AdicionarEnderecoRequest request)
+    {
+        var cliente = _context.Clientes
+            .Include(c => c.Endereco)
+            .FirstOrDefault(c => c.Id == id && c.Ativo);
+            
+        if (cliente == null) throw new DomainException("Cliente não encontrado.");
+
+        // Se o cliente ainda não tem endereço, instanciamos um novo
+        if (cliente.Endereco == null)
+        {
+            cliente.Endereco = _mapper.Map<Endereco>(request);
+        }
+        else
+        {
+            cliente.Endereco.Rua = request.Rua;
+            cliente.Endereco.Numero = request.Numero;
+            cliente.Endereco.Bairro = request.Bairro;
+            cliente.Endereco.Cidade = request.Cidade;
+            cliente.Endereco.Estado = request.Estado;
+            cliente.Endereco.Cep = request.Cep;
+            cliente.Endereco.Complemento = request.Complemento;
+        }
+
+        _context.SaveChanges();
+        return _mapper.Map<EnderecoResponse>(cliente.Endereco);
     }
 }

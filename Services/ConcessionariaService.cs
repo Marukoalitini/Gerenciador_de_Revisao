@@ -1,4 +1,5 @@
 using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using Motos.Data;
 using Motos.Dto.Request;
 using Motos.Dto.Response;
@@ -68,6 +69,54 @@ public class ConcessionariaService
         concessionaria.Ativo = false;
         concessionaria.DeletadoEm = DateTime.UtcNow;
         
+        _context.SaveChanges();
+    }
+
+    public EnderecoResponse AdicionarEndereco(int id, AdicionarEnderecoRequest request)
+    {
+        var concessionaria = _context.Concessionarias
+            .Include(c => c.Enderecos)
+            .FirstOrDefault(c => c.Id == id && c.Ativo);
+
+        if (concessionaria == null) throw new DomainException("Concessionária não encontrada.");
+
+        var endereco = _mapper.Map<Endereco>(request);
+
+        concessionaria.Enderecos.Add(endereco);
+        _context.SaveChanges();
+
+        return _mapper.Map<EnderecoResponse>(endereco);
+    }
+
+    public EnderecoResponse ObterEnderecoPorId(int concessionariaId, int enderecoId)
+    {
+        var concessionaria = _context.Concessionarias
+            .Include(c => c.Enderecos)
+            .FirstOrDefault(c => c.Id == concessionariaId && c.Ativo);
+
+        if (concessionaria == null) throw new DomainException("Concessionária não encontrada.");
+
+        var endereco = concessionaria.Enderecos.FirstOrDefault(e => e.Id == enderecoId);
+        
+        if (endereco == null) throw new DomainException("Endereço não encontrado ou não pertence a esta concessionária.");
+
+        return _mapper.Map<EnderecoResponse>(endereco);
+    }
+
+    public void RemoverEndereco(int concessionariaId, int enderecoId)
+    {
+        var concessionaria = _context.Concessionarias
+            .Include(c => c.Enderecos)
+            .FirstOrDefault(c => c.Id == concessionariaId && c.Ativo);
+
+        if (concessionaria == null) throw new DomainException("Concessionária não encontrada.");
+
+        var endereco = concessionaria.Enderecos.FirstOrDefault(e => e.Id == enderecoId);
+        
+        if (endereco == null) throw new DomainException("Endereço não encontrado ou não pertence a esta concessionária.");
+
+        concessionaria.Enderecos.Remove(endereco);
+        _context.Enderecos.Remove(endereco); // Remove explicitamente da tabela de endereços
         _context.SaveChanges();
     }
 }
