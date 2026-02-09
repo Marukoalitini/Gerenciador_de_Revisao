@@ -3,11 +3,16 @@ using Motos.Models;
 
 namespace Motos.Services;
 
-public static class ChecklistTemplateService
+public class ChecklistTemplateService
 {
-    private static List<ChecklistTemplate> Templates = new();
+    private List<ChecklistTemplate> _templates = [];
 
-    public static void Inicializar()
+    public ChecklistTemplateService()
+    {
+        Inicializar();
+    }
+
+    public void Inicializar()
     {
         try
         {
@@ -19,8 +24,8 @@ public static class ChecklistTemplateService
             var opcoes = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
             var carregados = JsonSerializer.Deserialize<List<ChecklistTemplate>>(json, opcoes);
 
-            Templates = carregados ?? new();
-            Console.WriteLine($"✓ {Templates.Count} templates de checklist carregados com sucesso.");
+            _templates = carregados ?? new();
+            Console.WriteLine($"✓ {_templates.Count} templates de checklist carregados com sucesso.");
         }
         catch (Exception ex)
         {
@@ -29,11 +34,11 @@ public static class ChecklistTemplateService
         }
     }
 
-    public static ChecklistTemplate? ObterPorId(int id) => Templates.FirstOrDefault(t => t.Id == id);
+    public ChecklistTemplate? ObterPorId(int id) => _templates.FirstOrDefault(t => t.Id == id);
 
-    public static List<ChecklistTemplate> ListarTodos() => new List<ChecklistTemplate>(Templates);
+    public List<ChecklistTemplate> ListarTodos() => new List<ChecklistTemplate>(_templates);
 
-    public static List<ChecklistTemplate> ListarPorNumeroRevisao(int numero) => Templates.Where(t => t.NumeroRevisao == numero).ToList();
+    public List<ChecklistTemplate> ListarPorNumeroRevisao(int numero) => _templates.Where(t => t.NumeroRevisao == numero).ToList();
 
-    public static List<ChecklistTemplate> ListarPorModelo(string modelo) => Templates.Where(t => t.Modelos.Contains(modelo)).ToList();
+    public List<ChecklistTemplate> ListarPorModelo(string modelo) => _templates.Where(t => t.Modelos.Contains(modelo)).ToList();
 }

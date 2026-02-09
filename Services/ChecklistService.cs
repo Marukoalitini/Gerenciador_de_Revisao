@@ -6,19 +6,28 @@ namespace Motos.Services;
 /// Serviço para converter ChecklistTemplate + Catálogo de itens em RevisaoItem.
 /// Responsável por "montar" os itens de uma revisão a partir de um template.
 /// </summary>
-public static class ChecklistService
+public class ChecklistService
 {
+	private readonly ItemCatalogoService _itemCatalogoService;
+	private readonly ChecklistTemplateService _checklistTemplateService;
+	public ChecklistService(ItemCatalogoService itemCatalogoService, ChecklistTemplateService checklistTemplateService)
+	{
+		_itemCatalogoService = itemCatalogoService;
+		_checklistTemplateService = checklistTemplateService;
+	}
+	
 	/// <summary>
 	/// Gera lista de RevisaoItem a partir de um ChecklistTemplate,
 	/// buscando os dados de ItemCatalogo para cada item do template.
 	/// </summary>
-	public static List<RevisaoItem> GerarItensParaRevisao(ChecklistTemplate template)
+	///
+	public List<RevisaoItem> GerarItensParaRevisao(ChecklistTemplate template)
 	{
 		var itensRevisao = new List<RevisaoItem>();
 
 		foreach (var itemTemplate in template.Itens.OrderBy(i => i.Ordem))
 		{
-			var itemCatalogo = ItemCatalogoService.ObterPorId(itemTemplate.ItemCatalogoId);
+			var itemCatalogo = _itemCatalogoService.ObterPorId(itemTemplate.ItemCatalogoId);
 			if (itemCatalogo == null)
 			{
 				Console.WriteLine($"⚠️  ItemCatalogo {itemTemplate.ItemCatalogoId} não encontrado no catálogo");
@@ -35,9 +44,9 @@ public static class ChecklistService
 	/// <summary>
 	/// Busca um template por modelo e número de revisão, depois gera os itens.
 	/// </summary>
-	public static List<RevisaoItem> GerarItensParaRevisao(string modelo, int numeroRevisao)
+	public List<RevisaoItem> GerarItensParaRevisao(string modelo, int numeroRevisao)
 	{
-		var template = ChecklistTemplateService.ListarPorModelo(modelo)
+		var template = _checklistTemplateService.ListarPorModelo(modelo)
 			.FirstOrDefault(t => t.NumeroRevisao == numeroRevisao);
 
 		if (template == null)
@@ -52,9 +61,9 @@ public static class ChecklistService
 	/// <summary>
 	/// Obtém um template pelo modelo e número de revisão.
 	/// </summary>
-	public static ChecklistTemplate? ObterTemplatePara(string modelo, int numeroRevisao)
+	public ChecklistTemplate? ObterTemplatePara(string modelo, int numeroRevisao)
 	{
-		return ChecklistTemplateService.ListarPorModelo(modelo)
+		return _checklistTemplateService.ListarPorModelo(modelo)
 			.FirstOrDefault(t => t.NumeroRevisao == numeroRevisao);
 	}
 }

@@ -19,7 +19,11 @@ builder.Services.AddControllers();
 builder.Services.AddScoped<AutenticacaoService>();
 builder.Services.AddScoped<ClienteService>();
 builder.Services.AddScoped<ConcessionariaService>();
+builder.Services.AddSingleton<ItemCatalogoService>();
+builder.Services.AddSingleton<ChecklistService>();
 builder.Services.AddSingleton<TokenService>();
+builder.Services.AddSingleton<RegraRevisaoService>();
+builder.Services.AddSingleton<ChecklistTemplateService>();
 builder.Services.AddEndpointsApiExplorer();
 
 var key = Encoding.ASCII.GetBytes(builder.Configuration["Jwt:Key"] ?? "chave_super_secreta_padrao_para_desenvolvimento_123");
@@ -84,13 +88,6 @@ using (var scope = app.Services.CreateScope())
     context.Database.Migrate();
 }
 
-// Inicializar catálogos e regras de revisão
-Console.WriteLine("\n📋 Carregando dados estáticos...");
-RegraRevisaoService.Inicializar();
-ItemCatalogoService.Inicializar();
-Console.WriteLine();
-ChecklistTemplateService.Inicializar();
-Console.WriteLine();
 
 app.UseExceptionHandler();
 

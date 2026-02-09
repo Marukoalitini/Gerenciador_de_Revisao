@@ -3,11 +3,16 @@ using Motos.Models;
 
 namespace Motos.Services;
 
-public static class RegraRevisaoService
+public class RegraRevisaoService
 {
-	private static List<RegraRevisao> Regras = new();
+	private List<RegraRevisao> _regras = [];
 
-	public static void Inicializar()
+	public RegraRevisaoService()
+	{
+		Inicializar();
+	}
+
+	public void Inicializar()
 	{
 		try
 		{
@@ -20,8 +25,8 @@ public static class RegraRevisaoService
 			var opcoesJson = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
 			var regrasCarregadas = JsonSerializer.Deserialize<List<RegraRevisao>>(json, opcoesJson);
 
-			Regras = regrasCarregadas ?? new();
-			Console.WriteLine($"✓ {Regras.Count} regras de revisão carregadas com sucesso.");
+			_regras = regrasCarregadas ?? new();
+			Console.WriteLine($"✓ {_regras.Count} regras de revisão carregadas com sucesso.");
 		}
 		catch (Exception ex)
 		{
@@ -30,13 +35,13 @@ public static class RegraRevisaoService
 		}
 	}
 
-	public static RegraRevisao? ObterPorNumero(int numeroRevisao)
+	public RegraRevisao? ObterPorNumero(int numeroRevisao)
 	{
-		return Regras.FirstOrDefault(r => r.NumeroRevisao == numeroRevisao);
+		return _regras.FirstOrDefault(r => r.NumeroRevisao == numeroRevisao);
 	}
 
-	public static List<RegraRevisao> ListarTodas()
+	public List<RegraRevisao> ListarTodas()
 	{
-		return new List<RegraRevisao>(Regras);
+		return new List<RegraRevisao>(_regras);
 	}
 }

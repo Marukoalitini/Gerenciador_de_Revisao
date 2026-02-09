@@ -5,11 +5,16 @@ using Motos.Models;
 
 namespace Motos.Services;
 
-public static class ItemCatalogoService
+public class ItemCatalogoService
 {
-	private static List<ItemCatalogo> Itens = new();
+	private List<ItemCatalogo> _itens = [];
 
-	public static void Inicializar()
+	public ItemCatalogoService()
+	{
+		Inicializar();
+	}
+
+	public void Inicializar()
 	{
 		try
 		{
@@ -26,8 +31,8 @@ public static class ItemCatalogoService
 			};
 			var itensCarregados = JsonSerializer.Deserialize<List<ItemCatalogo>>(json, opcoesJson);
 
-			Itens = itensCarregados ?? new();
-			Console.WriteLine($"✓ {Itens.Count} itens do catálogo carregados com sucesso.");
+			_itens = itensCarregados ?? new();
+			Console.WriteLine($"✓ {_itens.Count} itens do catálogo carregados com sucesso.");
 		}
 		catch (Exception ex)
 		{
@@ -36,18 +41,18 @@ public static class ItemCatalogoService
 		}
 	}
 
-	public static ItemCatalogo? ObterPorId(int id)
+	public ItemCatalogo? ObterPorId(int id)
 	{
-		return Itens.FirstOrDefault(i => i.Id == id);
+		return _itens.FirstOrDefault(i => i.Id == id);
 	}
 
-	public static List<ItemCatalogo> ListarTodos()
+	public List<ItemCatalogo> ListarTodos()
 	{
-		return new List<ItemCatalogo>(Itens);
+		return new List<ItemCatalogo>(_itens);
 	}
 
-	public static List<ItemCatalogo> ListarPorTipo(TipoItemRevisao tipo)
+	public List<ItemCatalogo> ListarPorTipo(TipoItemRevisao tipo)
 	{
-		return Itens.Where(i => i.Tipo == tipo).ToList();
+		return _itens.Where(i => i.Tipo == tipo).ToList();
 	}
 }

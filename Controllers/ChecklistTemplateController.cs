@@ -10,10 +10,19 @@ namespace Motos.Controllers;
 [Route("api/[controller]")]
 public class ChecklistTemplateController : ControllerBase
 {
+	private readonly ChecklistTemplateService _checklistTemplateService;
+	private readonly ChecklistService _checklistService;
+
+	public ChecklistTemplateController(ChecklistTemplateService checklistTemplateService, ChecklistService checklistService)
+	{
+		_checklistTemplateService = checklistTemplateService;
+		_checklistService = checklistService;
+		
+	}
 	[HttpGet]
 	public ActionResult<IEnumerable<ChecklistTemplateResponse>> GetAll()
 	{
-		var templates = ChecklistTemplateService.ListarTodos();
+		var templates = _checklistTemplateService.ListarTodos();
 		var dtos = templates.Select(t => ToDto(t)).ToList();
 		return Ok(dtos);
 	}
@@ -21,7 +30,7 @@ public class ChecklistTemplateController : ControllerBase
 	[HttpGet("{id}")]
 	public ActionResult<ChecklistTemplateResponse> GetById(int id)
 	{
-		var template = ChecklistTemplateService.ObterPorId(id);
+		var template = _checklistTemplateService.ObterPorId(id);
 		if (template == null) return NotFound();
 		return Ok(ToDto(template));
 	}
@@ -33,10 +42,10 @@ public class ChecklistTemplateController : ControllerBase
 	[HttpGet("{id}/itens")]
 	public ActionResult<List<RevisaoItem>> GerarItensRevisao(int id)
 	{
-		var template = ChecklistTemplateService.ObterPorId(id);
+		var template = _checklistTemplateService.ObterPorId(id);
 		if (template == null) return NotFound(new { mensagem = "Template não encontrado" });
 
-		var itens = ChecklistService.GerarItensParaRevisao(template);
+		var itens = _checklistService.GerarItensParaRevisao(template);
 		return Ok(itens);
 	}
 
