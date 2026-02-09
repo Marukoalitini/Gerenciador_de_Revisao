@@ -1,10 +1,12 @@
 namespace Motos.Dto.Response;
 
-public record class EnderecoResponse(
+public record EnderecoResponse(
     int Id,
-    string Cep,
     string Rua,
     int Numero,
     string Bairro,
+    string Cidade,
+    string Estado,
+    string Cep,
     string? Complemento
 );
