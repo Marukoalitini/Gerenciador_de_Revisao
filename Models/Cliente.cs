@@ -10,4 +10,8 @@ public class Cliente
     public required string Telefone { get; set; }
     public required string Celular { get; set; }
     public required string Cpf { get; set; }
+    public DateTime CriadoEm { get; set; } = DateTime.UtcNow;
+    public DateTime? AtualizadoEm { get; set; }
+    public DateTime? DeletadoEm { get; set; }
+    public bool Ativo { get; set; } = true;
 }
