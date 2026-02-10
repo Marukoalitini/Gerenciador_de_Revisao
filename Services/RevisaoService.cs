@@ -1,6 +1,8 @@
+using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Motos.Data;
 using Motos.Dto.Request;
+using Motos.Dto.Response;
 using Motos.Exceptions;
 using Motos.Models;
 
@@ -10,51 +12,39 @@ public class RevisaoService
 {
 	private readonly AppDbContext _db;
 	private readonly ChecklistService _checklistService;
+	private readonly IMapper _mapper;
 
-	public RevisaoService(AppDbContext db, ChecklistService checklistService)
+	public RevisaoService(AppDbContext db, ChecklistService checklistService, IMapper mapper)
 	{
 		_db = db;
 		_checklistService = checklistService;
+		_mapper = mapper;
 	}
 
-	public async Task<Revisao> CriarRevisaoAsync(RevisaoRequest req)
+	public async Task<RevisaoResponse> CriarRevisaoAsync(RevisaoRequest req)
 	{
 		// Valida Moto
 		var moto = await _db.Motos.FindAsync(req.MotoId);
-		if (moto == null) throw new DomainException("Moto não encontrada.");
+		if (moto == null) throw new NotFoundException("Moto não encontrada.");
 
 		// Valida Cliente
 		var cliente = await _db.Clientes.FindAsync(req.ClienteId);
-		if (cliente == null) throw new DomainException("Cliente não encontrado.");
+		if (cliente == null) throw new NotFoundException("Cliente não encontrado.");
 
 		if (moto.ClienteId != req.ClienteId)
 			throw new DomainException("Moto não pertence ao cliente informado.");
 
 		// Valida concessionaria (opcional)
-		Concessionaria? concessionaria = null;
 		if (req.ConcessionariaResponsavelId.HasValue)
 		{
-			concessionaria = await _db.Concessionarias.FindAsync(req.ConcessionariaResponsavelId.Value);
-			if (concessionaria == null) throw new DomainException("Concessionária não encontrada.");
+			var concessionaria = await _db.Concessionarias.FindAsync(req.ConcessionariaResponsavelId.Value);
+			if (concessionaria == null) throw new NotFoundException("Concessionária não encontrada.");
 		}
 
-		// Monta Revisao
-		var revisao = new Revisao
-		{
-			Numero = req.Numero,
-			ClienteId = req.ClienteId,
-			MotoId = req.MotoId,
-			KmMaximo = req.KmMaximo,
-			TempoMaximo = req.TempoMaximo,
-			KmAtual = req.KmAtual,
-			DataRevisao = req.DataRevisao,
-			ValorTotal = req.ValorTotal,
-			NotaDeServico = req.NotaDeServico,
-			ConcessionariaResponsavelId = req.ConcessionariaResponsavelId,
-		};
+		// Monta Revisao usando AutoMapper
+		var revisao = _mapper.Map<Revisao>(req);
 
 		// Gerar itens via ChecklistService, se possível
-		
 		var itens = _checklistService.GerarItensParaRevisao(moto.ModeloMoto.ToString(), revisao.Numero);
 		revisao.Itens = itens;
 		revisao.ValorTotal = itens.Sum(i => i.Valor ?? 0.0);
@@ -66,11 +56,6 @@ public class RevisaoService
 			_db.Revisoes.Add(revisao);
 			await _db.SaveChangesAsync();
 			
-			moto.ClienteId = req.ClienteId;
-			_db.Motos.Update(moto);
-			
-			await _db.SaveChangesAsync();
-
 			await tx.CommitAsync();
 		}
 		catch
@@ -79,20 +64,24 @@ public class RevisaoService
 			throw;
 		}
 
-		return revisao;
+		return _mapper.Map<RevisaoResponse>(revisao);
 	}
 
-	public async Task<Revisao?> ObterPorIdAsync(int id)
+	public async Task<RevisaoResponse> ObterPorIdAsync(int id)
 	{
-		return await _db.Revisoes
+		var revisao = await _db.Revisoes
 			.Include(r => r.Itens)
 			.Include(r => r.Cliente)
 			.Include(r => r.Moto)
 			.Include(r => r.ConcessionariaResponsavel)
 			.FirstOrDefaultAsync(r => r.Id == id);
+
+		if (revisao == null) throw new NotFoundException("Revisão não encontrada.");
+
+		return _mapper.Map<RevisaoResponse>(revisao);
 	}
 
-	public async Task<List<Revisao>> ListarAsync(int? concessionariaId = null, int? clienteId = null)
+	public async Task<List<RevisaoResponse>> ListarAsync(int? concessionariaId = null, int? clienteId = null)
 	{
 		var query = _db.Revisoes
 			.Include(r => r.Itens)
@@ -103,13 +92,14 @@ public class RevisaoService
 		if (concessionariaId.HasValue) query = query.Where(r => r.ConcessionariaResponsavelId == concessionariaId.Value);
 		if (clienteId.HasValue) query = query.Where(r => r.ClienteId == clienteId.Value);
 
-		return await query.OrderByDescending(r => r.DataRevisao).ToListAsync();
+		var list = await query.OrderByDescending(r => r.DataRevisao).ToListAsync();
+		return _mapper.Map<List<RevisaoResponse>>(list);
 	}
 
 	public async Task ExecutarRevisaoAsync(int id)
 	{
 		var revisao = await _db.Revisoes.FindAsync(id);
-		if (revisao == null) throw new DomainException("Revisão não encontrada.");
+		if (revisao == null) throw new NotFoundException("Revisão não encontrada.");
 
 		revisao.Status = Enums.StatusRevisao.Executada;
 		_db.Revisoes.Update(revisao);
@@ -119,7 +109,7 @@ public class RevisaoService
 	public async Task DeletarAsync(int id)
 	{
 		var revisao = await _db.Revisoes.FindAsync(id);
-		if (revisao == null) throw new DomainException("Revisão não encontrada.");
+		if (revisao == null) throw new NotFoundException("Revisão não encontrada.");
 
 		_db.Revisoes.Remove(revisao);
 		await _db.SaveChangesAsync();

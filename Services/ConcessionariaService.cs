@@ -25,7 +25,7 @@ public class ConcessionariaService
         // verificar se email ou cnpj já existe
         if (_context.Concessionarias.Any(c =>
                 c.Email == concessionariaRequest.Email || c.Cnpj == concessionariaRequest.Cnpj))
-            throw new DomainException("Email ou CNPJ já cadastrado.");
+            throw new ConflictException("Email ou CNPJ já cadastrado.");
 
         string senhaCriptografada = GeradorHash.HashPassword(concessionariaRequest.Senha);
 
@@ -41,7 +41,7 @@ public class ConcessionariaService
     public ConcessionariaResponse ObterConcessionariaPorId(int id)
     {
         var concessionaria = _context.Concessionarias.FirstOrDefault(c => c.Id == id && c.Ativo);
-        if (concessionaria == null) throw new DomainException("Concessionária não encontrada.");
+        if (concessionaria == null) throw new NotFoundException("Concessionária não encontrada.");
 
         return _mapper.Map<ConcessionariaResponse>(concessionaria);
     }
@@ -49,10 +49,10 @@ public class ConcessionariaService
     public ConcessionariaResponse AtualizarConcessionaria(int id, AtualizarConcessionariaRequest request)
     {
         var concessionaria = _context.Concessionarias.FirstOrDefault(c => c.Id == id && c.Ativo);
-        if (concessionaria == null) throw new DomainException("Concessionária não encontrada.");
+        if (concessionaria == null) throw new NotFoundException("Concessionária não encontrada.");
 
         if (!string.IsNullOrEmpty(request.Email) && concessionaria.Email != request.Email && _context.Concessionarias.Any(c => c.Email == request.Email))
-            throw new DomainException("Email já cadastrado.");
+            throw new ConflictException("Email já cadastrado.");
 
         _mapper.Map(request, concessionaria);
         concessionaria.AtualizadoEm = DateTime.UtcNow;
@@ -64,7 +64,7 @@ public class ConcessionariaService
     public void DeletarConcessionaria(int id)
     {
         var concessionaria = _context.Concessionarias.FirstOrDefault(c => c.Id == id && c.Ativo);
-        if (concessionaria == null) throw new DomainException("Concessionária não encontrada.");
+        if (concessionaria == null) throw new NotFoundException("Concessionária não encontrada.");
 
         concessionaria.Ativo = false;
         concessionaria.DeletadoEm = DateTime.UtcNow;
@@ -78,7 +78,7 @@ public class ConcessionariaService
             .Include(c => c.Enderecos)
             .FirstOrDefault(c => c.Id == id && c.Ativo);
 
-        if (concessionaria == null) throw new DomainException("Concessionária não encontrada.");
+        if (concessionaria == null) throw new NotFoundException("Concessionária não encontrada.");
 
         var endereco = _mapper.Map<Endereco>(request);
 
@@ -94,11 +94,11 @@ public class ConcessionariaService
             .Include(c => c.Enderecos)
             .FirstOrDefault(c => c.Id == concessionariaId && c.Ativo);
 
-        if (concessionaria == null) throw new DomainException("Concessionária não encontrada.");
+        if (concessionaria == null) throw new NotFoundException("Concessionária não encontrada.");
 
         var endereco = concessionaria.Enderecos.FirstOrDefault(e => e.Id == enderecoId);
         
-        if (endereco == null) throw new DomainException("Endereço não encontrado ou não pertence a esta concessionária.");
+        if (endereco == null) throw new NotFoundException("Endereço não encontrado ou não pertence a esta concessionária.");
 
         return _mapper.Map<EnderecoResponse>(endereco);
     }
@@ -109,11 +109,11 @@ public class ConcessionariaService
             .Include(c => c.Enderecos)
             .FirstOrDefault(c => c.Id == concessionariaId && c.Ativo);
 
-        if (concessionaria == null) throw new DomainException("Concessionária não encontrada.");
+        if (concessionaria == null) throw new NotFoundException("Concessionária não encontrada.");
 
         var endereco = concessionaria.Enderecos.FirstOrDefault(e => e.Id == enderecoId);
         
-        if (endereco == null) throw new DomainException("Endereço não encontrado ou não pertence a esta concessionária.");
+        if (endereco == null) throw new NotFoundException("Endereço não encontrado ou não pertence a esta concessionária.");
 
         concessionaria.Enderecos.Remove(endereco);
         _context.Enderecos.Remove(endereco); // Remove explicitamente da tabela de endereços
