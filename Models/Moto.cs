@@ -1,3 +1,5 @@
+using Motos.Enums;
+
 namespace Motos.Models;
 
 public class Moto

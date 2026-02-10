@@ -37,18 +37,11 @@ public class AppDbContext : DbContext
         // Moto unique constraints
         modelBuilder.Entity<Moto>()
             .HasIndex(m => m.Placa)
-            .IsUnique(false);
+            .IsUnique(true);
 
         modelBuilder.Entity<Moto>()
             .HasIndex(m => m.NumeroChassi)
-            .IsUnique(false);
-
-        // Cliente -> Motos (1 - many)
-        modelBuilder.Entity<Cliente>()
-            .HasMany(c => c.Motos)
-            .WithOne(m => m.Cliente)
-            .HasForeignKey(m => m.ClienteId)
-            .OnDelete(DeleteBehavior.SetNull);
+            .IsUnique(true);
 
         // Revisao status enum as string
         modelBuilder.Entity<Revisao>()

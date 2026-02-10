@@ -27,7 +27,7 @@ public class RevisaoService
 		var cliente = await _db.Clientes.FindAsync(req.ClienteId);
 		if (cliente == null) throw new DomainException("Cliente não encontrado.");
 
-		if (moto.ClienteId.HasValue && moto.ClienteId != req.ClienteId)
+		if (moto.ClienteId != req.ClienteId)
 			throw new DomainException("Moto não pertence ao cliente informado.");
 
 		// Valida concessionaria (opcional)
@@ -54,26 +54,22 @@ public class RevisaoService
 		};
 
 		// Gerar itens via ChecklistService, se possível
-		if (moto.Modelo != null)
-		{
-			var itens = _checklistService.GerarItensParaRevisao(moto.Modelo!.ToString(), revisao.Numero);
-			revisao.Itens = itens;
-			revisao.ValorTotal = itens.Sum(i => i.Valor ?? 0.0);
-		}
+		
+		var itens = _checklistService.GerarItensParaRevisao(moto.ModeloMoto.ToString(), revisao.Numero);
+		revisao.Itens = itens;
+		revisao.ValorTotal = itens.Sum(i => i.Valor ?? 0.0);
+		
 
 		await using var tx = await _db.Database.BeginTransactionAsync();
 		try
 		{
 			_db.Revisoes.Add(revisao);
 			await _db.SaveChangesAsync();
-
-			// Ensure moto owner set
-			if (!moto.ClienteId.HasValue)
-			{
-				moto.ClienteId = req.ClienteId;
-				_db.Motos.Update(moto);
-				await _db.SaveChangesAsync();
-			}
+			
+			moto.ClienteId = req.ClienteId;
+			_db.Motos.Update(moto);
+			
+			await _db.SaveChangesAsync();
 
 			await tx.CommitAsync();
 		}
