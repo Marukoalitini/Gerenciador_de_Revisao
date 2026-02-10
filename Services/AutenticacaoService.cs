@@ -23,9 +23,9 @@ public class AutenticacaoService
         if (cliente == null || !GeradorHash.Verify(loginRequest.Senha, cliente.Senha))
             throw new UnauthorizedAccessException("Email ou Senha incorretos");
 
-        var token = _tokenService.GerarToken(cliente.Id, cliente.Nome, cliente.Email, "Cliente");
+        var token = _tokenService.GerarToken(cliente.Id, cliente.NomeCliente, cliente.Email, "Cliente");
         
-        return new LoginResponse(cliente.Nome, cliente.Email, token);
+        return new LoginResponse(cliente.NomeCliente, cliente.Email, token);
     }
 
     public LoginResponse LoginConcessionaria(LoginRequest loginRequest)
@@ -35,8 +35,8 @@ public class AutenticacaoService
         if (concessionaria == null || !GeradorHash.Verify(loginRequest.Senha, concessionaria.Senha))
             throw new UnauthorizedAccessException("Email ou Senha incorretos");
 
-        var token = _tokenService.GerarToken(concessionaria.Id, concessionaria.Nome, concessionaria.Email, "Concessionaria");
+        var token = _tokenService.GerarToken(concessionaria.Id, concessionaria.NomeConcessionaria, concessionaria.Email, "Concessionaria");
 
-        return new LoginResponse(concessionaria.Nome, concessionaria.Email, token);
+        return new LoginResponse(concessionaria.NomeConcessionaria, concessionaria.Email, token);
     }
 }

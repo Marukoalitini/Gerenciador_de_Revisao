@@ -33,5 +33,38 @@ public class AppDbContext : DbContext
             .HasMany(c => c.ChecklistTemplates)
             .WithMany(t => t.Concessionarias)
             .UsingEntity("ConcessionariaChecklistTemplate");
+
+        // Moto unique constraints
+        modelBuilder.Entity<Moto>()
+            .HasIndex(m => m.Placa)
+            .IsUnique(true);
+
+        modelBuilder.Entity<Moto>()
+            .HasIndex(m => m.NumeroChassi)
+            .IsUnique(true);
+
+        // Revisao status enum as string
+        modelBuilder.Entity<Revisao>()
+            .Property(r => r.Status)
+            .HasConversion<string>();
+
+        // Revisao relationships
+        modelBuilder.Entity<Revisao>()
+            .HasOne(r => r.Cliente)
+            .WithMany()
+            .HasForeignKey(r => r.ClienteId)
+            .OnDelete(DeleteBehavior.Cascade);
+
+        modelBuilder.Entity<Revisao>()
+            .HasOne(r => r.Moto)
+            .WithMany(m => m.Revisoes)
+            .HasForeignKey(r => r.MotoId)
+            .OnDelete(DeleteBehavior.Cascade);
+
+        modelBuilder.Entity<Revisao>()
+            .HasOne(r => r.ConcessinariaResposavel)
+            .WithMany(c => c.Revisoes)
+            .HasForeignKey(r => r.ConcessionariaId)
+            .OnDelete(DeleteBehavior.SetNull);
     }
 }

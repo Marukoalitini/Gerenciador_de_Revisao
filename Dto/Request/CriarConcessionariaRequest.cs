@@ -4,7 +4,7 @@ namespace Motos.Dto.Request;
 
 public record CriarConcessionariaRequest (
     [Required(ErrorMessage = "O Nome é obrigatório.")]
-    string Nome,
+    string NomeConcessionaria,
     [Required(ErrorMessage = "O Email é obrigatório.")]
     [EmailAddress(ErrorMessage = "Formato de email inválido.")]
     string Email,

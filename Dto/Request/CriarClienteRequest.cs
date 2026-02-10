@@ -5,7 +5,7 @@ namespace Motos.Dto.Request;
 public record CriarClienteRequest
 (
     [Required(ErrorMessage = "O nome é obrigatório.")]
-    string Nome,
+    string NomeCliente,
     [Required(ErrorMessage = "O email é obrigatório.")]
     [EmailAddress(ErrorMessage = "Formato de email inválido.")]
     string Email,

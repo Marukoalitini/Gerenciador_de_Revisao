@@ -19,6 +19,8 @@ builder.Services.AddControllers();
 builder.Services.AddScoped<AutenticacaoService>();
 builder.Services.AddScoped<ClienteService>();
 builder.Services.AddScoped<ConcessionariaService>();
+builder.Services.AddScoped<RevisaoService>();
+builder.Services.AddScoped<RevisaoService>();
 builder.Services.AddSingleton<ItemCatalogoService>();
 builder.Services.AddSingleton<ChecklistService>();
 builder.Services.AddSingleton<TokenService>();

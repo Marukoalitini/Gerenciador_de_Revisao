@@ -19,5 +19,4 @@ public record RevisaoRequest(
     List<RevisaoItemRequest> Itens,
     double ValorTotal,
     string? NotaDeServico,
-    int? ConcessionariaId,
-    bool Executada = false);
+    int? ConcessionariaId);
