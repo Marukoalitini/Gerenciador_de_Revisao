@@ -1,9 +1,7 @@
 using System.Security.Claims;
-using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Motos.Dto.Request;
-using Motos.Dto.Response;
 using Motos.Services;
 
 namespace Motos.Controllers;
@@ -13,12 +11,10 @@ namespace Motos.Controllers;
 public class RevisaoController : ControllerBase
 {
 	private readonly RevisaoService _service;
-	private readonly IMapper _mapper;
 
-	public RevisaoController(RevisaoService service, IMapper mapper)
+	public RevisaoController(RevisaoService service)
 	{
 		_service = service;
-		_mapper = mapper;
 	}
 
 	[Authorize]
@@ -32,11 +28,9 @@ public class RevisaoController : ControllerBase
 		if (request.ClienteId != userId && !User.IsInRole("Concessionaria"))
 			return Forbid();
 
-		var revisao = await _service.CriarRevisaoAsync(request);
+		var response = await _service.CriarRevisaoAsync(request);
 
-		var response = _mapper.Map<RevisaoResponse>(revisao);
-
-		return CreatedAtAction(nameof(ObterPorId), new { id = revisao.Id }, response);
+		return CreatedAtAction(nameof(ObterPorId), new { id = response.Id }, response);
 	}
 
 	[Authorize]
@@ -44,21 +38,15 @@ public class RevisaoController : ControllerBase
 	public async Task<IActionResult> Listar([FromQuery] int? concessionariaId, [FromQuery] int? clienteId)
 	{
 		var list = await _service.ListarAsync(concessionariaId, clienteId);
-		var resp = _mapper.Map<List<RevisaoResponse>>(list);
-
-	return Ok(resp);
+		return Ok(list);
 	}
 
 	[Authorize]
 	[HttpGet("{id}")]
 	public async Task<IActionResult> ObterPorId(int id)
 	{
-		var r = await _service.ObterPorIdAsync(id);
-		if (r == null) return NotFound();
-
-		var resp = _mapper.Map<RevisaoResponse>(r);
-
-		return Ok(resp);
+		var response = await _service.ObterPorIdAsync(id);
+		return Ok(response);
 	}
 
 	[Authorize(Roles = "Concessionaria")]

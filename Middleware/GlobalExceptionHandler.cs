@@ -32,6 +32,16 @@ public class GlobalExceptionHandler : IExceptionHandler
                 detalhesProblema.Status = StatusCodes.Status400BadRequest;
                 detalhesProblema.Detail = excecaoDominio.Message;
                 break;
+            case NotFoundException excecaoNaoEncontrado:
+                detalhesProblema.Title = "Recurso Não Encontrado";
+                detalhesProblema.Status = StatusCodes.Status404NotFound;
+                detalhesProblema.Detail = excecaoNaoEncontrado.Message;
+                break;
+            case ConflictException excecaoConflito:
+                detalhesProblema.Title = "Conflito de Dados";
+                detalhesProblema.Status = StatusCodes.Status409Conflict;
+                detalhesProblema.Detail = excecaoConflito.Message;
+                break;
             case UnauthorizedAccessException:
                 detalhesProblema.Title = "Não Autorizado";
                 detalhesProblema.Status = StatusCodes.Status401Unauthorized;

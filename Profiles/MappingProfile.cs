@@ -1,6 +1,7 @@
 using AutoMapper;
 using Motos.Dto.Request;
 using Motos.Dto.Response;
+using Motos.Enums;
 using Motos.Models;
 
 namespace Motos.Profiles;
@@ -32,6 +33,19 @@ public class MappingProfile : Profile
         CreateMap<Endereco, EnderecoResponse>();
         CreateMap<Moto, MotoResponse>();
         CreateMap<Revisao, RevisaoResponse>();
+            
         CreateMap<RevisaoItem, RevisaoItemResponse>();
+        
+        CreateMap<ItemTemplate, ItemTemplateResponse>();
+        CreateMap<ChecklistTemplate, ChecklistTemplateResponse>()
+            .ForCtorParam("Modelos", opt => opt.MapFrom(src => 
+                src.Modelos.Select(m => ObterNomeModelo(m)).ToList()));
+    }
+
+    private string ObterNomeModelo(string modeloStr)
+    {
+        return Enum.TryParse<ModeloMoto>(modeloStr, out var modelo) 
+            ? modelo.GetDisplayName() 
+            : modeloStr;
     }
 }

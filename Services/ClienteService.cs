@@ -24,7 +24,7 @@ public class ClienteService
     {
         // verificar se email ou cpf já existe
         if (_context.Clientes.Any(c => c.Email == clienteRequest.Email || c.Cpf == clienteRequest.Cpf))
-            throw new DomainException("Email ou CPF já cadastrado.");
+            throw new ConflictException("Email ou CPF já cadastrado.");
 
         string senhaCriptografada = GeradorHash.HashPassword(clienteRequest.Senha);
 
@@ -40,7 +40,7 @@ public class ClienteService
     public ClienteResponse ObterClientePorId(int id)
     {
         var cliente = _context.Clientes.FirstOrDefault(c => c.Id == id && c.Ativo);
-        if (cliente == null) throw new DomainException("Cliente não encontrado.");
+        if (cliente == null) throw new NotFoundException("Cliente não encontrado.");
 
         return _mapper.Map<ClienteResponse>(cliente);
     }
@@ -48,10 +48,10 @@ public class ClienteService
     public ClienteResponse AtualizarContato(int id, AtualizarClienteRequest request)
     {
         var cliente = _context.Clientes.FirstOrDefault(c => c.Id == id && c.Ativo);
-        if (cliente == null) throw new DomainException("Cliente não encontrado.");
+        if (cliente == null) throw new NotFoundException("Cliente não encontrado.");
 
         if (!string.IsNullOrEmpty(request.Email) && cliente.Email != request.Email && _context.Clientes.Any(c => c.Email == request.Email))
-            throw new DomainException("Email já cadastrado.");
+            throw new ConflictException("Email já cadastrado.");
 
         _mapper.Map(request, cliente);
         cliente.AtualizadoEm = DateTime.UtcNow;
@@ -63,7 +63,7 @@ public class ClienteService
     public void DeletarCliente(int id)
     {
         var cliente = _context.Clientes.FirstOrDefault(c => c.Id == id && c.Ativo);
-        if (cliente == null) throw new DomainException("Cliente não encontrado.");
+        if (cliente == null) throw new NotFoundException("Cliente não encontrado.");
 
         cliente.Ativo = false;
         cliente.DeletadoEm = DateTime.UtcNow;
@@ -77,7 +77,7 @@ public class ClienteService
             .Include(c => c.Endereco)
             .FirstOrDefault(c => c.Id == id && c.Ativo);
             
-        if (cliente == null) throw new DomainException("Cliente não encontrado.");
+        if (cliente == null) throw new NotFoundException("Cliente não encontrado.");
 
         // Se o cliente ainda não tem endereço, instanciamos um novo
         if (cliente.Endereco == null)
@@ -86,13 +86,7 @@ public class ClienteService
         }
         else
         {
-            cliente.Endereco.Rua = request.Rua;
-            cliente.Endereco.Numero = request.Numero;
-            cliente.Endereco.Bairro = request.Bairro;
-            cliente.Endereco.Cidade = request.Cidade;
-            cliente.Endereco.Estado = request.Estado;
-            cliente.Endereco.Cep = request.Cep;
-            cliente.Endereco.Complemento = request.Complemento;
+            _mapper.Map(request, cliente.Endereco);
         }
 
         _context.SaveChanges();
@@ -102,11 +96,11 @@ public class ClienteService
     public MotoResponse CadastrarMoto(int clienteId, MotoRequest request)
     {
         var cliente = _context.Clientes.FirstOrDefault(c => c.Id == clienteId && c.Ativo);
-        if (cliente == null) throw new DomainException("Cliente não encontrado.");
+        if (cliente == null) throw new NotFoundException("Cliente não encontrado.");
         
         // Verificar se já existe moto com esse chassi ou placa
         if (_context.Motos.Any(m => m.NumeroChassi == request.NumeroChassi || m.Placa == request.Placa))
-            throw new DomainException("Moto com este chassi ou placa já cadastrada.");
+            throw new ConflictException("Moto com este chassi ou placa já cadastrada.");
 
         var moto = _mapper.Map<Moto>(request);
         moto.ClienteId = clienteId;
@@ -128,7 +122,7 @@ public class ClienteService
     public MotoResponse ObterMotoPorId(int clienteId, int motoId)
     {
         var moto = _context.Motos.FirstOrDefault(m => m.Id == motoId && m.ClienteId == clienteId && m.Ativo);
-        if (moto == null) throw new DomainException("Moto não encontrada ou não pertence ao cliente.");
+        if (moto == null) throw new NotFoundException("Moto não encontrada ou não pertence ao cliente.");
 
         return _mapper.Map<MotoResponse>(moto);
     }
@@ -136,7 +130,7 @@ public class ClienteService
     public MotoResponse EditarMoto(int clienteId, string placa, AtualizarMotoRequest request)
     {
         var moto = _context.Motos.FirstOrDefault(m => m.Placa == placa && m.ClienteId == clienteId && m.Ativo);
-        if (moto == null) throw new DomainException("Moto não encontrada ou não pertence ao cliente.");
+        if (moto == null) throw new NotFoundException("Moto não encontrada ou não pertence ao cliente.");
 
         _mapper.Map(request, moto);
         
@@ -148,7 +142,7 @@ public class ClienteService
     public void RemoverMoto(int clienteId, string placa)
     {
         var moto = _context.Motos.FirstOrDefault(m => m.Placa == placa && m.ClienteId == clienteId && m.Ativo);
-        if (moto == null) throw new DomainException("Moto não encontrada ou não pertence ao cliente.");
+        if (moto == null) throw new NotFoundException("Moto não encontrada ou não pertence ao cliente.");
 
         moto.Ativo = false;
         moto.DeletadoEm = DateTime.UtcNow;
