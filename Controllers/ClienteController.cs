@@ -37,12 +37,12 @@ public class ClienteController : ControllerBase
 
     [Authorize(Roles = "Cliente")]
     [HttpPut]
-    public IActionResult AtualizarCliente(AtualizarClienteRequest request)
+    public IActionResult AtualizarContato(AtualizarClienteRequest request)
     {
         var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value ?? "0");
         if (userId <= 0) return Forbid();
 
-        var response = _service.AtualizarCliente(userId, request);
+        var response = _service.AtualizarContato(userId, request);
         return Ok(response);
     }
 
@@ -68,6 +68,50 @@ public class ClienteController : ControllerBase
         if (userId <= 0) return Forbid();
 
         var response = _service.DefinirEndereco(userId, request);
+        return Ok(response);
+    }
+
+    [Authorize(Roles = "Cliente")]
+    [HttpPost("motos")]
+    public IActionResult AdicionarMoto(MotoRequest request)
+    {
+        var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value ?? "0");
+        if (userId <= 0) return Forbid();
+
+        var response = _service.CadastrarMoto(userId, request);
+        return CreatedAtAction(nameof(ObterMoto), new { id = response.Id }, response);
+    }
+    
+    [Authorize(Roles = "Cliente")]
+    [HttpPut("motos")]
+    public IActionResult EditarMoto(string placa, AtualizarMotoRequest request)
+    {
+        var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value ?? "0");
+        if (userId <= 0) return Forbid();
+
+        var response = _service.EditarMoto(userId, placa, request);
+        return Ok(response);
+    }
+
+    [Authorize(Roles = "Cliente")]
+    [HttpGet("motos")]
+    public IActionResult ObterMotos()
+    {
+        var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value ?? "0");
+        if (userId <= 0) return Forbid();
+
+        var response = _service.ObterMotosDoCliente(userId);
+        return Ok(response);
+    }
+
+    [Authorize(Roles = "Cliente")]
+    [HttpGet("motos/{id}")]
+    public IActionResult ObterMoto(int id)
+    {
+        var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value ?? "0");
+        if (userId <= 0) return Forbid();
+
+        var response = _service.ObterMotoPorId(userId, id);
         return Ok(response);
     }
 }
