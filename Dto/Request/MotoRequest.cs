@@ -1,8 +1,12 @@
 using System.ComponentModel.DataAnnotations;
+using Motos.Enums;
 
 namespace Motos.Dto.Request;
 
 public record MotoRequest(
+    [Required(ErrorMessage = "O modelo é obrigatório.")]
+    [EnumDataType(typeof(ModeloMoto), ErrorMessage = "O modelo informado não é válido.")]
+    ModeloMoto ModeloMoto,
     [Required(ErrorMessage = "A cor é obrigatória.")]
     string Cor,
     [Required(ErrorMessage = "O número do chassi é obrigatório.")]

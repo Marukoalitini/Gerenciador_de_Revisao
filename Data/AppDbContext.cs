@@ -8,7 +8,7 @@ public class AppDbContext : DbContext
     public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
     {
     }
-
+    
     public DbSet<Moto> Motos { get; set; }
     public DbSet<Cliente> Clientes { get; set; }
     public DbSet<Endereco> Enderecos { get; set; }
@@ -21,6 +21,12 @@ public class AppDbContext : DbContext
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         base.OnModelCreating(modelBuilder);
+
+        modelBuilder.Entity<Moto>()
+            .HasOne(m => m.Cliente)
+            .WithMany(c => c.Motos)
+            .HasForeignKey(m => m.ClienteId)
+            .OnDelete(DeleteBehavior.Restrict);
 
         // Many-to-many between Concessionaria and ChecklistTemplate
         modelBuilder.Entity<Concessionaria>()

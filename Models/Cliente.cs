@@ -15,4 +15,5 @@ public class Cliente
     public DateTime? AtualizadoEm { get; set; }
     public DateTime? DeletadoEm { get; set; }
     public bool Ativo { get; set; } = true;
+    public List<Moto> Motos { get; set; } = [];
 }

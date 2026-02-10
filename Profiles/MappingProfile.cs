@@ -22,7 +22,10 @@ public class MappingProfile : Profile
 
         CreateMap<AtualizarConcessionariaRequest, Concessionaria>()
             .ForAllMembers(opts => opts.Condition((src, dest, srcMember) => srcMember != null));
-
+        
+        CreateMap<AtualizarMotoRequest, Moto>()
+            .ForAllMembers(opts => opts.Condition((src, dest, srcMember) => srcMember != null));
+        
         // Response
         CreateMap<Cliente, ClienteResponse>();
         CreateMap<Concessionaria, ConcessionariaResponse>();
