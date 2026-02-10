@@ -92,7 +92,7 @@ public class RevisaoService
 		if (concessionariaId.HasValue) query = query.Where(r => r.ConcessionariaResponsavelId == concessionariaId.Value);
 		if (clienteId.HasValue) query = query.Where(r => r.ClienteId == clienteId.Value);
 
-		var list = await query.OrderByDescending(r => r.DataRevisao).ToListAsync();
+		var list = await query.OrderByDescending(r => r.DataAgendada).ToListAsync();
 		return _mapper.Map<List<RevisaoResponse>>(list);
 	}
 

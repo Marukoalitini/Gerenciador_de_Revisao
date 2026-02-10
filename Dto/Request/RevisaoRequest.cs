@@ -9,12 +9,8 @@ public record RevisaoRequest(
     int ClienteId,
     [Required(ErrorMessage = "O ID da moto é obrigatório.")]
     int MotoId,
-    [Required(ErrorMessage = "A quilometragem máxima é obrigatória.")]
-    int KmMaximo,
-    [Required(ErrorMessage = "O tempo máximo é obrigatório.")]
-    int TempoMaximo,
     int? KmAtual,
     [Required(ErrorMessage = "A data da revisão é obrigatória.")]
-    DateTime DataRevisao,
+    DateTime? DataAgendada,
     string? NotaDeServico,
     int? ConcessionariaResponsavelId);
