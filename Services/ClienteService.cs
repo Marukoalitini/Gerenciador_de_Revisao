@@ -39,7 +39,7 @@ public class ClienteService
 
     public ClienteResponse ObterClientePorId(int id)
     {
-        var cliente = _context.Clientes.FirstOrDefault(c => c.Id == id && c.Ativo);
+        var cliente = _context.Clientes.Include(c => c.Motos.Where(m => m.Ativo)).FirstOrDefault(c => c.Id == id && c.Ativo);
         if (cliente == null) throw new DomainException("Cliente não encontrado.");
 
         return _mapper.Map<ClienteResponse>(cliente);
@@ -55,7 +55,7 @@ public class ClienteService
 
         _mapper.Map(request, cliente);
         cliente.AtualizadoEm = DateTime.UtcNow;
-        
+
         _context.SaveChanges();
         return _mapper.Map<ClienteResponse>(cliente);
     }
@@ -67,7 +67,7 @@ public class ClienteService
 
         cliente.Ativo = false;
         cliente.DeletadoEm = DateTime.UtcNow;
-        
+
         _context.SaveChanges();
     }
 
@@ -76,7 +76,7 @@ public class ClienteService
         var cliente = _context.Clientes
             .Include(c => c.Endereco)
             .FirstOrDefault(c => c.Id == id && c.Ativo);
-            
+
         if (cliente == null) throw new DomainException("Cliente não encontrado.");
 
         // Se o cliente ainda não tem endereço, instanciamos um novo
@@ -103,7 +103,7 @@ public class ClienteService
     {
         var cliente = _context.Clientes.FirstOrDefault(c => c.Id == clienteId && c.Ativo);
         if (cliente == null) throw new DomainException("Cliente não encontrado.");
-        
+
         // Verificar se já existe moto com esse chassi ou placa
         if (_context.Motos.Any(m => m.NumeroChassi == request.NumeroChassi || m.Placa == request.Placa))
             throw new DomainException("Moto com este chassi ou placa já cadastrada.");
@@ -139,7 +139,7 @@ public class ClienteService
         if (moto == null) throw new DomainException("Moto não encontrada ou não pertence ao cliente.");
 
         _mapper.Map(request, moto);
-        
+
         _context.SaveChanges();
 
         return _mapper.Map<MotoResponse>(moto);
@@ -152,7 +152,7 @@ public class ClienteService
 
         moto.Ativo = false;
         moto.DeletadoEm = DateTime.UtcNow;
-        
+
         _context.SaveChanges();
     }
 }

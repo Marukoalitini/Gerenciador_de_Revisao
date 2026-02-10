@@ -13,11 +13,13 @@ public class ConcessionariaService
 {
     private readonly AppDbContext _context;
     private readonly IMapper _mapper;
+    private readonly ChecklistTemplateService _checklistTemplateService;
 
-    public ConcessionariaService(AppDbContext context, IMapper mapper)
+    public ConcessionariaService(AppDbContext context, IMapper mapper, ChecklistTemplateService checklistTemplateService)
     {
         _context = context;
         _mapper = mapper;
+        _checklistTemplateService = checklistTemplateService;
     }
 
     public ConcessionariaResponse CriarConcessionaria(CriarConcessionariaRequest concessionariaRequest)
@@ -33,6 +35,10 @@ public class ConcessionariaService
         var concessionaria = _mapper.Map<Concessionaria>(concessionariaRequest);
         concessionaria.Senha = senhaCriptografada;
 
+        // associar todos os templates disponíveis no banco à nova concessionária
+        var dbTemplates = _context.ChecklistTemplates.ToList();
+        concessionaria.ChecklistTemplates = dbTemplates;
+
         _context.Add(concessionaria);
         _context.SaveChanges();
         return _mapper.Map<ConcessionariaResponse>(concessionaria);
@@ -40,7 +46,10 @@ public class ConcessionariaService
 
     public ConcessionariaResponse ObterConcessionariaPorId(int id)
     {
-        var concessionaria = _context.Concessionarias.FirstOrDefault(c => c.Id == id && c.Ativo);
+        var concessionaria = _context.Concessionarias
+            .Include(c => c.Enderecos)
+            .Include(c => c.ChecklistTemplates)
+            .FirstOrDefault(c => c.Id == id && c.Ativo);
         if (concessionaria == null) throw new DomainException("Concessionária não encontrada.");
 
         return _mapper.Map<ConcessionariaResponse>(concessionaria);
@@ -56,7 +65,7 @@ public class ConcessionariaService
 
         _mapper.Map(request, concessionaria);
         concessionaria.AtualizadoEm = DateTime.UtcNow;
-        
+
         _context.SaveChanges();
         return _mapper.Map<ConcessionariaResponse>(concessionaria);
     }
@@ -68,7 +77,7 @@ public class ConcessionariaService
 
         concessionaria.Ativo = false;
         concessionaria.DeletadoEm = DateTime.UtcNow;
-        
+
         _context.SaveChanges();
     }
 
@@ -97,7 +106,7 @@ public class ConcessionariaService
         if (concessionaria == null) throw new DomainException("Concessionária não encontrada.");
 
         var endereco = concessionaria.Enderecos.FirstOrDefault(e => e.Id == enderecoId);
-        
+
         if (endereco == null) throw new DomainException("Endereço não encontrado ou não pertence a esta concessionária.");
 
         return _mapper.Map<EnderecoResponse>(endereco);
@@ -112,7 +121,7 @@ public class ConcessionariaService
         if (concessionaria == null) throw new DomainException("Concessionária não encontrada.");
 
         var endereco = concessionaria.Enderecos.FirstOrDefault(e => e.Id == enderecoId);
-        
+
         if (endereco == null) throw new DomainException("Endereço não encontrado ou não pertence a esta concessionária.");
 
         concessionaria.Enderecos.Remove(endereco);

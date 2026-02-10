@@ -5,5 +5,6 @@ public record class ConcessionariaResponse(
     string NomeConcessionaria,
     string Telefone,
     string Cnpj,
-    EnderecoResponse[] Enderecos
+    EnderecoResponse[]? Enderecos,
+    ChecklistTemplateResponse[]? ChecklistTemplates
 );

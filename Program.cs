@@ -6,6 +6,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi;
 using Motos.Data;
 using Motos.Middleware;
+using Motos.Models;
 using Motos.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -85,11 +86,29 @@ using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;
     var context = services.GetRequiredService<AppDbContext>();
-    Console.WriteLine(builder.Configuration.GetConnectionString("DefaultConnection"));
-    context.Database.EnsureDeleted();
-    context.Database.Migrate();
-}
+    var checklistTemplateService = services.GetRequiredService<ChecklistTemplateService>();
 
+    Console.WriteLine(builder.Configuration.GetConnectionString("DefaultConnection"));
+    // context.Database.EnsureDeleted();
+    context.Database.Migrate();
+
+    if (!context.ChecklistTemplates.Any())
+    {
+        var templates = checklistTemplateService.ListarTodos();
+        foreach (var template in templates)
+        {
+
+            var dbTemplate = new ChecklistTemplate
+            {
+                NumeroRevisao = template.NumeroRevisao,
+                Modelos = template.Modelos,
+                Itens = new List<ItemTemplate>()
+            };
+            context.ChecklistTemplates.Add(dbTemplate);
+        }
+        context.SaveChanges();
+    }
+}
 
 app.UseExceptionHandler();
 
