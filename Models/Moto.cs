@@ -1,9 +1,13 @@
+using Motos.Enums;
+
 namespace Motos.Models;
 
 public class Moto
 {
     public int Id { get; set; }
-    //public required Enum ModeloMoto { get; set; }
+    public ModeloMoto? Modelo { get; set; }
+    public int? ClienteId { get; set; }
+    public Cliente? Cliente { get; set; }
     public required string Cor { get; set; }
     public required string NumeroChassi { get; set; }
     public required string Placa { get; set; }

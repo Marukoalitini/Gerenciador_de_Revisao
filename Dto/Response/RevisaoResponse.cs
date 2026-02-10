@@ -1,3 +1,5 @@
+using Motos.Enums;
+
 namespace Motos.Dto.Response;
 
 public record class RevisaoResponse(
@@ -5,12 +7,15 @@ public record class RevisaoResponse(
     int Numero,
     ClienteResponse Cliente,
     MotoResponse Moto,
-    bool Executada,
+    StatusRevisao Status,
     int KmMaximo,
     double KmTolerancia,
     int TempoMaximo,
     double TempoTolerancia,
     int? KmAtual,
     DateTime DataRevisao,
+    double ValorTotal,
+    string? NotaDeServico,
+    ConcessionariaResponse? Concessionaria,
     RevisaoItemResponse[] Itens
 );
