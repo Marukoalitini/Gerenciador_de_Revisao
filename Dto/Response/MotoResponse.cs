@@ -1,7 +1,11 @@
+using System.Text.Json.Serialization;
+using Motos.Enums;
+
 namespace Motos.Dto.Response;
 
 public record class MotoResponse(
-    int Id,
+    int Id, 
+    ModeloMoto ModeloMoto,
     string Cor,
     string NumeroChassi,
     string Placa,
@@ -9,4 +13,7 @@ public record class MotoResponse(
     string NotaFiscal,
     int Serie,
     string ImgDecalqueChassi
-    );
+    )
+{
+    public string NomeModelo => ModeloMoto.GetDisplayName();
+}
