@@ -20,6 +20,7 @@ public class Revisao
     public List<RevisaoItem> Itens { get; set; } = [];
     public double ValorTotal { get; set; } = 0.0;
     public string? NotaDeServico { get; set; }
-    public int? ConcessionariaId { get; set; }
-    public Concessionaria? ConcessinariaResposavel { get; set; }
+    public int? ConcessionariaResponsavelId { get; set; }
+    public Concessionaria? ConcessionariaResponsavel { get; set; }
+    
 }

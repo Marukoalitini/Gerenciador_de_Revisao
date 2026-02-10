@@ -5,5 +5,6 @@ public record class ClienteResponse(
     string NomeCliente,
     string Email,
     string Telefone,
-    string Celular
+    string Celular,
+    EnderecoResponse? Endereco
 );

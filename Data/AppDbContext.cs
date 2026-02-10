@@ -62,9 +62,9 @@ public class AppDbContext : DbContext
             .OnDelete(DeleteBehavior.Cascade);
 
         modelBuilder.Entity<Revisao>()
-            .HasOne(r => r.ConcessinariaResposavel)
+            .HasOne(r => r.ConcessionariaResponsavel)
             .WithMany(c => c.Revisoes)
-            .HasForeignKey(r => r.ConcessionariaId)
+            .HasForeignKey(r => r.ConcessionariaResponsavelId)
             .OnDelete(DeleteBehavior.SetNull);
     }
 }

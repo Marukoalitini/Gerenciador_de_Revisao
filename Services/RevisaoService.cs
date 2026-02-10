@@ -32,9 +32,9 @@ public class RevisaoService
 
 		// Valida concessionaria (opcional)
 		Concessionaria? concessionaria = null;
-		if (req.ConcessionariaId.HasValue)
+		if (req.ConcessionariaResponsavelId.HasValue)
 		{
-			concessionaria = await _db.Concessionarias.FindAsync(req.ConcessionariaId.Value);
+			concessionaria = await _db.Concessionarias.FindAsync(req.ConcessionariaResponsavelId.Value);
 			if (concessionaria == null) throw new DomainException("Concessionária não encontrada.");
 		}
 
@@ -50,7 +50,7 @@ public class RevisaoService
 			DataRevisao = req.DataRevisao,
 			ValorTotal = req.ValorTotal,
 			NotaDeServico = req.NotaDeServico,
-			ConcessionariaId = req.ConcessionariaId,
+			ConcessionariaResponsavelId = req.ConcessionariaResponsavelId,
 		};
 
 		// Gerar itens via ChecklistService, se possível
@@ -88,7 +88,7 @@ public class RevisaoService
 			.Include(r => r.Itens)
 			.Include(r => r.Cliente)
 			.Include(r => r.Moto)
-			.Include(r => r.ConcessinariaResposavel)
+			.Include(r => r.ConcessionariaResponsavel)
 			.FirstOrDefaultAsync(r => r.Id == id);
 	}
 
@@ -100,7 +100,7 @@ public class RevisaoService
 			.Include(r => r.Moto)
 			.AsQueryable();
 
-		if (concessionariaId.HasValue) query = query.Where(r => r.ConcessionariaId == concessionariaId.Value);
+		if (concessionariaId.HasValue) query = query.Where(r => r.ConcessionariaResponsavelId == concessionariaId.Value);
 		if (clienteId.HasValue) query = query.Where(r => r.ClienteId == clienteId.Value);
 
 		return await query.OrderByDescending(r => r.DataRevisao).ToListAsync();

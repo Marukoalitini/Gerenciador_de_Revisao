@@ -16,7 +16,6 @@ public record RevisaoRequest(
     int? KmAtual,
     [Required(ErrorMessage = "A data da revisão é obrigatória.")]
     DateTime DataRevisao,
-    List<RevisaoItemRequest> Itens,
     double ValorTotal,
     string? NotaDeServico,
-    int? ConcessionariaId);
+    int? ConcessionariaResponsavelId);

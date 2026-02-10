@@ -11,11 +11,11 @@ public record class RevisaoResponse(
     int KmMaximo,
     double KmTolerancia,
     int TempoMaximo,
-    double TempoTolerancia,
+    int TempoTolerancia,
     int? KmAtual,
     DateTime DataRevisao,
     double ValorTotal,
     string? NotaDeServico,
-    ConcessionariaResponse? Concessionaria,
+    ConcessionariaResponse? ConcessionariaResponsavel,
     RevisaoItemResponse[] Itens
 );
