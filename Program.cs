@@ -19,7 +19,7 @@ builder.Services.AddControllers();
 builder.Services.AddScoped<AutenticacaoService>();
 builder.Services.AddScoped<ClienteService>();
 builder.Services.AddScoped<ConcessionariaService>();
-builder.Services.AddScoped<RevisaoService>();
+builder.Services.AddScoped<MotoService>();
 builder.Services.AddScoped<RevisaoService>();
 builder.Services.AddSingleton<ItemCatalogoService>();
 builder.Services.AddSingleton<ChecklistService>();
@@ -86,7 +86,7 @@ using (var scope = app.Services.CreateScope())
     var services = scope.ServiceProvider;
     var context = services.GetRequiredService<AppDbContext>();
     Console.WriteLine(builder.Configuration.GetConnectionString("DefaultConnection"));
-    //context.Database.EnsureDeleted();
+    context.Database.EnsureDeleted();
     context.Database.Migrate();
 }
 
