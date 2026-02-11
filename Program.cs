@@ -7,6 +7,7 @@ using Microsoft.OpenApi;
 using Motos.Data;
 using Motos.Middleware;
 using Motos.Services;
+using Motos.Workers;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -26,6 +27,8 @@ builder.Services.AddSingleton<ChecklistService>();
 builder.Services.AddSingleton<TokenService>();
 builder.Services.AddSingleton<RegraRevisaoService>();
 builder.Services.AddSingleton<ChecklistTemplateService>();
+builder.Services.AddScoped<INotificacaoService, EmailNotificacaoService>();
+builder.Services.AddHostedService<VerificadorRevisaoWorker>();
 builder.Services.AddEndpointsApiExplorer();
 
 var key = Encoding.ASCII.GetBytes(builder.Configuration["Jwt:Key"] ?? "chave_super_secreta_padrao_para_desenvolvimento_123");
@@ -86,7 +89,7 @@ using (var scope = app.Services.CreateScope())
     var services = scope.ServiceProvider;
     var context = services.GetRequiredService<AppDbContext>();
     Console.WriteLine(builder.Configuration.GetConnectionString("DefaultConnection"));
-    context.Database.EnsureDeleted();
+    //context.Database.EnsureDeleted();
     context.Database.Migrate();
 }
 
