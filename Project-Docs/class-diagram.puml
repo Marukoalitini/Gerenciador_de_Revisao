@@ -145,10 +145,6 @@ class Revisao <<Model>> {
   +Agendar(data : DateTime, concessionaria : Concessionaria) : void
   +GerarNotaDeServico() : string
   +Executar(dataExecucao : DateTime, kmAtual : int) : void
-
-  ' (Opcional no escopo feliz; deixei comentado)
-  ' +Reagendar(novaData : DateTime) : void
-  ' +Cancelar(motivo : string) : void
 }
 
 class RevisaoItem <<Model>> {

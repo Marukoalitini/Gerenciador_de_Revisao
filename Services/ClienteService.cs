@@ -39,7 +39,7 @@ public class ClienteService
 
     public ClienteResponse ObterClientePorId(int id)
     {
-        var cliente = _context.Clientes.FirstOrDefault(c => c.Id == id && c.Ativo);
+        var cliente = _context.Clientes.Include(c => c.Motos).FirstOrDefault(c => c.Id == id && c.Ativo);
         if (cliente == null) throw new NotFoundException("Cliente não encontrado.");
 
         return _mapper.Map<ClienteResponse>(cliente);
@@ -55,7 +55,7 @@ public class ClienteService
 
         _mapper.Map(request, cliente);
         cliente.AtualizadoEm = DateTime.UtcNow;
-        
+
         _context.SaveChanges();
         return _mapper.Map<ClienteResponse>(cliente);
     }
@@ -67,7 +67,7 @@ public class ClienteService
 
         cliente.Ativo = false;
         cliente.DeletadoEm = DateTime.UtcNow;
-        
+
         _context.SaveChanges();
     }
 
@@ -76,7 +76,7 @@ public class ClienteService
         var cliente = _context.Clientes
             .Include(c => c.Endereco)
             .FirstOrDefault(c => c.Id == id && c.Ativo);
-            
+
         if (cliente == null) throw new NotFoundException("Cliente não encontrado.");
 
         // Se o cliente ainda não tem endereço, instanciamos um novo

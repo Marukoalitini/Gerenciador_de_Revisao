@@ -1,74 +1,20 @@
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Motos.Data;
-using Motos.Dto.Request;
 using Motos.Dto.Response;
 using Motos.Exceptions;
-using Motos.Models;
 
 namespace Motos.Services;
 
 public class RevisaoService
 {
 	private readonly AppDbContext _db;
-	private readonly ManualRevisoesProvider _manualRevisoesProvider;
 	private readonly IMapper _mapper;
 
-	public RevisaoService(AppDbContext db, ManualRevisoesProvider manualRevisoesProvider, IMapper mapper)
+	public RevisaoService(AppDbContext db, IMapper mapper)
 	{
 		_db = db;
-		_manualRevisoesProvider = manualRevisoesProvider;
 		_mapper = mapper;
-	}
-
-	public async Task<RevisaoResponse> CriarRevisaoAsync(RevisaoRequest req)
-	{
-		// Valida Moto
-		var moto = await _db.Motos.FindAsync(req.MotoId);
-		if (moto == null) throw new NotFoundException("Moto não encontrada.");
-
-		// Valida Cliente
-		var cliente = await _db.Clientes.FindAsync(req.ClienteId);
-		if (cliente == null) throw new NotFoundException("Cliente não encontrado.");
-
-		if (moto.ClienteId != req.ClienteId)
-			throw new DomainException("Moto não pertence ao cliente informado.");
-
-		// Valida concessionaria (opcional)
-		if (req.ConcessionariaResponsavelId.HasValue)
-		{
-			var concessionaria = await _db.Concessionarias.FindAsync(req.ConcessionariaResponsavelId.Value);
-			if (concessionaria == null) throw new NotFoundException("Concessionária não encontrada.");
-		}
-
-		// Monta Revisao usando AutoMapper
-		var revisao = _mapper.Map<Revisao>(req);
-
-		// Itens devem vir do manual fixo (revisoes ja prontas para o modelo da moto)
-		var revisoesManuais = _manualRevisoesProvider.ObterRevisoesPara(moto.ModeloMoto);
-		var revisaoManual = revisoesManuais.FirstOrDefault(r => r.Numero == revisao.Numero);
-		if (revisaoManual != null)
-		{
-			revisao.Itens = revisaoManual.Itens;
-			revisao.ValorTotal = revisaoManual.ValorTotal;
-		}
-		
-
-		await using var tx = await _db.Database.BeginTransactionAsync();
-		try
-		{
-			_db.Revisoes.Add(revisao);
-			await _db.SaveChangesAsync();
-			
-			await tx.CommitAsync();
-		}
-		catch
-		{
-			await tx.RollbackAsync();
-			throw;
-		}
-
-		return _mapper.Map<RevisaoResponse>(revisao);
 	}
 
 	public async Task<RevisaoResponse> ObterPorIdAsync(int id)
@@ -107,15 +53,6 @@ public class RevisaoService
 
 		revisao.Status = Enums.StatusRevisao.Executada;
 		_db.Revisoes.Update(revisao);
-		await _db.SaveChangesAsync();
-	}
-
-	public async Task DeletarAsync(int id)
-	{
-		var revisao = await _db.Revisoes.FindAsync(id);
-		if (revisao == null) throw new NotFoundException("Revisão não encontrada.");
-
-		_db.Revisoes.Remove(revisao);
 		await _db.SaveChangesAsync();
 	}
 }

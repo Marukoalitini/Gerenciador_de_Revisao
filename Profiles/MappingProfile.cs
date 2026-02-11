@@ -23,17 +23,20 @@ public class MappingProfile : Profile
 
         CreateMap<AtualizarConcessionariaRequest, Concessionaria>()
             .ForAllMembers(opts => opts.Condition((src, dest, srcMember) => srcMember != null));
-        
+
         CreateMap<AtualizarMotoRequest, Moto>()
             .ForAllMembers(opts => opts.Condition((src, dest, srcMember) => srcMember != null));
-        
+
         // Response
-        CreateMap<Cliente, ClienteResponse>();
+        CreateMap<Cliente, ClienteResponse>()
+            .PreserveReferences();
         CreateMap<Concessionaria, ConcessionariaResponse>();
         CreateMap<Endereco, EnderecoResponse>();
-        CreateMap<Moto, MotoResponse>();
-        CreateMap<Revisao, RevisaoResponse>();
-            
+        CreateMap<Moto, MotoResponse>()
+            .PreserveReferences();
+        CreateMap<Revisao, RevisaoResponse>()
+            .PreserveReferences();
+
         CreateMap<RevisaoItem, RevisaoItemResponse>();
     }
 }

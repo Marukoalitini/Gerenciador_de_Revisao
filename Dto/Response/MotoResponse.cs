@@ -12,7 +12,8 @@ public record class MotoResponse(
     DateTime DataDeVenda,
     string NotaFiscal,
     int Serie,
-    string ImgDecalqueChassi
+    string ImgDecalqueChassi,
+    List<RevisaoResponse> Revisoes
     )
 {
     public string NomeModelo => ModeloMoto.GetDisplayName();

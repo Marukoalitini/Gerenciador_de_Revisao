@@ -6,5 +6,6 @@ public record class ClienteResponse(
     string Email,
     string Telefone,
     string Celular,
-    EnderecoResponse? Endereco
+    EnderecoResponse? Endereco,
+    List<MotoResponse>? Motos
 );
