@@ -14,9 +14,9 @@ public class Moto
     public required int Serie { get; set; }
     public string ImgDecalqueChassi { get; set; } = string.Empty;
     public List<Revisao> Revisoes { get; set; } = [];
-    
+
     public int ClienteId { get; set; }
-    public Cliente Cliente { get; set; }
+    public Cliente? Cliente { get; set; }
     public bool Ativo { get; set; } = true;
     public DateTime? DeletadoEm { get; set; }
 }
