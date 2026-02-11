@@ -91,4 +91,23 @@ public class MotoService
 
         _context.SaveChanges();
     }
+
+    public Revisao? ObterUltimaRevisaoExecutada(int motoId)
+    {
+        var moto = _context.Motos.Include(m => m.Revisoes).FirstOrDefault(m => m.Id == motoId && m.Ativo);
+        if (moto == null) return null;
+
+        return moto.Revisoes
+            .Where(r => r.Status == Enums.StatusRevisao.Executada)
+            .OrderByDescending(r => r.DataExecucao ?? DateTime.MinValue)
+            .ThenByDescending(r => r.Numero)
+            .FirstOrDefault();
+    }
+
+    public Revisao? ObterRevisao(int numero)
+    {
+        var revisao = _context.Revisoes.Include(r => r.Moto).FirstOrDefault(r => r.Numero == numero);
+        return revisao;
+    }
+
 }
