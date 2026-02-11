@@ -7,7 +7,7 @@ namespace Motos.Services;
 
 public class ManualRevisoesProvider
 {
-	private readonly List<TemplateRevisao> _templates = new();
+	private readonly List<TemplateRevisao> _templates = [];
 	private readonly Dictionary<int, CatalogoItem> _catalogoPorId = new();
 
 	public ManualRevisoesProvider()

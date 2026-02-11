@@ -39,7 +39,7 @@ public class ClienteService
 
     public ClienteResponse ObterClientePorId(int id)
     {
-        var cliente = _context.Clientes.Include(c => c.Motos).FirstOrDefault(c => c.Id == id && c.Ativo);
+        var cliente = _context.Clientes.Include(c => c.Motos).ThenInclude(m => m.Revisoes).FirstOrDefault(c => c.Id == id && c.Ativo);
         if (cliente == null) throw new NotFoundException("Cliente não encontrado.");
 
         return _mapper.Map<ClienteResponse>(cliente);

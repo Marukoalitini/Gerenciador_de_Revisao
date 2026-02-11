@@ -44,13 +44,6 @@ public class MotoService
         _context.Motos.Add(moto);
         _context.SaveChanges();
 
-        // Limpar navegações circulares para evitar loop no AutoMapper
-        foreach (var revisao in moto.Revisoes)
-        {
-            revisao.Cliente = null;
-            revisao.Moto = null;
-        }
-
         return _mapper.Map<MotoResponse>(moto);
     }
 

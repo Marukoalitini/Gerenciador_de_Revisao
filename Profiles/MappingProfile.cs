@@ -28,15 +28,11 @@ public class MappingProfile : Profile
             .ForAllMembers(opts => opts.Condition((src, dest, srcMember) => srcMember != null));
 
         // Response
-        CreateMap<Cliente, ClienteResponse>()
-            .PreserveReferences();
+        CreateMap<Cliente, ClienteResponse>();
         CreateMap<Concessionaria, ConcessionariaResponse>();
         CreateMap<Endereco, EnderecoResponse>();
-        CreateMap<Moto, MotoResponse>()
-            .PreserveReferences();
-        CreateMap<Revisao, RevisaoResponse>()
-            .PreserveReferences();
-
+        CreateMap<Moto, MotoResponse>();
+        CreateMap<Revisao, RevisaoResponse>();
         CreateMap<RevisaoItem, RevisaoItemResponse>();
     }
 }

@@ -7,5 +7,5 @@ public record class ClienteResponse(
     string Telefone,
     string Celular,
     EnderecoResponse? Endereco,
-    List<MotoResponse>? Motos
+    List<MotoResponse> Motos
 );
