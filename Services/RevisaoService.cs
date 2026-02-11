@@ -2,6 +2,7 @@ using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using Motos.Data;
 using Motos.Dto.Response;
+using Motos.Enums;
 using Motos.Exceptions;
 
 namespace Motos.Services;
@@ -51,8 +52,27 @@ public class RevisaoService
 		var revisao = await _db.Revisoes.FindAsync(id);
 		if (revisao == null) throw new NotFoundException("Revisão não encontrada.");
 
+        if (revisao.Status != StatusRevisao.Agendada)
+            throw new DomainException($"A revisão precisa estar agendada para ser executada. Status atual: {revisao.Status}");
+
 		revisao.Status = Enums.StatusRevisao.Executada;
+        revisao.DataExecucao = DateTime.UtcNow;
 		_db.Revisoes.Update(revisao);
 		await _db.SaveChangesAsync();
 	}
+
+    public async Task<RevisaoResponse?> ObterUltimaRevisaoExecutadaAsync(int motoId)
+    {
+        var revisao = await _db.Revisoes
+            .Include(r => r.Itens)
+            .Include(r => r.Cliente)
+            .Include(r => r.Moto)
+            .Include(r => r.ConcessionariaResponsavel)
+            .Where(r => r.MotoId == motoId && r.Status == StatusRevisao.Executada)
+            .OrderByDescending(r => r.DataExecucao ?? DateTime.MinValue)
+            .ThenByDescending(r => r.Numero)
+            .FirstOrDefaultAsync();
+
+        return revisao == null ? null : _mapper.Map<RevisaoResponse>(revisao);
+    }
 }

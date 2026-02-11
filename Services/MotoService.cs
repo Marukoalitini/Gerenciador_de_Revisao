@@ -92,22 +92,13 @@ public class MotoService
         _context.SaveChanges();
     }
 
-    public Revisao? ObterUltimaRevisaoExecutada(int motoId)
+    // Método interno para uso do Worker
+    internal async Task<List<Moto>> ListarMotosAtivasParaWorkerAsync(CancellationToken cancellationToken)
     {
-        var moto = _context.Motos.Include(m => m.Revisoes).FirstOrDefault(m => m.Id == motoId && m.Ativo);
-        if (moto == null) return null;
-
-        return moto.Revisoes
-            .Where(r => r.Status == Enums.StatusRevisao.Executada)
-            .OrderByDescending(r => r.DataExecucao ?? DateTime.MinValue)
-            .ThenByDescending(r => r.Numero)
-            .FirstOrDefault();
+        return await _context.Motos
+            .Include(m => m.Cliente)
+            .Include(m => m.Revisoes)
+            .Where(m => m.Ativo && m.Cliente.Ativo)
+            .ToListAsync(cancellationToken);
     }
-
-    public Revisao? ObterRevisao(int numero)
-    {
-        var revisao = _context.Revisoes.Include(r => r.Moto).FirstOrDefault(r => r.Numero == numero);
-        return revisao;
-    }
-
 }

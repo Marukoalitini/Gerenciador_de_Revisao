@@ -16,12 +16,17 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
-builder.Services.AddControllers();
+builder.Services.AddControllers()
+    .AddJsonOptions(options =>
+    {
+        options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+    });
 builder.Services.AddScoped<AutenticacaoService>();
 builder.Services.AddScoped<ClienteService>();
 builder.Services.AddScoped<ConcessionariaService>();
 builder.Services.AddScoped<MotoService>();
 builder.Services.AddScoped<RevisaoService>();
+builder.Services.AddScoped<AgendamentoService>();
 builder.Services.AddSingleton<TokenService>();
 builder.Services.AddSingleton<RegraRevisaoService>();
 builder.Services.AddSingleton<ManualRevisoesProvider>();
