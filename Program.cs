@@ -21,11 +21,9 @@ builder.Services.AddScoped<ClienteService>();
 builder.Services.AddScoped<ConcessionariaService>();
 builder.Services.AddScoped<MotoService>();
 builder.Services.AddScoped<RevisaoService>();
-builder.Services.AddSingleton<ItemCatalogoService>();
-builder.Services.AddSingleton<ChecklistService>();
 builder.Services.AddSingleton<TokenService>();
 builder.Services.AddSingleton<RegraRevisaoService>();
-builder.Services.AddSingleton<ChecklistTemplateService>();
+builder.Services.AddSingleton<ManualRevisoesProvider>();
 builder.Services.AddEndpointsApiExplorer();
 
 var key = Encoding.ASCII.GetBytes(builder.Configuration["Jwt:Key"] ?? "chave_super_secreta_padrao_para_desenvolvimento_123");

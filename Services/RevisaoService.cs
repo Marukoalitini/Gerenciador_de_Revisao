@@ -11,13 +11,13 @@ namespace Motos.Services;
 public class RevisaoService
 {
 	private readonly AppDbContext _db;
-	private readonly ChecklistService _checklistService;
+	private readonly ManualRevisoesProvider _manualRevisoesProvider;
 	private readonly IMapper _mapper;
 
-	public RevisaoService(AppDbContext db, ChecklistService checklistService, IMapper mapper)
+	public RevisaoService(AppDbContext db, ManualRevisoesProvider manualRevisoesProvider, IMapper mapper)
 	{
 		_db = db;
-		_checklistService = checklistService;
+		_manualRevisoesProvider = manualRevisoesProvider;
 		_mapper = mapper;
 	}
 
@@ -44,10 +44,14 @@ public class RevisaoService
 		// Monta Revisao usando AutoMapper
 		var revisao = _mapper.Map<Revisao>(req);
 
-		// Gerar itens via ChecklistService, se possível
-		var itens = _checklistService.GerarItensParaRevisao(moto.ModeloMoto.ToString(), revisao.Numero);
-		revisao.Itens = itens;
-		revisao.ValorTotal = itens.Sum(i => i.Valor ?? 0.0);
+		// Itens devem vir do manual fixo (revisoes ja prontas para o modelo da moto)
+		var revisoesManuais = _manualRevisoesProvider.ObterRevisoesPara(moto.ModeloMoto);
+		var revisaoManual = revisoesManuais.FirstOrDefault(r => r.Numero == revisao.Numero);
+		if (revisaoManual != null)
+		{
+			revisao.Itens = revisaoManual.Itens;
+			revisao.ValorTotal = revisaoManual.ValorTotal;
+		}
 		
 
 		await using var tx = await _db.Database.BeginTransactionAsync();

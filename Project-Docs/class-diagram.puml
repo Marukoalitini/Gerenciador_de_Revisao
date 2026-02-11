@@ -10,40 +10,39 @@ enum TipoItemRevisao {
   Servico
 }
 
-' Mantido: hoje é usado diretamente em Moto.Modelo e em filtros/buscas.
 enum ModeloMoto {
-  FACTOR 125 i (UBS) 2017 A 2025
-  FACTOR 150 UBS 2016 A 2024
-  NOVA FACTOR 2025
-  NOVA FACTOR DX 2025
-  FAZER 150 UBS 2014 A 2025
-  FZ15 2023 A 2024
-  FAZER FZ15 ABS CONNECTED 2025 A 2026
-  FAZER 250 2018 A 2024
-  FZ25 CONNECTED DE 2025 A 2026
-  CROSSER XTZ150 S 2015 A 2024
-  CROSSER XTZ150 S 2025
-  CROSSER XTZ150 Z 2015 A 2024
-  CROSSER XTZ150 Z 2025
-  LANDER 250 2020 A 2024
-  LANDER 250 ABS CONNECTED 2025
-  TÉNÉRÉ 700
-  R15 ABS 2024 A 2026
-  YZF-R3 ABS 2020 A 2025
-  YZF R3 ABS CONNECTED 2026
-  MT03 ABS 2021 A 2025
-  NOVA MT-03 CONNECTED 2026
-  NOVA MT-07 CONNECTED 2026
-  NEO 125 2017 A 2024
-  NEO'S DUAL CONNECTED 2026
-  FLUO ABS 2022 A 2025
-  FLUO ABS HYBRID CONNECTED 2026
-  AEROX ABS CONNECTED
-  NMAX CONNECTED 2023 A 2024
-  NOVA NMAX CONNECTED 2025
-  XMAX 2021 A 2024
-  XMAX CONNECTED 2025
-  NOVA XMAX 300 CONNECTED 2026
+  FACTOR_125_i_UBS_2017_A_2025
+  FACTOR_150_UBS_2016_A_2024
+  NOVA_FACTOR_2025
+  NOVA_FACTOR_DX_2025
+  FAZER_150_UBS_2014_A_2025
+  FZ15_2023_A_2024
+  FAZER_FZ15_ABS_CONNECTED_2025_A_2026
+  FAZER_250_2018_A_2024
+  FZ25_CONNECTED_DE_2025_A_2026
+  CROSSER_XTZ150_S_2015_A_2024
+  CROSSER_XTZ150_S_2025
+  CROSSER_XTZ150_Z_2015_A_2024
+  CROSSER_XTZ150_Z_2025
+  LANDER_250_2020_A_2024
+  LANDER_250_ABS_CONNECTED_2025
+  TENERE_700
+  R15_ABS_2024_A_2026
+  YZF_R3_ABS_2020_A_2025
+  YZF_R3_ABS_CONNECTED_2026
+  MT03_ABS_2021_A_2025
+  NOVA_MT_03_CONNECTED_2026
+  NOVA_MT_07_CONNECTED_2026
+  NEO_125_2017_A_2024
+  NEOS_DUAL_CONNECTED_2026
+  FLUO_ABS_2022_A_2025
+  FLUO_ABS_HYBRID_CONNECTED_2026
+  AEROX_ABS_CONNECTED
+  NMAX_CONNECTED_2023_A_2024
+  NOVA_NMAX_CONNECTED_2025
+  XMAX_2021_A_2024
+  XMAX_CONNECTED_2025
+  NOVA_XMAX_300_CONNECTED_2026
 }
 
 enum StatusRevisao {
@@ -93,7 +92,6 @@ class Concessionaria <<Model>> {
   +Tel : string
   +Enderecos : List<Endereco>
   +Clientes : List<Cliente>
-  +ChecklistTemplates : List<ChecklistTemplate>
 }
 
 class Endereco <<Model>> {
@@ -145,11 +143,12 @@ class Revisao <<Model>> {
 
   --
   +Agendar(data : DateTime, concessionaria : Concessionaria) : void
-  +Reagendar(novaData : DateTime) : void
-  +Cancelar(motivo : string) : void
   +GerarNotaDeServico() : string
-  +RegistrarExecucao(itensRealizados : List<RevisaoItem>, valorTotal : decimal, notaDeServico : string, dataExecucao : DateTime, kmAtual : int) : void
-  +ItensNaoExecutados(template : ChecklistTemplate) : List<ItemTemplate>
+  +Executar(dataExecucao : DateTime, kmAtual : int) : void
+
+  ' (Opcional no escopo feliz; deixei comentado)
+  ' +Reagendar(novaData : DateTime) : void
+  ' +Cancelar(motivo : string) : void
 }
 
 class RevisaoItem <<Model>> {
@@ -158,58 +157,6 @@ class RevisaoItem <<Model>> {
   +Grupo : string?
   +Ordem : int
   +Valor : decimal?
-  +Quantidade : decimal?
-  +Realizado : bool
-
-  --
-  +Subtotal() : decimal
-}
-
-' =========================
-' CHECKLIST (VARIA POR MODELO)
-' Alterações SOMENTE aqui:
-' - Catálogo de itens para não repetir peça/serviço
-' - ChecklistTemplate aplica em múltiplos modelos
-' - ItemTemplate referencia catálogo (ItemCatalogoId)
-' =========================
-
-' NOVA classe (faltando) para eliminar repetição de peças/serviços
-class ItemCatalogo <<Model>> {
-  +Id : int
-  +Tipo : TipoItemRevisao
-  +Descricao : string
-}
-
-class ChecklistTemplate <<Model>> {
-  +Id : int
-  +NumeroRevisao : int
-  +Modelos : List<ModeloMoto>
-  +Itens : List<ItemTemplate>
-
-  --
-  +AdicionarItem(item : ItemTemplate) : void
-  +RemoverItem(ordem : int) : void
-
-  ' Mantido (nome igual). Implementação pode delegar p/ Service.
-  +GerarItensParaRevisao() : List<RevisaoItem>
-
-  ' NOVO overload (pra suportar catálogo sem acoplar o Model a Provider)
-  +GerarItensParaRevisao(itensCatalogo : List<ItemCatalogo>) : List<RevisaoItem>
-}
-
-class ItemTemplate <<Model>> {
-  +Id : int
-  +ItemCatalogoId : int
-  +Grupo : string?
-  +Ordem : int
-  +ValorSugerido : decimal?
-
-  --
-  ' Mantido
-  +ParaRevisaoItem() : RevisaoItem
-
-  ' NOVO overload (usa o catálogo para preencher Tipo/Descricao)
-  +ParaRevisaoItem(itemCatalogo : ItemCatalogo) : RevisaoItem
 }
 
 ' =========================
@@ -246,11 +193,15 @@ class RegraRevisaoProvider <<Provider>> {
   +Listar() : List<RegraRevisao>
 }
 
-' NOVO provider (carrega catálogo de peças/serviços)
-class ItemCatalogoProvider <<Provider>> {
+' =========================
+' MANUAL DE REVISÕES (JSON)
+' - Global e fixo
+' - Usado SOMENTE quando a Moto é cadastrada
+' - Retorna as revisões já com itens e valor total
+' =========================
+class ManualRevisoesProvider <<Provider>> {
   +Carregar() : void
-  +Obter(id : int) : ItemCatalogo
-  +Listar() : List<ItemCatalogo>
+  +ObterRevisoesPara(modelo : ModeloMoto) : List<Revisao>
 }
 
 ' =========================
@@ -258,39 +209,41 @@ class ItemCatalogoProvider <<Provider>> {
 ' =========================
 class ClienteService <<Service>> {
   +AtualizarContato(tel : string, cel : string, email : string) : void
+
+  ' Ao cadastrar moto, o sistema já cria TODAS as revisões (1..47)
   +CadastrarMoto(moto : Moto) : void
+
   +EditarMoto(placa : string, dados : Moto) : void
   +RemoverMoto(placa : string) : void
   +ConsultarProximasRevisoes() : List<AlertaRevisao>
+
+  ' (Opcional: agendamento inicia pelo cliente, mas a confirmação é da concessionária)
+  +SolicitarAgendamento(moto : Moto, numeroRevisao : int, dataDesejada : DateTime) : void
 }
 
 class ConcessionariaService <<Service>> {
-  +VincularClientePorCpf(cpf : string) : void
   +AdicionarEndereco(endereco : Endereco) : void
   +EditarEndereco(id : int, endereco : Endereco) : void
   +RemoverEndereco(id : int) : void
 
-  +CriarChecklistTemplate(template : ChecklistTemplate) : void
-  +EditarChecklistTemplate(id : int, template : ChecklistTemplate) : void
-  +ExcluirChecklistTemplate(id : int) : void
+  ' Confirma agendamento e cria vínculo cliente<->concessionária (sem método separado)
+  +ConfirmarAgendamento(cliente : Cliente, moto : Moto, numeroRevisao : int, dataConfirmada : DateTime) : Revisao
+
+  ' Executa 100% feliz: executa todos os itens, fecha e gera nota
+  +ExecutarRevisao(moto : Moto, numeroRevisao : int, kmAtual : int, dataExecucao : DateTime) : Revisao
 }
 
 class AgendamentoService <<Service>> {
   +ValidarAgendamento(moto : Moto, numeroRevisao : int, data : DateTime, kmAtual : int?) : bool
-  +CriarRevisao(cliente : Cliente, moto : Moto, numeroRevisao : int) : Revisao
 
   --
   +ObterBaseTempo(moto : Moto, numeroRevisao : int) : DateTime
   +GerarAlertas(cliente : Cliente) : List<AlertaRevisao>
-  +Agendar(cliente : Cliente, moto : Moto, numeroRevisao : int, concessionaria : Concessionaria, dataDesejada : DateTime, kmAtual : int?) : Revisao
   +ObterProximaRevisaoNumero(moto : Moto) : int
-}
 
-' NOVO service (responsável por “montar checklist” usando template + catálogo)
-class ChecklistService <<Service>> {
-  +ObterTemplatePara(modelo : ModeloMoto, numeroRevisao : int, concessionaria : Concessionaria) : ChecklistTemplate?
-  +GerarItensParaRevisao(template : ChecklistTemplate, itensCatalogo : List<ItemCatalogo>) : List<RevisaoItem>
-  +GerarItensParaRevisao(modelo : ModeloMoto, numeroRevisao : int, concessionaria : Concessionaria) : List<RevisaoItem>
+  ' AGORA: não cria revisão.
+  ' Apenas opera sobre a revisão que já existe dentro da Moto.
+  +Agendar(moto : Moto, numeroRevisao : int, concessionaria : Concessionaria, dataConfirmada : DateTime, kmAtual : int?) : Revisao
 }
 
 ' =========================
@@ -304,43 +257,34 @@ Cliente "1" o-- "*" Moto
 
 Concessionaria "*" -- "*" Cliente
 Concessionaria "1" o-- "*" Endereco
-Concessionaria "1" o-- "*" ChecklistTemplate
 
 Moto "1" o-- "*" Revisao
 Revisao "1" o-- "*" RevisaoItem
-
-ChecklistTemplate "1" o-- "*" ItemTemplate
-ItemTemplate "*" --> "1" ItemCatalogo
 
 ' =========================
 ' DEPENDÊNCIAS (SERVIÇOS)
 ' =========================
 ClienteService ..> Cliente
 ClienteService ..> Moto
+ClienteService ..> ManualRevisoesProvider
 ClienteService ..> AgendamentoService
 ClienteService ..> AlertaRevisao
 
 ConcessionariaService ..> Concessionaria
 ConcessionariaService ..> Cliente
 ConcessionariaService ..> Endereco
-ConcessionariaService ..> ChecklistTemplate
+ConcessionariaService ..> AgendamentoService
+ConcessionariaService ..> Revisao
 
 AgendamentoService ..> RegraRevisaoProvider
 AgendamentoService ..> ConfiguracaoAgendamento
-AgendamentoService ..> ChecklistTemplate
 AgendamentoService ..> Revisao
 AgendamentoService ..> Moto
-AgendamentoService ..> Cliente
 AgendamentoService ..> Concessionaria
 AgendamentoService ..> AlertaRevisao
 
 AuthService ..> Usuario
 AuthService ..> Cliente
 AuthService ..> Concessionaria
-
-ChecklistService ..> ChecklistTemplate
-ChecklistService ..> ItemCatalogoProvider
-ChecklistService ..> Concessionaria
-ChecklistService ..> RevisaoItem
 
 @enduml

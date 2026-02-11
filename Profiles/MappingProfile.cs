@@ -35,17 +35,5 @@ public class MappingProfile : Profile
         CreateMap<Revisao, RevisaoResponse>();
             
         CreateMap<RevisaoItem, RevisaoItemResponse>();
-        
-        CreateMap<ItemTemplate, ItemTemplateResponse>();
-        CreateMap<ChecklistTemplate, ChecklistTemplateResponse>()
-            .ForCtorParam("Modelos", opt => opt.MapFrom(src => 
-                src.Modelos.Select(m => ObterNomeModelo(m)).ToList()));
-    }
-
-    private string ObterNomeModelo(string modeloStr)
-    {
-        return Enum.TryParse<ModeloMoto>(modeloStr, out var modelo) 
-            ? modelo.GetDisplayName() 
-            : modeloStr;
     }
 }
