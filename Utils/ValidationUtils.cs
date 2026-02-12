@@ -4,6 +4,12 @@ namespace Motos.Utils;
 
 public static class ValidationUtils
 {
+    public static string SomenteNumeros(string valor)
+    {
+        if (string.IsNullOrWhiteSpace(valor)) return valor;
+        return Regex.Replace(valor, @"[^\d]", "");
+    }
+
     public static bool IsCpf(string cpf)
     {
         if (string.IsNullOrWhiteSpace(cpf)) return false;

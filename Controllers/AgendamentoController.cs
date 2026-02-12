@@ -18,13 +18,13 @@ public class AgendamentoController : ControllerBase
     }
 
     [Authorize(Roles = "Cliente")]
-    [HttpGet("proxima")]
-    public async Task<IActionResult> ObterProximaRevisao()
+    [HttpGet("proxima/{motoId}")]
+    public async Task<IActionResult> ObterProximaRevisao(int motoId)
     {
         var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value ?? "0");
         if (userId <= 0) return Forbid();
 
-        var response = await _service.ObterProximaRevisaoAsync(userId);
+        var response = await _service.ObterProximaRevisaoAsync(userId, motoId);
         if (response == null) return NotFound(new { mensagem = "Nenhuma revisão pendente encontrada." });
 
         return Ok(response);

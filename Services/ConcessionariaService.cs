@@ -43,6 +43,8 @@ public class ConcessionariaService
         // criar concessionaria
         var concessionaria = _mapper.Map<Concessionaria>(concessionariaRequest);
         concessionaria.Senha = senhaCriptografada;
+        concessionaria.Cnpj = ValidationUtils.SomenteNumeros(concessionaria.Cnpj);
+        concessionaria.Telefone = ValidationUtils.SomenteNumeros(concessionaria.Telefone);
 
         _context.Add(concessionaria);
         _context.SaveChanges();
@@ -75,6 +77,10 @@ public class ConcessionariaService
             throw new ConflictException("Email já cadastrado.");
 
         _mapper.Map(request, concessionaria);
+
+        if (request.Telefone != null)
+            concessionaria.Telefone = ValidationUtils.SomenteNumeros(concessionaria.Telefone);
+
         concessionaria.AtualizadoEm = DateTime.UtcNow;
         
         _context.SaveChanges();
@@ -101,6 +107,7 @@ public class ConcessionariaService
         if (concessionaria == null) throw new NotFoundException("Concessionária não encontrada.");
 
         var endereco = _mapper.Map<Endereco>(request);
+        endereco.Cep = ValidationUtils.SomenteNumeros(endereco.Cep);
 
         concessionaria.Enderecos.Add(endereco);
         _context.SaveChanges();

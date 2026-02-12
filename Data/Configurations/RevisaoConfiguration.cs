@@ -12,7 +12,7 @@ public class RevisaoConfiguration : IEntityTypeConfiguration<Revisao>
 
         builder.Property(r => r.Status)
             .HasConversion<string>()
-            .HasMaxLength(20);
+            .HasMaxLength(30);
 
         builder.Property(r => r.NotaDeServico)
             .HasMaxLength(50);

@@ -24,12 +24,12 @@ public class AgendamentoService
         _notificacaoService = notificacaoService;
     }
 
-    public async Task<RevisaoResponse?> ObterProximaRevisaoAsync(int clienteId)
+    public async Task<RevisaoResponse?> ObterProximaRevisaoAsync(int clienteId, int motoId)
     {
         var revisao = await _db.Revisoes
             .Include(r => r.Moto)
             .Include(r => r.Cliente)
-            .Where(r => r.ClienteId == clienteId && r.Status == StatusRevisao.Pendente)
+            .Where(r => r.ClienteId == clienteId && r.MotoId == motoId && (r.Status == StatusRevisao.Pendente || r.Status == StatusRevisao.AguardandoConfirmacao || r.Status == StatusRevisao.Cancelada ) )
             .OrderBy(r => r.Numero)
             .FirstOrDefaultAsync();
 

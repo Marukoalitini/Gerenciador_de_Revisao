@@ -42,6 +42,9 @@ public class ClienteService
         // criar cliente
         var cliente = _mapper.Map<Cliente>(clienteRequest);
         cliente.Senha = senhaCriptografada;
+        cliente.Cpf = ValidationUtils.SomenteNumeros(cliente.Cpf);
+        cliente.Telefone = ValidationUtils.SomenteNumeros(cliente.Telefone);
+        cliente.Celular = ValidationUtils.SomenteNumeros(cliente.Celular);
 
         _context.Add(cliente);
         _context.SaveChanges();
@@ -75,6 +78,13 @@ public class ClienteService
             throw new ConflictException("Email já cadastrado.");
 
         _mapper.Map(request, cliente);
+        
+        if (request.Telefone != null)
+            cliente.Telefone = ValidationUtils.SomenteNumeros(cliente.Telefone);
+        
+        if (request.Celular != null)
+            cliente.Celular = ValidationUtils.SomenteNumeros(cliente.Celular);
+
         cliente.AtualizadoEm = DateTime.UtcNow;
         
         _context.SaveChanges();
@@ -102,6 +112,7 @@ public class ClienteService
         if (cliente.Endereco != null) throw new ConflictException("Cliente já possui um endereço cadastrado.");
 
         cliente.Endereco = _mapper.Map<Endereco>(request);
+        cliente.Endereco.Cep = ValidationUtils.SomenteNumeros(cliente.Endereco.Cep);
         _context.SaveChanges();
         return _mapper.Map<EnderecoResponse>(cliente.Endereco);
     }
@@ -115,6 +126,7 @@ public class ClienteService
         if (cliente.Endereco == null) throw new NotFoundException("Cliente não possui endereço cadastrado.");
 
         _mapper.Map(request, cliente.Endereco);
+        cliente.Endereco.Cep = ValidationUtils.SomenteNumeros(cliente.Endereco.Cep);
         _context.SaveChanges();
         return _mapper.Map<EnderecoResponse>(cliente.Endereco);
     }
