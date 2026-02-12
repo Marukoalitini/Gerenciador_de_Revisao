@@ -45,7 +45,13 @@ public class ConcessionariaService
 
         return _mapper.Map<ConcessionariaResponse>(concessionaria);
     }
-
+    
+    public List<ConcessionariaResponse> ListarConcessionarias()
+    {
+        var concessionarias = _context.Concessionarias.Include(c => c.Enderecos).Where(c => c.Ativo).ToList();
+        return _mapper.Map<List<ConcessionariaResponse>>(concessionarias);
+    }
+    
     public ConcessionariaResponse AtualizarConcessionaria(int id, AtualizarConcessionariaRequest request)
     {
         var concessionaria = _context.Concessionarias.FirstOrDefault(c => c.Id == id && c.Ativo);

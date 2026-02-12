@@ -71,4 +71,64 @@ public class EmailNotificacaoService : INotificacaoService
             _logger.LogError(ex, $"Erro ao enviar e-mail para {emailCliente}");
         }
     }
+
+    public async Task EnviarNotificacaoStatusAgendamentoAsync(string emailCliente, string placaMoto, int numeroRevisao, DateTime? dataAgendada, bool aceite)
+    {
+        try
+        {
+            var host = _configuration["Smtp:Host"];
+            var portStr = _configuration["Smtp:Port"];
+            var username = _configuration["Smtp:Username"];
+            var password = _configuration["Smtp:Password"];
+            var fromEmail = _configuration["Smtp:From"] ?? "no-reply@oficina.com";
+
+            if (string.IsNullOrEmpty(host) || string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
+            {
+                _logger.LogWarning("Configurações de SMTP incompletas. E-mail não enviado.");
+                return;
+            }
+
+            using var client = new SmtpClient(host, int.Parse(portStr ?? "587"))
+            {
+                Credentials = new NetworkCredential(username, password),
+                EnableSsl = true
+            };
+
+            string subject;
+            string body;
+
+            if (aceite)
+            {
+                subject = $"Revisão Confirmada - Moto {placaMoto}";
+                body = $"Olá,\n\nSua solicitação de agendamento para a revisão nº {numeroRevisao} da moto {placaMoto} foi CONFIRMADA.";
+                if (dataAgendada.HasValue)
+                    body += $"\nData agendada: {dataAgendada.Value:dd/MM/yyyy HH:mm}.";
+            }
+            else
+            {
+                subject = $"Revisão Recusada - Moto {placaMoto}";
+                body = $"Olá,\n\nInfelizmente sua solicitação de agendamento para a revisão nº {numeroRevisao} da moto {placaMoto} foi RECUSADA.";
+                if (dataAgendada.HasValue)
+                    body += $"\nData solicitada: {dataAgendada.Value:dd/MM/yyyy HH:mm}.";
+
+                body += "\n\nVocê pode tentar agendar novamente selecionando outra data ou concessionária.";
+            }
+
+            var mailMessage = new MailMessage
+            {
+                From = new MailAddress(fromEmail),
+                Subject = subject,
+                Body = body,
+                IsBodyHtml = false
+            };
+            mailMessage.To.Add(emailCliente);
+
+            await client.SendMailAsync(mailMessage);
+            _logger.LogInformation($"E-mail de status de agendamento enviado para {emailCliente} - Moto {placaMoto}");
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, $"Erro ao enviar e-mail para {emailCliente}");
+        }
+    }
 }

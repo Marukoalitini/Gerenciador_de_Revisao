@@ -16,7 +16,7 @@ public class Moto
     public List<Revisao> Revisoes { get; set; } = [];
 
     public int ClienteId { get; set; }
-    public Cliente Cliente { get; set; }
+    public required Cliente Cliente { get; set; }
     public bool Ativo { get; set; } = true;
     public DateTime? DeletadoEm { get; set; }
 }

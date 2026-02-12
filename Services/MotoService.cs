@@ -5,6 +5,7 @@ using Motos.Dto.Request;
 using Motos.Dto.Response;
 using Motos.Exceptions;
 using Motos.Models;
+using Motos.Enums;
 
 namespace Motos.Services;
 
@@ -19,6 +20,14 @@ public class MotoService
         _context = context;
         _mapper = mapper;
         _revisoesProvider = revisoesProvider;
+    }
+
+    public List<ModeloMotoResponse> ObterModelos()
+    {
+        return Enum.GetValues(typeof(ModeloMoto))
+            .Cast<ModeloMoto>()
+            .Select(m => new ModeloMotoResponse((int)m, m.ToString(), m.GetDisplayName()))
+            .ToList();
     }
 
     public MotoResponse CadastrarMoto(int clienteId, MotoRequest request)

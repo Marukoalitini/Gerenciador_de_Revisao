@@ -5,5 +5,5 @@ public record class ConcessionariaResponse(
     string NomeConcessionaria,
     string Telefone,
     string Cnpj,
-    EnderecoResponse[] Enderecos
+    List<EnderecoResponse> Enderecos
 );

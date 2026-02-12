@@ -41,6 +41,17 @@ public class AgendamentoController : ControllerBase
         return Ok(response);
     }
 
+    [Authorize(Roles = "Cliente")]
+    [HttpPost("reagendar/{revisaoId}")]
+    public async Task<IActionResult> ReagendarPeloCliente(int revisaoId, [FromBody] AgendarRevisaoRequest request)
+    {
+        var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value ?? "0");
+        if (userId <= 0) return Forbid();
+
+        var response = await _service.ReagendarAgendamentoAsync(revisaoId, userId, request);
+        return Ok(response);
+    }
+
     [Authorize(Roles = "Concessionaria")]
     [HttpGet("solicitacoes")]
     public async Task<IActionResult> ListarSolicitacoes()
@@ -60,6 +71,17 @@ public class AgendamentoController : ControllerBase
         if (userId <= 0) return Forbid();
 
         var response = await _service.ConfirmarAgendamentoAsync(revisaoId, userId);
+        return Ok(response);
+    }
+
+    [Authorize(Roles = "Concessionaria")]
+    [HttpPut("recusar/{revisaoId}")]
+    public async Task<IActionResult> RecusarAgendamento(int revisaoId)
+    {
+        var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value ?? "0");
+        if (userId <= 0) return Forbid();
+
+        var response = await _service.RecusarAgendamentoAsync(revisaoId, userId);
         return Ok(response);
     }
 }

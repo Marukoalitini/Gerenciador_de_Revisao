@@ -16,7 +16,14 @@ public class MotoController : ControllerBase
     {
         _motoService = motoService;
     }
-    
+
+    [HttpGet("modelos")]
+    public IActionResult ObterModelos()
+    {
+        var modelos = _motoService.ObterModelos();
+        return Ok(modelos);
+    }
+
     [Authorize(Roles = "Cliente")]
     [HttpPost("motos")]
     public IActionResult AdicionarMoto(MotoRequest request)

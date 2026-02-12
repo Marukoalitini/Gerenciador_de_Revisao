@@ -14,12 +14,14 @@ public class AgendamentoService
     private readonly AppDbContext _db;
     private readonly IMapper _mapper;
     private readonly RegraRevisaoService _regraService;
+    private readonly INotificacaoService _notificacaoService;
 
-    public AgendamentoService(AppDbContext db, IMapper mapper, RegraRevisaoService regraService)
+    public AgendamentoService(AppDbContext db, IMapper mapper, RegraRevisaoService regraService, INotificacaoService notificacaoService)
     {
         _db = db;
         _mapper = mapper;
         _regraService = regraService;
+        _notificacaoService = notificacaoService;
     }
 
     public async Task<RevisaoResponse?> ObterProximaRevisaoAsync(int clienteId)
@@ -82,6 +84,68 @@ public class AgendamentoService
             throw new DomainException($"Não é possível confirmar uma revisão com status {revisao.Status}.");
 
         revisao.Status = StatusRevisao.Agendada;
+
+        _db.Revisoes.Update(revisao);
+        await _db.SaveChangesAsync();
+
+        // enviar notificação por e-mail ao cliente
+        var cliente = await _db.Clientes.FindAsync(revisao.ClienteId);
+        if (cliente != null)
+        {
+            await _notificacaoService.EnviarNotificacaoStatusAgendamentoAsync(cliente.Email, revisao.Moto?.Placa ?? "--", revisao.Numero, revisao.DataAgendada, true);
+        }
+
+        return _mapper.Map<RevisaoResponse>(revisao);
+    }
+
+    public async Task<RevisaoResponse> RecusarAgendamentoAsync(int revisaoId, int concessionariaId)
+    {
+        var revisao = await _db.Revisoes.FindAsync(revisaoId);
+        if (revisao == null) throw new NotFoundException("Revisão não encontrada.");
+
+        if (revisao.ConcessionariaResponsavelId != concessionariaId)
+            throw new DomainException("Revisão não pertence a esta concessionária.");
+
+        if (revisao.Status != StatusRevisao.AguardandoConfirmacao)
+            throw new DomainException($"Não é possível recusar uma revisão com status {revisao.Status}.");
+
+        var dataSolicitada = revisao.DataAgendada;
+
+        revisao.Status = StatusRevisao.Cancelada;
+        revisao.DataAgendada = null;
+        revisao.ConcessionariaResponsavelId = null;
+
+        _db.Revisoes.Update(revisao);
+        await _db.SaveChangesAsync();
+
+        // enviar notificação por e-mail ao cliente
+        var cliente = await _db.Clientes.FindAsync(revisao.ClienteId);
+        if (cliente != null)
+        {
+            await _notificacaoService.EnviarNotificacaoStatusAgendamentoAsync(cliente.Email, revisao.Moto?.Placa ?? "--", revisao.Numero, dataSolicitada, false);
+        }
+
+        return _mapper.Map<RevisaoResponse>(revisao);
+    }
+
+    public async Task<RevisaoResponse> ReagendarAgendamentoAsync(int revisaoId, int clienteId, AgendarRevisaoRequest request)
+    {
+        var revisao = await _db.Revisoes.FindAsync(revisaoId);
+        if (revisao == null) throw new NotFoundException("Revisão não encontrada.");
+
+        if (revisao.ClienteId != clienteId)
+            throw new DomainException("Revisão não pertence ao cliente.");
+
+        // permitir reagendamento também quando a revisão estiver Cancelada
+        if (revisao.Status != StatusRevisao.Agendada && revisao.Status != StatusRevisao.AguardandoConfirmacao && revisao.Status != StatusRevisao.Cancelada)
+            throw new DomainException($"Não é possível reagendar uma revisão com status {revisao.Status}.");
+
+        var concessionaria = await _db.Concessionarias.FindAsync(request.ConcessionariaId);
+        if (concessionaria == null) throw new NotFoundException("Concessionária não encontrada.");
+
+        revisao.DataAgendada = request.DataAgendamento;
+        revisao.ConcessionariaResponsavelId = request.ConcessionariaId;
+        revisao.Status = StatusRevisao.AguardandoConfirmacao;
 
         _db.Revisoes.Update(revisao);
         await _db.SaveChangesAsync();
