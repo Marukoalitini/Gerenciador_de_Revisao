@@ -19,6 +19,7 @@ O sistema permite:
 
 ## Banco de Dados
 
+![Diagrama do Banco de Dados](Utils/modelo-Logico.png)
 
 ## 🧱 Arquitetura
 
@@ -88,10 +89,10 @@ A modelagem segue princípios de:
 - Cada moto possui uma sequência fixa de revisões numeradas
 - Uma revisão por número por moto (unicidade garantida)
 - Revisão pode estar nos seguintes status:
-  - `Pendente`
-  - `Agendada`
-  - `Executada`
-  - `Cancelada`
+    - `Pendente`
+    - `Agendada`
+    - `Executada`
+    - `Cancelada`
 - Tolerâncias de KM e tempo são configuráveis
 - Manual de revisões é carregado via configuração global
 
