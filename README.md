@@ -18,7 +18,7 @@ O sistema permite:
 ---
 
 ## Banco de Dados
-
+![Diagrama do Banco de Dados](Utils/modelo-Logico.png)
 
 ## 🧱 Arquitetura
 
