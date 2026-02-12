@@ -18,37 +18,37 @@ public class AgendamentoController : ControllerBase
     }
 
     [Authorize(Roles = "Cliente")]
-    [HttpGet("proxima/{motoId}")]
-    public async Task<IActionResult> ObterProximaRevisao(int motoId)
+    [HttpGet("proxima/{placa}")]
+    public async Task<IActionResult> ObterProximaRevisao(string placa)
     {
         var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value ?? "0");
         if (userId <= 0) return Forbid();
 
-        var response = await _service.ObterProximaRevisaoAsync(userId, motoId);
+        var response = await _service.ObterProximaRevisaoAsync(userId, placa);
         if (response == null) return NotFound(new { mensagem = "Nenhuma revisão pendente encontrada." });
 
         return Ok(response);
     }
 
     [Authorize(Roles = "Cliente")]
-    [HttpPost("solicitar/{revisaoId}")]
-    public async Task<IActionResult> SolicitarAgendamento(int revisaoId, SolicitarAgendamentoRequest request)
+    [HttpPost("solicitar/{placa}")]
+    public async Task<IActionResult> SolicitarAgendamento(string placa, SolicitarAgendamentoRequest request)
     {
         var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value ?? "0");
         if (userId <= 0) return Forbid();
 
-        var response = await _service.SolicitarAgendamentoAsync(revisaoId, userId, request);
+        var response = await _service.SolicitarAgendamentoAsync(placa, userId, request);
         return Ok(response);
     }
 
     [Authorize(Roles = "Cliente")]
-    [HttpPost("reagendar/{revisaoId}")]
-    public async Task<IActionResult> ReagendarPeloCliente(int revisaoId, [FromBody] AgendarRevisaoRequest request)
+    [HttpPost("reagendar/{placa}")]
+    public async Task<IActionResult> ReagendarPeloCliente(string placa, [FromBody] AgendarRevisaoRequest request)
     {
         var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value ?? "0");
         if (userId <= 0) return Forbid();
 
-        var response = await _service.ReagendarAgendamentoAsync(revisaoId, userId, request);
+        var response = await _service.ReagendarAgendamentoAsync(placa, userId, request);
         return Ok(response);
     }
 

@@ -30,7 +30,7 @@ public class MotoService
             .ToList();
     }
 
-    public MotoResponse CadastrarMoto(int clienteId, MotoRequest request)
+    public MotoComRevisoesResponse CadastrarMoto(int clienteId, MotoRequest request)
     {
         var cliente = _context.Clientes.FirstOrDefault(c => c.Id == clienteId && c.Ativo);
         if (cliente == null) throw new NotFoundException("Cliente não encontrado.");
@@ -41,22 +41,19 @@ public class MotoService
 
         var moto = _mapper.Map<Moto>(request);
         moto.ClienteId = clienteId;
+        moto.Cliente = cliente;
 
-        // Gerar todas as revisões previstas para o modelo da moto
-        var revisoes = _revisoesProvider.ObterRevisoesPara(moto.ModeloMoto);
-        foreach (var revisao in revisoes)
-        {
-            revisao.ClienteId = clienteId;
-        }
+        // Gerar todas as revisões previstas para o modelo da moto já vinculando Cliente e Moto
+        var revisoes = _revisoesProvider.ObterRevisoesPara(moto.ModeloMoto, cliente, moto);
         moto.Revisoes = revisoes;
 
         _context.Motos.Add(moto);
         _context.SaveChanges();
 
-        return _mapper.Map<MotoResponse>(moto);
+        return _mapper.Map<MotoComRevisoesResponse>(moto);
     }
 
-    public List<MotoResponse> ObterMotosDoCliente(int clienteId)
+    public List<MotoComRevisoesResponse> ObterMotosDoCliente(int clienteId)
     {
         var motos = _context.Motos
             .Include(m => m.Revisoes)
@@ -64,10 +61,10 @@ public class MotoService
             .Where(m => m.ClienteId == clienteId && m.Ativo)
             .ToList();
 
-        return _mapper.Map<List<MotoResponse>>(motos);
+        return _mapper.Map<List<MotoComRevisoesResponse>>(motos);
     }
 
-    public MotoResponse ObterMotoPorId(int clienteId, int motoId)
+    public MotoComRevisoesResponse ObterMotoPorId(int clienteId, int motoId)
     {
         var moto = _context.Motos
             .Include(m => m.Revisoes)
@@ -75,10 +72,10 @@ public class MotoService
             .FirstOrDefault(m => m.Id == motoId && m.ClienteId == clienteId && m.Ativo);
         if (moto == null) throw new NotFoundException("Moto não encontrada ou não pertence ao cliente.");
 
-        return _mapper.Map<MotoResponse>(moto);
+        return _mapper.Map<MotoComRevisoesResponse>(moto);
     }
 
-    public MotoResponse EditarMoto(int clienteId, string placa, AtualizarMotoRequest request)
+    public MotoComRevisoesResponse EditarMoto(int clienteId, string placa, AtualizarMotoRequest request)
     {
         var moto = _context.Motos.FirstOrDefault(m => m.Placa == placa && m.ClienteId == clienteId && m.Ativo);
         if (moto == null) throw new NotFoundException("Moto não encontrada ou não pertence ao cliente.");
@@ -87,7 +84,7 @@ public class MotoService
 
         _context.SaveChanges();
 
-        return _mapper.Map<MotoResponse>(moto);
+        return _mapper.Map<MotoComRevisoesResponse>(moto);
     }
 
     public void RemoverMoto(int clienteId, string placa)

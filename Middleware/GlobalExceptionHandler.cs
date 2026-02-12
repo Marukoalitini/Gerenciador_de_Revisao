@@ -27,7 +27,7 @@ public class GlobalExceptionHandler : IExceptionHandler
 
         switch (excecao)
         {
-            case DomainException excecaoDominio:
+            case BadRequestException excecaoDominio:
                 detalhesProblema.Title = "Erro de Validação";
                 detalhesProblema.Status = StatusCodes.Status400BadRequest;
                 detalhesProblema.Detail = excecaoDominio.Message;

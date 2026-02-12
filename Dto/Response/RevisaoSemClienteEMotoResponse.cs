@@ -2,7 +2,7 @@ using Motos.Enums;
 
 namespace Motos.Dto.Response;
 
-public record class RevisaoResponse(
+public record class RevisaoSemClienteEMotoResponse(
     int Id,
     int Numero,
     StatusRevisao Status,

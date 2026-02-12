@@ -13,26 +13,26 @@ public class ClienteService
 {
     private readonly AppDbContext _context;
     private readonly IMapper _mapper;
-    private readonly ValidationService _validationService;
+    private readonly ValidacaoService _validacaoService;
 
-    public ClienteService(AppDbContext context, IMapper mapper, ValidationService validationService)
+    public ClienteService(AppDbContext context, IMapper mapper, ValidacaoService validacaoService)
     {
         _context = context;
         _mapper = mapper;
-        _validationService = validationService;
+        _validacaoService = validacaoService;
     }
 
     public ClienteResponse CriarCliente(CriarClienteRequest clienteRequest)
     {
         // Validar CPF, Telefone e Senha
-        if (!_validationService.IsCpf(clienteRequest.Cpf))
-            throw new DomainException("CPF inválido.");
+        if (!_validacaoService.IsCpf(clienteRequest.Cpf))
+            throw new BadRequestException("CPF inválido.");
         
-        if (!_validationService.IsTelefone(clienteRequest.Telefone))
-            throw new DomainException("Telefone inválido.");
+        if (!_validacaoService.IsTelefone(clienteRequest.Telefone))
+            throw new BadRequestException("Telefone inválido.");
 
-        if (!_validationService.IsSenhaSegura(clienteRequest.Senha))
-            throw new DomainException("A senha deve conter no mínimo 8 caracteres, incluindo letras maiúsculas, minúsculas, números e caracteres especiais.");
+        if (!_validacaoService.IsSenhaSegura(clienteRequest.Senha))
+            throw new BadRequestException("A senha deve conter no mínimo 8 caracteres, incluindo letras maiúsculas, minúsculas, números e caracteres especiais.");
 
         // verificar se email ou cpf já existe
         if (_context.Clientes.Any(c => c.Email == clienteRequest.Email || c.Cpf == clienteRequest.Cpf))
@@ -43,9 +43,9 @@ public class ClienteService
         // criar cliente
         var cliente = _mapper.Map<Cliente>(clienteRequest);
         cliente.Senha = senhaCriptografada;
-        cliente.Cpf = _validationService.SomenteNumeros(cliente.Cpf);
-        cliente.Telefone = _validationService.SomenteNumeros(cliente.Telefone);
-        cliente.Celular = _validationService.SomenteNumeros(cliente.Celular);
+        cliente.Cpf = _validacaoService.SomenteNumeros(cliente.Cpf);
+        cliente.Telefone = _validacaoService.SomenteNumeros(cliente.Telefone);
+        cliente.Celular = _validacaoService.SomenteNumeros(cliente.Celular);
 
         _context.Add(cliente);
         _context.SaveChanges();
@@ -69,11 +69,11 @@ public class ClienteService
         var cliente = _context.Clientes.FirstOrDefault(c => c.Id == id && c.Ativo);
         if (cliente == null) throw new NotFoundException("Cliente não encontrado.");
 
-        if (!string.IsNullOrEmpty(request.Telefone) && !_validationService.IsTelefone(request.Telefone))
-            throw new DomainException("Telefone inválido.");
+        if (!string.IsNullOrEmpty(request.Telefone) && !_validacaoService.IsTelefone(request.Telefone))
+            throw new BadRequestException("Telefone inválido.");
 
-        if (!string.IsNullOrEmpty(request.Celular) && !_validationService.IsTelefone(request.Celular))
-            throw new DomainException("Celular inválido.");
+        if (!string.IsNullOrEmpty(request.Celular) && !_validacaoService.IsTelefone(request.Celular))
+            throw new BadRequestException("Celular inválido.");
 
         if (!string.IsNullOrEmpty(request.Email) && cliente.Email != request.Email && _context.Clientes.Any(c => c.Email == request.Email))
             throw new ConflictException("Email já cadastrado.");
@@ -81,10 +81,10 @@ public class ClienteService
         _mapper.Map(request, cliente);
         
         if (request.Telefone != null)
-            cliente.Telefone = _validationService.SomenteNumeros(cliente.Telefone);
+            cliente.Telefone = _validacaoService.SomenteNumeros(cliente.Telefone);
         
         if (request.Celular != null)
-            cliente.Celular = _validationService.SomenteNumeros(cliente.Celular);
+            cliente.Celular = _validacaoService.SomenteNumeros(cliente.Celular);
 
         cliente.AtualizadoEm = DateTime.UtcNow;
         
@@ -113,7 +113,7 @@ public class ClienteService
         if (cliente.Endereco != null) throw new ConflictException("Cliente já possui um endereço cadastrado.");
 
         cliente.Endereco = _mapper.Map<Endereco>(request);
-        cliente.Endereco.Cep = _validationService.SomenteNumeros(cliente.Endereco.Cep);
+        cliente.Endereco.Cep = _validacaoService.SomenteNumeros(cliente.Endereco.Cep);
         _context.SaveChanges();
         return _mapper.Map<EnderecoResponse>(cliente.Endereco);
     }
@@ -127,7 +127,7 @@ public class ClienteService
         if (cliente.Endereco == null) throw new NotFoundException("Cliente não possui endereço cadastrado.");
 
         _mapper.Map(request, cliente.Endereco);
-        cliente.Endereco.Cep = _validationService.SomenteNumeros(cliente.Endereco.Cep);
+        cliente.Endereco.Cep = _validacaoService.SomenteNumeros(cliente.Endereco.Cep);
         _context.SaveChanges();
         return _mapper.Map<EnderecoResponse>(cliente.Endereco);
     }
@@ -146,7 +146,7 @@ public class ClienteService
         _context.SaveChanges();
     }
 
-    public MotoResponse CadastrarMoto(int clienteId, MotoRequest request)
+    public MotoComRevisoesResponse CadastrarMoto(int clienteId, MotoRequest request)
     {
         var cliente = _context.Clientes.FirstOrDefault(c => c.Id == clienteId && c.Ativo);
         if (cliente == null) throw new NotFoundException("Cliente não encontrado.");
@@ -160,27 +160,27 @@ public class ClienteService
         _context.Motos.Add(moto);
         _context.SaveChanges();
 
-        return _mapper.Map<MotoResponse>(moto);
+        return _mapper.Map<MotoComRevisoesResponse>(moto);
     }
 
-    public List<MotoResponse> ObterMotosDoCliente(int clienteId)
+    public List<MotoComRevisoesResponse> ObterMotosDoCliente(int clienteId)
     {
         var motos = _context.Motos
             .Where(m => m.ClienteId == clienteId && m.Ativo)
             .ToList();
 
-        return _mapper.Map<List<MotoResponse>>(motos);
+        return _mapper.Map<List<MotoComRevisoesResponse>>(motos);
     }
 
-    public MotoResponse ObterMotoPorId(int clienteId, int motoId)
+    public MotoComRevisoesResponse ObterMotoPorId(int clienteId, int motoId)
     {
         var moto = _context.Motos.FirstOrDefault(m => m.Id == motoId && m.ClienteId == clienteId && m.Ativo);
         if (moto == null) throw new NotFoundException("Moto não encontrada ou não pertence ao cliente.");
 
-        return _mapper.Map<MotoResponse>(moto);
+        return _mapper.Map<MotoComRevisoesResponse>(moto);
     }
 
-    public MotoResponse EditarMoto(int clienteId, string placa, AtualizarMotoRequest request)
+    public MotoComRevisoesResponse EditarMoto(int clienteId, string placa, AtualizarMotoRequest request)
     {
         var moto = _context.Motos.FirstOrDefault(m => m.Placa == placa && m.ClienteId == clienteId && m.Ativo);
         if (moto == null) throw new NotFoundException("Moto não encontrada ou não pertence ao cliente.");
@@ -189,7 +189,7 @@ public class ClienteService
         
         _context.SaveChanges();
 
-        return _mapper.Map<MotoResponse>(moto);
+        return _mapper.Map<MotoComRevisoesResponse>(moto);
     }
 
     public void RemoverMoto(int clienteId, string placa)

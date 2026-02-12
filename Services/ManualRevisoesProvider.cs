@@ -49,7 +49,7 @@ public class ManualRevisoesProvider
 		}
 	}
 
-	public List<Revisao> ObterRevisoesPara(ModeloMoto modelo)
+	public List<Revisao> ObterRevisoesPara(ModeloMoto modelo, Cliente cliente, Moto moto)
 	{
 		var revisoes = new List<Revisao>();
 
@@ -61,14 +61,17 @@ public class ManualRevisoesProvider
 				.OrderBy(i => i.Ordem)
 				.Select(CriarItem)
 				.ToList();
-
+			
 			var valorTotal = itens.Sum(i => i.Valor ?? 0.0);
-
+			
 			revisoes.Add(new Revisao
 			{
 				Numero = template.NumeroRevisao,
 				Itens = itens,
-				ValorTotal = valorTotal
+				ValorTotal = valorTotal,
+				Cliente = cliente,
+				ClienteId = cliente.Id,
+				Moto = moto
 			});
 		}
 

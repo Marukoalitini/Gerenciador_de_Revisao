@@ -18,7 +18,7 @@ public class RevisaoService
 		_mapper = mapper;
 	}
 
-	public async Task<RevisaoResponse> ObterPorIdAsync(int id)
+	public async Task<RevisaoSemClienteEMotoResponse> ObterPorIdAsync(int id)
 	{
 		var revisao = await _db.Revisoes
 			.Include(r => r.Itens)
@@ -29,10 +29,10 @@ public class RevisaoService
 
 		if (revisao == null) throw new NotFoundException("Revisão não encontrada.");
 
-		return _mapper.Map<RevisaoResponse>(revisao);
+		return _mapper.Map<RevisaoSemClienteEMotoResponse>(revisao);
 	}
 
-	public async Task<List<RevisaoResponse>> ListarAsync(int? concessionariaId = null, int? clienteId = null)
+	public async Task<List<RevisaoSemClienteEMotoResponse>> ListarAsync(int? concessionariaId = null, int? clienteId = null)
 	{
 		var query = _db.Revisoes
 			.Include(r => r.Itens)
@@ -44,7 +44,7 @@ public class RevisaoService
 		if (clienteId.HasValue) query = query.Where(r => r.ClienteId == clienteId.Value);
 
 		var list = await query.OrderByDescending(r => r.DataAgendada).ToListAsync();
-		return _mapper.Map<List<RevisaoResponse>>(list);
+		return _mapper.Map<List<RevisaoSemClienteEMotoResponse>>(list);
 	}
 
 	public async Task ExecutarRevisaoAsync(int id)
@@ -53,7 +53,7 @@ public class RevisaoService
 		if (revisao == null) throw new NotFoundException("Revisão não encontrada.");
 
         if (revisao.Status != StatusRevisao.Agendada)
-            throw new DomainException($"A revisão precisa estar agendada para ser executada. Status atual: {revisao.Status}");
+            throw new BadRequestException($"A revisão precisa estar agendada para ser executada. Status atual: {revisao.Status}");
 
 		revisao.Status = Enums.StatusRevisao.Executada;
         revisao.DataExecucao = DateOnly.FromDateTime(DateTime.UtcNow);
@@ -61,7 +61,7 @@ public class RevisaoService
 		await _db.SaveChangesAsync();
 	}
 
-    public async Task<RevisaoResponse?> ObterUltimaRevisaoExecutadaAsync(int motoId)
+    public async Task<RevisaoSemClienteEMotoResponse?> ObterUltimaRevisaoExecutadaAsync(int motoId)
     {
         var revisao = await _db.Revisoes
             .Include(r => r.Itens)
@@ -73,6 +73,6 @@ public class RevisaoService
             .ThenByDescending(r => r.Numero)
             .FirstOrDefaultAsync();
 
-        return revisao == null ? null : _mapper.Map<RevisaoResponse>(revisao);
+        return revisao == null ? null : _mapper.Map<RevisaoSemClienteEMotoResponse>(revisao);
     }
 }

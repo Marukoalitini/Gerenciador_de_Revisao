@@ -13,26 +13,26 @@ public class ConcessionariaService
 {
     private readonly AppDbContext _context;
     private readonly IMapper _mapper;
-    private readonly ValidationService _validationService;
+    private readonly ValidacaoService _validacaoService;
 
-    public ConcessionariaService(AppDbContext context, IMapper mapper, ValidationService validationService)
+    public ConcessionariaService(AppDbContext context, IMapper mapper, ValidacaoService validacaoService)
     {
         _context = context;
         _mapper = mapper;
-        _validationService = validationService;
+        _validacaoService = validacaoService;
     }
 
     public ConcessionariaResponse CriarConcessionaria(CriarConcessionariaRequest concessionariaRequest)
     {
         // Validar CNPJ, Telefone e Senha
-        if (!_validationService.IsCnpj(concessionariaRequest.Cnpj))
-            throw new DomainException("CNPJ inválido.");
+        if (!_validacaoService.IsCnpj(concessionariaRequest.Cnpj))
+            throw new BadRequestException("CNPJ inválido.");
         
-        if (!_validationService.IsTelefone(concessionariaRequest.Telefone))
-            throw new DomainException("Telefone inválido.");
+        if (!_validacaoService.IsTelefone(concessionariaRequest.Telefone))
+            throw new BadRequestException("Telefone inválido.");
 
-        if (!_validationService.IsSenhaSegura(concessionariaRequest.Senha))
-            throw new DomainException("A senha deve conter no mínimo 8 caracteres, incluindo letras maiúsculas, minúsculas, números e caracteres especiais.");
+        if (!_validacaoService.IsSenhaSegura(concessionariaRequest.Senha))
+            throw new BadRequestException("A senha deve conter no mínimo 8 caracteres, incluindo letras maiúsculas, minúsculas, números e caracteres especiais.");
 
         // verificar se email ou cnpj já existe
         if (_context.Concessionarias.Any(c =>
@@ -44,8 +44,8 @@ public class ConcessionariaService
         // criar concessionaria
         var concessionaria = _mapper.Map<Concessionaria>(concessionariaRequest);
         concessionaria.Senha = senhaCriptografada;
-        concessionaria.Cnpj = _validationService.SomenteNumeros(concessionaria.Cnpj);
-        concessionaria.Telefone = _validationService.SomenteNumeros(concessionaria.Telefone);
+        concessionaria.Cnpj = _validacaoService.SomenteNumeros(concessionaria.Cnpj);
+        concessionaria.Telefone = _validacaoService.SomenteNumeros(concessionaria.Telefone);
 
         _context.Add(concessionaria);
         _context.SaveChanges();
@@ -71,8 +71,8 @@ public class ConcessionariaService
         var concessionaria = _context.Concessionarias.FirstOrDefault(c => c.Id == id && c.Ativo);
         if (concessionaria == null) throw new NotFoundException("Concessionária não encontrada.");
 
-        if (!string.IsNullOrEmpty(request.Telefone) && !_validationService.IsTelefone(request.Telefone))
-            throw new DomainException("Telefone inválido.");
+        if (!string.IsNullOrEmpty(request.Telefone) && !_validacaoService.IsTelefone(request.Telefone))
+            throw new BadRequestException("Telefone inválido.");
 
         if (!string.IsNullOrEmpty(request.Email) && concessionaria.Email != request.Email && _context.Concessionarias.Any(c => c.Email == request.Email))
             throw new ConflictException("Email já cadastrado.");
@@ -80,7 +80,7 @@ public class ConcessionariaService
         _mapper.Map(request, concessionaria);
 
         if (request.Telefone != null)
-            concessionaria.Telefone = _validationService.SomenteNumeros(concessionaria.Telefone);
+            concessionaria.Telefone = _validacaoService.SomenteNumeros(concessionaria.Telefone);
 
         concessionaria.AtualizadoEm = DateTime.UtcNow;
         
@@ -108,7 +108,7 @@ public class ConcessionariaService
         if (concessionaria == null) throw new NotFoundException("Concessionária não encontrada.");
 
         var endereco = _mapper.Map<Endereco>(request);
-        endereco.Cep = _validationService.SomenteNumeros(endereco.Cep);
+        endereco.Cep = _validacaoService.SomenteNumeros(endereco.Cep);
 
         concessionaria.Enderecos.Add(endereco);
         _context.SaveChanges();

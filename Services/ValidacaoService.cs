@@ -2,7 +2,7 @@ using System.Text.RegularExpressions;
 
 namespace Motos.Services;
 
-public class ValidationService
+public class ValidacaoService
 {
     public string SomenteNumeros(string valor)
     {
