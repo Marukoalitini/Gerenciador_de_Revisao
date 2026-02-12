@@ -13,8 +13,8 @@ public class Revisao
     public StatusRevisao Status { get; set; } = StatusRevisao.Pendente;
 
     public int? KmAtual { get; set; }
-    public DateTime? DataAgendada { get; set; }
-    public DateTime? DataExecucao { get; set; }
+    public DateOnly? DataAgendada { get; set; }
+    public DateOnly? DataExecucao { get; set; }
     public List<RevisaoItem> Itens { get; set; } = [];
     public double ValorTotal { get; set; } = 0.0;
     public string? NotaDeServico { get; set; }

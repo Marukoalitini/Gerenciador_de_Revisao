@@ -157,12 +157,12 @@ public class AgendamentoService
     {
         var ultimaRevisao = moto.Revisoes
             .Where(r => r.Status == StatusRevisao.Executada)
-            .OrderByDescending(r => r.DataExecucao ?? DateTime.MinValue)
+            .OrderByDescending(r => r.DataExecucao ?? DateOnly.MinValue)
             .ThenByDescending(r => r.Numero)
             .FirstOrDefault();
 
         int proximaRevisaoNum;
-        DateTime dataBase;
+        DateOnly dataBase;
         int mesesParaAdicionar;
 
         if (ultimaRevisao != null)
@@ -188,8 +188,8 @@ public class AgendamentoService
             mesesParaAdicionar = regraProxima.MesesAlvo;
         }
 
-        DateTime dataPrevista = dataBase.AddMonths(mesesParaAdicionar);
-        var diasRestantes = (dataPrevista - DateTime.Now).TotalDays;
+        DateOnly dataPrevista = dataBase.AddMonths(mesesParaAdicionar);
+        var diasRestantes = (dataPrevista.ToDateTime(TimeOnly.MinValue) - DateTime.Now.Date).TotalDays;
 
         return new InfoPrevisaoRevisao(
             proximaRevisaoNum,

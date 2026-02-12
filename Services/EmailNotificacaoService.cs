@@ -14,7 +14,7 @@ public class EmailNotificacaoService : INotificacaoService
         _logger = logger;
     }
 
-    public async Task EnviarNotificacaoRevisaoAsync(string emailCliente, string placaMoto, int numeroRevisao, DateTime dataPrevista, bool atrasada = false)
+    public async Task EnviarNotificacaoRevisaoAsync(string emailCliente, string placaMoto, int numeroRevisao, DateOnly dataPrevista, bool atrasada = false)
     {
         try
         {
@@ -72,7 +72,7 @@ public class EmailNotificacaoService : INotificacaoService
         }
     }
 
-    public async Task EnviarNotificacaoStatusAgendamentoAsync(string emailCliente, string placaMoto, int numeroRevisao, DateTime? dataAgendada, bool aceite)
+    public async Task EnviarNotificacaoStatusAgendamentoAsync(string emailCliente, string placaMoto, int numeroRevisao, DateOnly? dataAgendada, bool aceite)
     {
         try
         {
@@ -102,14 +102,14 @@ public class EmailNotificacaoService : INotificacaoService
                 subject = $"Revisão Confirmada - Moto {placaMoto}";
                 body = $"Olá,\n\nSua solicitação de agendamento para a revisão nº {numeroRevisao} da moto {placaMoto} foi CONFIRMADA.";
                 if (dataAgendada.HasValue)
-                    body += $"\nData agendada: {dataAgendada.Value:dd/MM/yyyy HH:mm}.";
+                    body += $"\nData agendada: {dataAgendada.Value:dd/MM/yyyy}.";
             }
             else
             {
                 subject = $"Revisão Recusada - Moto {placaMoto}";
                 body = $"Olá,\n\nInfelizmente sua solicitação de agendamento para a revisão nº {numeroRevisao} da moto {placaMoto} foi RECUSADA.";
                 if (dataAgendada.HasValue)
-                    body += $"\nData solicitada: {dataAgendada.Value:dd/MM/yyyy HH:mm}.";
+                    body += $"\nData solicitada: {dataAgendada.Value:dd/MM/yyyy}.";
 
                 body += "\n\nVocê pode tentar agendar novamente selecionando outra data ou concessionária.";
             }

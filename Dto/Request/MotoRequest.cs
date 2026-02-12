@@ -14,7 +14,7 @@ public record MotoRequest(
     [Required(ErrorMessage = "A placa é obrigatória.")]
     string Placa,
     [Required(ErrorMessage = "A data de venda é obrigatória.")]
-    DateTime DataDeVenda,
+    DateOnly DataDeVenda,
     [Required(ErrorMessage = "A nota fiscal é obrigatória.")]
     string NotaFiscal,
     [Required(ErrorMessage = "A série é obrigatória.")]

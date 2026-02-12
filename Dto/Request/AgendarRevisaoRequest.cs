@@ -4,7 +4,7 @@ namespace Motos.Dto.Request;
 
 public record AgendarRevisaoRequest(
     [Required(ErrorMessage = "A data do agendamento é obrigatória.")]
-    DateTime DataAgendamento,
+    DateOnly DataAgendamento,
     
     [Required(ErrorMessage = "A concessionária responsável é obrigatória.")]
     int ConcessionariaId

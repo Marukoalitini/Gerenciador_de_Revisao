@@ -2,7 +2,7 @@
 
 public record InfoPrevisaoRevisao(
     int Numero,
-    DateTime DataPrevista,
+    DateOnly DataPrevista,
     bool Atrasada,
     int DiasRestantes
 );

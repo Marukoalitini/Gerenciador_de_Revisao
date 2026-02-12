@@ -56,7 +56,7 @@ public class RevisaoService
             throw new DomainException($"A revisão precisa estar agendada para ser executada. Status atual: {revisao.Status}");
 
 		revisao.Status = Enums.StatusRevisao.Executada;
-        revisao.DataExecucao = DateTime.UtcNow;
+        revisao.DataExecucao = DateOnly.FromDateTime(DateTime.UtcNow);
 		_db.Revisoes.Update(revisao);
 		await _db.SaveChangesAsync();
 	}
@@ -69,7 +69,7 @@ public class RevisaoService
             .Include(r => r.Moto)
             .Include(r => r.ConcessionariaResponsavel)
             .Where(r => r.MotoId == motoId && r.Status == StatusRevisao.Executada)
-            .OrderByDescending(r => r.DataExecucao ?? DateTime.MinValue)
+            .OrderByDescending(r => r.DataExecucao ?? DateOnly.MinValue)
             .ThenByDescending(r => r.Numero)
             .FirstOrDefaultAsync();
 

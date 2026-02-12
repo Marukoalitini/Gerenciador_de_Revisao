@@ -9,7 +9,7 @@ public class Moto
     public required string Cor { get; set; }
     public required string NumeroChassi { get; set; }
     public required string Placa { get; set; }
-    public required DateTime DataDeVenda { get; set; }
+    public required DateOnly DataDeVenda { get; set; }
     public required string NotaFiscal { get; set; }
     public required int Serie { get; set; }
     public string ImgDecalqueChassi { get; set; } = string.Empty;
