@@ -5,6 +5,7 @@ using Motos.Dto.Request;
 using Motos.Dto.Response;
 using Motos.Exceptions;
 using Motos.Models;
+using Motos.Utils;
 using GeradorHash = BCrypt.Net.BCrypt;
 
 namespace Motos.Services;
@@ -22,6 +23,16 @@ public class ConcessionariaService
 
     public ConcessionariaResponse CriarConcessionaria(CriarConcessionariaRequest concessionariaRequest)
     {
+        // Validar CNPJ, Telefone e Senha
+        if (!ValidationUtils.IsCnpj(concessionariaRequest.Cnpj))
+            throw new DomainException("CNPJ inválido.");
+        
+        if (!ValidationUtils.IsTelefone(concessionariaRequest.Telefone))
+            throw new DomainException("Telefone inválido.");
+
+        if (!ValidationUtils.IsSenhaSegura(concessionariaRequest.Senha))
+            throw new DomainException("A senha deve conter no mínimo 8 caracteres, incluindo letras maiúsculas, minúsculas, números e caracteres especiais.");
+
         // verificar se email ou cnpj já existe
         if (_context.Concessionarias.Any(c =>
                 c.Email == concessionariaRequest.Email || c.Cnpj == concessionariaRequest.Cnpj))
@@ -56,6 +67,9 @@ public class ConcessionariaService
     {
         var concessionaria = _context.Concessionarias.FirstOrDefault(c => c.Id == id && c.Ativo);
         if (concessionaria == null) throw new NotFoundException("Concessionária não encontrada.");
+
+        if (!string.IsNullOrEmpty(request.Telefone) && !ValidationUtils.IsTelefone(request.Telefone))
+            throw new DomainException("Telefone inválido.");
 
         if (!string.IsNullOrEmpty(request.Email) && concessionaria.Email != request.Email && _context.Concessionarias.Any(c => c.Email == request.Email))
             throw new ConflictException("Email já cadastrado.");

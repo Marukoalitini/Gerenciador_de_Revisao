@@ -5,6 +5,7 @@ using Motos.Dto.Request;
 using Motos.Dto.Response;
 using Motos.Exceptions;
 using Motos.Models;
+using Motos.Utils;
 using GeradorHash = BCrypt.Net.BCrypt;
 
 namespace Motos.Services;
@@ -22,6 +23,16 @@ public class ClienteService
 
     public ClienteResponse CriarCliente(CriarClienteRequest clienteRequest)
     {
+        // Validar CPF, Telefone e Senha
+        if (!ValidationUtils.IsCpf(clienteRequest.Cpf))
+            throw new DomainException("CPF inválido.");
+        
+        if (!ValidationUtils.IsTelefone(clienteRequest.Telefone))
+            throw new DomainException("Telefone inválido.");
+
+        if (!ValidationUtils.IsSenhaSegura(clienteRequest.Senha))
+            throw new DomainException("A senha deve conter no mínimo 8 caracteres, incluindo letras maiúsculas, minúsculas, números e caracteres especiais.");
+
         // verificar se email ou cpf já existe
         if (_context.Clientes.Any(c => c.Email == clienteRequest.Email || c.Cpf == clienteRequest.Cpf))
             throw new ConflictException("Email ou CPF já cadastrado.");
@@ -53,6 +64,12 @@ public class ClienteService
     {
         var cliente = _context.Clientes.FirstOrDefault(c => c.Id == id && c.Ativo);
         if (cliente == null) throw new NotFoundException("Cliente não encontrado.");
+
+        if (!string.IsNullOrEmpty(request.Telefone) && !ValidationUtils.IsTelefone(request.Telefone))
+            throw new DomainException("Telefone inválido.");
+
+        if (!string.IsNullOrEmpty(request.Celular) && !ValidationUtils.IsTelefone(request.Celular))
+            throw new DomainException("Celular inválido.");
 
         if (!string.IsNullOrEmpty(request.Email) && cliente.Email != request.Email && _context.Clientes.Any(c => c.Email == request.Email))
             throw new ConflictException("Email já cadastrado.");
