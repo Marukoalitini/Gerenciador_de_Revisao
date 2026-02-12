@@ -57,18 +57,36 @@ public class ClienteController : ControllerBase
         return NoContent();
     }
 
-    /// <summary>
-    /// Define ou atualiza o endereço do cliente.
-    /// </summary>
     [Authorize(Roles = "Cliente")]
-    [HttpPut("endereco")]
-    public IActionResult DefinirEndereco(AdicionarEnderecoRequest request)
+    [HttpPost("endereco")]
+    public IActionResult AdicionarEndereco(AdicionarEnderecoRequest request)
     {
         var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value ?? "0");
         if (userId <= 0) return Forbid();
 
-        var response = _service.DefinirEndereco(userId, request);
+        var response = _service.AdicionarEndereco(userId, request);
+        return CreatedAtAction(nameof(ObterCliente), new { id = userId }, response);
+    }
+
+    [Authorize(Roles = "Cliente")]
+    [HttpPut("endereco")]
+    public IActionResult AtualizarEndereco(AdicionarEnderecoRequest request)
+    {
+        var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value ?? "0");
+        if (userId <= 0) return Forbid();
+
+        var response = _service.AtualizarEndereco(userId, request);
         return Ok(response);
     }
-    
+
+    [Authorize(Roles = "Cliente")]
+    [HttpDelete("endereco")]
+    public IActionResult RemoverEndereco()
+    {
+        var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value ?? "0");
+        if (userId <= 0) return Forbid();
+
+        _service.RemoverEndereco(userId);
+        return NoContent();
+    }
 }

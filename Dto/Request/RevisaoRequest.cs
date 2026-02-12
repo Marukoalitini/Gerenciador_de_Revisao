@@ -11,6 +11,6 @@ public record RevisaoRequest(
     int MotoId,
     int? KmAtual,
     [Required(ErrorMessage = "A data da revisão é obrigatória.")]
-    DateTime? DataAgendada,
+    DateOnly? DataAgendada,
     string? NotaDeServico,
     int? ConcessionariaResponsavelId);

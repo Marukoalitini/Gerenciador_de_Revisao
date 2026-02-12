@@ -9,10 +9,11 @@ public record class MotoResponse(
     string Cor,
     string NumeroChassi,
     string Placa,
-    DateTime DataDeVenda,
+    DateOnly DataDeVenda,
     string NotaFiscal,
     int Serie,
-    string ImgDecalqueChassi
+    string ImgDecalqueChassi,
+    List<RevisaoResponse> Revisoes
     )
 {
     public string NomeModelo => ModeloMoto.GetDisplayName();

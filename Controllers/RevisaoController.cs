@@ -18,22 +18,6 @@ public class RevisaoController : ControllerBase
 	}
 
 	[Authorize]
-	[HttpPost]
-	public async Task<IActionResult> CriarRevisao(RevisaoRequest request)
-	{
-		// usuário autenticado deverá ser o cliente (ou concessionaria quando aplicável)
-		var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value ?? "0");
-		if (userId <= 0) return Forbid();
-
-		if (request.ClienteId != userId && !User.IsInRole("Concessionaria"))
-			return Forbid();
-
-		var response = await _service.CriarRevisaoAsync(request);
-
-		return CreatedAtAction(nameof(ObterPorId), new { id = response.Id }, response);
-	}
-
-	[Authorize]
 	[HttpGet]
 	public async Task<IActionResult> Listar([FromQuery] int? concessionariaId, [FromQuery] int? clienteId)
 	{
@@ -49,19 +33,20 @@ public class RevisaoController : ControllerBase
 		return Ok(response);
 	}
 
+    [Authorize]
+    [HttpGet("moto/{motoId}/ultima-executada")]
+    public async Task<IActionResult> ObterUltimaRevisaoExecutada(int motoId)
+    {
+        var response = await _service.ObterUltimaRevisaoExecutadaAsync(motoId);
+        if (response == null) return NotFound(new { mensagem = "Nenhuma revisão executada encontrada para esta moto." });
+        return Ok(response);
+    }
+
 	[Authorize(Roles = "Concessionaria")]
 	[HttpPut("{id}/executar")]
 	public async Task<IActionResult> Executar(int id)
 	{
 		await _service.ExecutarRevisaoAsync(id);
-		return NoContent();
-	}
-
-	[Authorize]
-	[HttpDelete("{id}")]
-	public async Task<IActionResult> Deletar(int id)
-	{
-		await _service.DeletarAsync(id);
 		return NoContent();
 	}
 }

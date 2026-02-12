@@ -10,7 +10,6 @@ public class Concessionaria
     public List<Endereco> Enderecos { get; set; } = [];
     public required string Cnpj { get; set; }
     public List<Revisao> Revisoes { get; set; } = [];
-    public List<ChecklistTemplate> ChecklistTemplates { get; set; } = new();
     public DateTime CriadoEm { get; set; } = DateTime.UtcNow;
     public DateTime? AtualizadoEm { get; set; }
     public DateTime? DeletadoEm { get; set; }

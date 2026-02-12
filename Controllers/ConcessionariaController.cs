@@ -34,6 +34,18 @@ public class ConcessionariaController : ControllerBase
         var response = _service.ObterConcessionariaPorId(userId);
         return Ok(response);
     }
+    
+    [Authorize(Roles = "Cliente")]
+    [HttpGet("todas")]
+    public IActionResult ListarConcessionarias()
+    {
+        var userId = int.Parse(User.FindFirst(ClaimTypes.NameIdentifier)?.Value ?? "0");
+        if (userId <= 0) return Forbid();
+
+        var response = _service.ListarConcessionarias();
+        return Ok(response);
+    }
+
 
     [Authorize(Roles = "Concessionaria")]
     [HttpPut]
