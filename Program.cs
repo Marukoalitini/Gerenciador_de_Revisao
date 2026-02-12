@@ -30,6 +30,7 @@ builder.Services.AddScoped<AgendamentoService>();
 builder.Services.AddSingleton<TokenService>();
 builder.Services.AddSingleton<RegraRevisaoService>();
 builder.Services.AddSingleton<ManualRevisoesProvider>();
+builder.Services.AddSingleton<ValidationService>();
 builder.Services.AddScoped<INotificacaoService, EmailNotificacaoService>();
 builder.Services.AddHostedService<VerificadorRevisaoWorker>();
 builder.Services.AddEndpointsApiExplorer();

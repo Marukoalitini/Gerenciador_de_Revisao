@@ -1,7 +1,7 @@
 namespace Motos.Dto.Response;
 
 public record ModeloMotoResponse(
-    int Value,
-    string Key,
-    string Name
+    int Valor,
+    string Chave,
+    string Nome
 );

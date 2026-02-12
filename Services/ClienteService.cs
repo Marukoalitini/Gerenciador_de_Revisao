@@ -5,7 +5,6 @@ using Motos.Dto.Request;
 using Motos.Dto.Response;
 using Motos.Exceptions;
 using Motos.Models;
-using Motos.Utils;
 using GeradorHash = BCrypt.Net.BCrypt;
 
 namespace Motos.Services;
@@ -14,23 +13,25 @@ public class ClienteService
 {
     private readonly AppDbContext _context;
     private readonly IMapper _mapper;
+    private readonly ValidationService _validationService;
 
-    public ClienteService(AppDbContext context, IMapper mapper)
+    public ClienteService(AppDbContext context, IMapper mapper, ValidationService validationService)
     {
         _context = context;
         _mapper = mapper;
+        _validationService = validationService;
     }
 
     public ClienteResponse CriarCliente(CriarClienteRequest clienteRequest)
     {
         // Validar CPF, Telefone e Senha
-        if (!ValidationUtils.IsCpf(clienteRequest.Cpf))
+        if (!_validationService.IsCpf(clienteRequest.Cpf))
             throw new DomainException("CPF inválido.");
         
-        if (!ValidationUtils.IsTelefone(clienteRequest.Telefone))
+        if (!_validationService.IsTelefone(clienteRequest.Telefone))
             throw new DomainException("Telefone inválido.");
 
-        if (!ValidationUtils.IsSenhaSegura(clienteRequest.Senha))
+        if (!_validationService.IsSenhaSegura(clienteRequest.Senha))
             throw new DomainException("A senha deve conter no mínimo 8 caracteres, incluindo letras maiúsculas, minúsculas, números e caracteres especiais.");
 
         // verificar se email ou cpf já existe
@@ -42,9 +43,9 @@ public class ClienteService
         // criar cliente
         var cliente = _mapper.Map<Cliente>(clienteRequest);
         cliente.Senha = senhaCriptografada;
-        cliente.Cpf = ValidationUtils.SomenteNumeros(cliente.Cpf);
-        cliente.Telefone = ValidationUtils.SomenteNumeros(cliente.Telefone);
-        cliente.Celular = ValidationUtils.SomenteNumeros(cliente.Celular);
+        cliente.Cpf = _validationService.SomenteNumeros(cliente.Cpf);
+        cliente.Telefone = _validationService.SomenteNumeros(cliente.Telefone);
+        cliente.Celular = _validationService.SomenteNumeros(cliente.Celular);
 
         _context.Add(cliente);
         _context.SaveChanges();
@@ -68,10 +69,10 @@ public class ClienteService
         var cliente = _context.Clientes.FirstOrDefault(c => c.Id == id && c.Ativo);
         if (cliente == null) throw new NotFoundException("Cliente não encontrado.");
 
-        if (!string.IsNullOrEmpty(request.Telefone) && !ValidationUtils.IsTelefone(request.Telefone))
+        if (!string.IsNullOrEmpty(request.Telefone) && !_validationService.IsTelefone(request.Telefone))
             throw new DomainException("Telefone inválido.");
 
-        if (!string.IsNullOrEmpty(request.Celular) && !ValidationUtils.IsTelefone(request.Celular))
+        if (!string.IsNullOrEmpty(request.Celular) && !_validationService.IsTelefone(request.Celular))
             throw new DomainException("Celular inválido.");
 
         if (!string.IsNullOrEmpty(request.Email) && cliente.Email != request.Email && _context.Clientes.Any(c => c.Email == request.Email))
@@ -80,10 +81,10 @@ public class ClienteService
         _mapper.Map(request, cliente);
         
         if (request.Telefone != null)
-            cliente.Telefone = ValidationUtils.SomenteNumeros(cliente.Telefone);
+            cliente.Telefone = _validationService.SomenteNumeros(cliente.Telefone);
         
         if (request.Celular != null)
-            cliente.Celular = ValidationUtils.SomenteNumeros(cliente.Celular);
+            cliente.Celular = _validationService.SomenteNumeros(cliente.Celular);
 
         cliente.AtualizadoEm = DateTime.UtcNow;
         
@@ -112,7 +113,7 @@ public class ClienteService
         if (cliente.Endereco != null) throw new ConflictException("Cliente já possui um endereço cadastrado.");
 
         cliente.Endereco = _mapper.Map<Endereco>(request);
-        cliente.Endereco.Cep = ValidationUtils.SomenteNumeros(cliente.Endereco.Cep);
+        cliente.Endereco.Cep = _validationService.SomenteNumeros(cliente.Endereco.Cep);
         _context.SaveChanges();
         return _mapper.Map<EnderecoResponse>(cliente.Endereco);
     }
@@ -126,7 +127,7 @@ public class ClienteService
         if (cliente.Endereco == null) throw new NotFoundException("Cliente não possui endereço cadastrado.");
 
         _mapper.Map(request, cliente.Endereco);
-        cliente.Endereco.Cep = ValidationUtils.SomenteNumeros(cliente.Endereco.Cep);
+        cliente.Endereco.Cep = _validationService.SomenteNumeros(cliente.Endereco.Cep);
         _context.SaveChanges();
         return _mapper.Map<EnderecoResponse>(cliente.Endereco);
     }

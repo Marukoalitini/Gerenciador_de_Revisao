@@ -24,7 +24,7 @@ public class MotoService
 
     public List<ModeloMotoResponse> ObterModelos()
     {
-        return Enum.GetValues(typeof(ModeloMoto))
+        return Enum.GetValues<ModeloMoto>()
             .Cast<ModeloMoto>()
             .Select(m => new ModeloMotoResponse((int)m, m.ToString(), m.GetDisplayName()))
             .ToList();

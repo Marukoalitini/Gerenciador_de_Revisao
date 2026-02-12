@@ -1,16 +1,16 @@
 using System.Text.RegularExpressions;
 
-namespace Motos.Utils;
+namespace Motos.Services;
 
-public static class ValidationUtils
+public class ValidationService
 {
-    public static string SomenteNumeros(string valor)
+    public string SomenteNumeros(string valor)
     {
         if (string.IsNullOrWhiteSpace(valor)) return valor;
         return Regex.Replace(valor, @"[^\d]", "");
     }
 
-    public static bool IsCpf(string cpf)
+    public bool IsCpf(string cpf)
     {
         if (string.IsNullOrWhiteSpace(cpf)) return false;
 
@@ -50,7 +50,7 @@ public static class ValidationUtils
         return cpf.EndsWith(digito);
     }
 
-    public static bool IsCnpj(string cnpj)
+    public bool IsCnpj(string cnpj)
     {
         if (string.IsNullOrWhiteSpace(cnpj)) return false;
 
@@ -93,7 +93,7 @@ public static class ValidationUtils
         return cnpj.EndsWith(digito);
     }
 
-    public static bool IsTelefone(string telefone)
+    public bool IsTelefone(string telefone)
     {
         if (string.IsNullOrWhiteSpace(telefone)) return false;
         
@@ -102,7 +102,7 @@ public static class ValidationUtils
         return apenasNumeros.Length >= 10 && apenasNumeros.Length <= 13;
     }
 
-    public static bool IsSenhaSegura(string senha)
+    public bool IsSenhaSegura(string senha)
     {
         if (string.IsNullOrWhiteSpace(senha)) return false;
 
