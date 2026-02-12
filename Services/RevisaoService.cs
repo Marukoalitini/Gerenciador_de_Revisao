@@ -38,6 +38,7 @@ public class RevisaoService
 			.Include(r => r.Itens)
 			.Include(r => r.Cliente)
 			.Include(r => r.Moto)
+			.Include(r => r.ConcessionariaResponsavel)
 			.AsQueryable();
 
 		if (concessionariaId.HasValue) query = query.Where(r => r.ConcessionariaResponsavelId == concessionariaId.Value);
@@ -49,26 +50,32 @@ public class RevisaoService
 
 	public async Task ExecutarRevisaoAsync(int id)
 	{
-		var revisao = await _db.Revisoes.FindAsync(id);
+		var revisao = await _db.Revisoes.Include(r => r.Itens).FirstOrDefaultAsync(r => r.Id == id);
 		if (revisao == null) throw new NotFoundException("Revisão não encontrada.");
 
         if (revisao.Status != StatusRevisao.Agendada)
             throw new BadRequestException($"A revisão precisa estar agendada para ser executada. Status atual: {revisao.Status}");
 
 		revisao.Status = Enums.StatusRevisao.Executada;
+		foreach (var item in revisao.Itens)
+		{
+			item.Quantidade = 1;
+			item.Realizado = true;
+		}
         revisao.DataExecucao = DateOnly.FromDateTime(DateTime.UtcNow);
 		_db.Revisoes.Update(revisao);
 		await _db.SaveChangesAsync();
+		return;
 	}
 
-    public async Task<RevisaoSemClienteEMotoResponse?> ObterUltimaRevisaoExecutadaAsync(int motoId)
+    public async Task<RevisaoSemClienteEMotoResponse?> ObterUltimaRevisaoExecutadaAsync(string placa)
     {
         var revisao = await _db.Revisoes
             .Include(r => r.Itens)
             .Include(r => r.Cliente)
             .Include(r => r.Moto)
             .Include(r => r.ConcessionariaResponsavel)
-            .Where(r => r.MotoId == motoId && r.Status == StatusRevisao.Executada)
+            .Where(r => r.Moto.Placa == placa && r.Status == StatusRevisao.Executada)
             .OrderByDescending(r => r.DataExecucao ?? DateOnly.MinValue)
             .ThenByDescending(r => r.Numero)
             .FirstOrDefaultAsync();

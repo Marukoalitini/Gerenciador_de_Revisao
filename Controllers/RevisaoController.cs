@@ -34,10 +34,10 @@ public class RevisaoController : ControllerBase
 	}
 
     [Authorize]
-    [HttpGet("moto/{motoId}/ultima-executada")]
-    public async Task<IActionResult> ObterUltimaRevisaoExecutada(int motoId)
+    [HttpGet("moto/{placa}/ultima-executada")]
+    public async Task<IActionResult> ObterUltimaRevisaoExecutada(string placa)
     {
-        var response = await _service.ObterUltimaRevisaoExecutadaAsync(motoId);
+        var response = await _service.ObterUltimaRevisaoExecutadaAsync(placa);
         if (response == null) return NotFound(new { mensagem = "Nenhuma revisão executada encontrada para esta moto." });
         return Ok(response);
     }

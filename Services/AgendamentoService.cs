@@ -27,8 +27,9 @@ public class AgendamentoService
     public async Task<RevisaoSemClienteEMotoResponse?> ObterProximaRevisaoAsync(int clienteId, string placa)
     {
         var revisao = await _db.Revisoes
-            .Include(r => r.Moto)
-            .Include(r => r.Cliente)
+            .Include(r => r.Itens)
+            .Include(r => r.ConcessionariaResponsavel)
+            .ThenInclude(c => c.Enderecos)
             .Where(r => r.ClienteId == clienteId && r.Moto.Placa == placa && (r.Status == StatusRevisao.Pendente || r.Status == StatusRevisao.AguardandoConfirmacao || r.Status == StatusRevisao.Cancelada ) )
             .OrderBy(r => r.Numero)
             .FirstOrDefaultAsync();
@@ -157,6 +158,9 @@ public class AgendamentoService
         }
 
         var revisao = await _db.Revisoes
+            .Include(r => r.Itens)
+            .Include(r => r.ConcessionariaResponsavel)
+            .ThenInclude(c => c.Enderecos)
             .Where(r => r.Moto.Placa == placa && statusPermitidos.Contains(r.Status))
             .OrderBy(r => r.Numero)
             .FirstOrDefaultAsync();

@@ -31,8 +31,10 @@ public class MappingProfile : Profile
         CreateMap<Cliente, ClienteResponse>();
         CreateMap<Concessionaria, ConcessionariaResponse>();
         CreateMap<Endereco, EnderecoResponse>();
+        CreateMap<Moto, MotoResponse>();
         CreateMap<Moto, MotoComRevisoesResponse>();
         CreateMap<Revisao, RevisaoSemClienteEMotoResponse>();
+        CreateMap<Revisao, RevisaoSemConcessionariaResponse>();
         CreateMap<RevisaoItem, RevisaoItemResponse>();
     }
 }

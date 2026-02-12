@@ -8,11 +8,9 @@ public record RevisaoSemConcessionariaResponse(
     StatusRevisao Status,
     ClienteResponse Cliente,
     MotoResponse Moto,
-    int? KmAtual,
     DateOnly? DataAgendada,
     DateOnly? DataExecucao,
     double ValorTotal,
-    string? NotaDeServico,
     ConcessionariaResponse? ConcessionariaResponsavel,
     RevisaoItemResponse[] Itens
 );

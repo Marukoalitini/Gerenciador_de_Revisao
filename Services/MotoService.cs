@@ -58,6 +58,8 @@ public class MotoService
         var motos = _context.Motos
             .Include(m => m.Revisoes)
                 .ThenInclude(r => r.Itens)
+            .Include(m => m.Revisoes)
+                .ThenInclude(r => r.ConcessionariaResponsavel)
             .Where(m => m.ClienteId == clienteId && m.Ativo)
             .ToList();
 
@@ -69,6 +71,8 @@ public class MotoService
         var moto = _context.Motos
             .Include(m => m.Revisoes)
                 .ThenInclude(r => r.Itens)
+            .Include(m => m.Revisoes)
+                .ThenInclude(r => r.ConcessionariaResponsavel)
             .FirstOrDefault(m => m.Id == motoId && m.ClienteId == clienteId && m.Ativo);
         if (moto == null) throw new NotFoundException("Moto não encontrada ou não pertence ao cliente.");
 
